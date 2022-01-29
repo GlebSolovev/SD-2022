@@ -5,11 +5,13 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
     id("org.jlleitschuh.gradle.ktlint-idea") version "10.2.1"
 
-    id("io.gitlab.arturbosch.detekt").version("1.19.0")
+    id("io.gitlab.arturbosch.detekt") version "1.19.0"
+
+    id("org.jetbrains.dokka") version "1.6.10"
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = "ru.hse.ezh"
+version = "1.0"
 
 repositories {
     mavenCentral()
