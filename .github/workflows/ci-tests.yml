@@ -1,6 +1,7 @@
 name: Run tests
 on: [push]
 jobs:
+
   Ubuntu-based:
     runs-on: ubuntu-latest
     steps:
@@ -14,6 +15,7 @@ jobs:
           cache: gradle
       - run: chmod +x gradlew
       - run: ./gradlew test
+
   Windows-based:
     runs-on: windows-latest
     steps:
@@ -26,6 +28,7 @@ jobs:
           distribution: 'adopt'
           cache: gradle
       - run: .\gradlew.bat test
+
   MacOS-based:
     runs-on: macos-latest
     steps:

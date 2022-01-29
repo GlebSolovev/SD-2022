@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 
 class HelloWorldTest {
-
     @Test
     fun testHelloWorld() {
         val testStream = ByteArrayOutputStream()
@@ -14,5 +13,4 @@ class HelloWorldTest {
 
         Assertions.assertEquals("Hell word\n", testStream.toString().replace("\r\n", "\n"))
     }
-
 }
