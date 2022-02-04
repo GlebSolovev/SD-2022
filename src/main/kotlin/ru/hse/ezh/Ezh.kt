@@ -6,7 +6,6 @@ import kotlin.system.exitProcess
  * Main Ezh shell class.
  *
  * Responsible for launching the program, controlling its lifecycle and terminating it.
- *
  */
 class Ezh {
 

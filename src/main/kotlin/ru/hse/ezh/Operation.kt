@@ -3,18 +3,57 @@ package ru.hse.ezh
 import java.io.InputStream
 import java.io.OutputStream
 
+/**
+ * This class represents Ezh operations: assignment, calling a command, exiting.
+ */
 sealed class Operation
 
-class Assignment(val rhs: WORD, val lhs: WORD) : Operation() {
+/**
+ * This class represents an assignment operation.
+ *
+ * Assigns a new value to an environment variable.
+ *
+ * @constructor
+ * @param lhs Variable name.
+ * @param rhs Variable new value.
+ */
+class Assignment(val lhs: WORD, val rhs: WORD) : Operation() {
 
+    /**
+     * Performs assignment in [env] environment.
+     *
+     * If the variable already exists in [env], its value is overwritten.
+     * Else the variable is created in [env] with the value.
+     *
+     * @param env The environment to modify.
+     */
     fun doAssign(env: Environment): Unit = TODO("Not yet implemented")
 
 }
 
+/**
+ * Abstract superclass for external and Ezh commands.
+ *
+ * @constructor
+ * @param args Arguments for the command.
+ */
 abstract class Command(val args: List<String>) : Operation() {
 
+    /**
+     * Executes the command.
+     *
+     * The command must interpret [input] as stdin, [out] as stdout and [err] as stderr.
+     * It can have access to [env] information like variables.
+     *
+     * The return value must be command's exit code.
+     */
     abstract fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int
 
 }
 
+/**
+ * This class represents 'exit' command.
+ *
+ * When this command is reached, the current Ezh session must be terminated with [statusCode] exit code.
+ */
 class Exit(val statusCode: Int) : Operation()

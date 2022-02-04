@@ -1,7 +1,5 @@
-package ru.hse.ezh.commands
+package ru.hse.ezh
 
-import ru.hse.ezh.Environment
-import ru.hse.ezh.Operation
 import java.io.InputStream
 
 object Executor {
