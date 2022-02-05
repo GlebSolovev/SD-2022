@@ -1,0 +1,86 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:ru.hse.ezh.exceptions////PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/index.html
+$dokka.location:ru.hse.ezh.exceptions/CommandNotFoundException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-command-not-found-exception/index.html
+$dokka.location:ru.hse.ezh.exceptions/CommandNotFoundException/CommandNotFoundException/#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-command-not-found-exception/-command-not-found-exception.html
+$dokka.location:ru.hse.ezh.exceptions/ViewException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-view-exception/index.html
+$dokka.location:ru.hse.ezh.exceptions/ViewException/ViewException/#kotlin.String#kotlin.Throwable?/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-view-exception/-view-exception.html
+$dokka.location:ru.hse.ezh.execution.commands////PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/index.html
+$dokka.location:ru.hse.ezh.execution.commands/CatCommand///PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-cat-command/index.html
+$dokka.location:ru.hse.ezh.execution.commands/CatCommand/CatCommand/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-cat-command/-cat-command.html
+$dokka.location:ru.hse.ezh.execution.commands/CatCommand/execute/#java.io.InputStream#java.io.OutputStream#java.io.OutputStream#ru.hse.ezh.Environment/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-cat-command/execute.html
+$dokka.location:ru.hse.ezh.execution.commands/EchoCommand///PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-echo-command/index.html
+$dokka.location:ru.hse.ezh.execution.commands/EchoCommand/EchoCommand/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-echo-command/-echo-command.html
+$dokka.location:ru.hse.ezh.execution.commands/EchoCommand/execute/#java.io.InputStream#java.io.OutputStream#java.io.OutputStream#ru.hse.ezh.Environment/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-echo-command/execute.html
+$dokka.location:ru.hse.ezh.execution.commands/ExternalCommand///PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-external-command/index.html
+$dokka.location:ru.hse.ezh.execution.commands/ExternalCommand/ExternalCommand/#kotlin.String#kotlin.collections.List[kotlin.String]/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-external-command/-external-command.html
+$dokka.location:ru.hse.ezh.execution.commands/ExternalCommand/execute/#java.io.InputStream#java.io.OutputStream#java.io.OutputStream#ru.hse.ezh.Environment/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-external-command/execute.html
+$dokka.location:ru.hse.ezh.execution.commands/PwdCommand///PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-pwd-command/index.html
+$dokka.location:ru.hse.ezh.execution.commands/PwdCommand/PwdCommand/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-pwd-command/-pwd-command.html
+$dokka.location:ru.hse.ezh.execution.commands/PwdCommand/execute/#java.io.InputStream#java.io.OutputStream#java.io.OutputStream#ru.hse.ezh.Environment/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-pwd-command/execute.html
+$dokka.location:ru.hse.ezh.execution.commands/WcCommand///PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-wc-command/index.html
+$dokka.location:ru.hse.ezh.execution.commands/WcCommand/WcCommand/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-wc-command/-wc-command.html
+$dokka.location:ru.hse.ezh.execution.commands/WcCommand/execute/#java.io.InputStream#java.io.OutputStream#java.io.OutputStream#ru.hse.ezh.Environment/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-wc-command/execute.html
+$dokka.location:ru.hse.ezh.execution////PointingToDeclaration/-ezh/ru.hse.ezh.execution/index.html
+$dokka.location:ru.hse.ezh.execution/Assignment///PointingToDeclaration/-ezh/ru.hse.ezh.execution/-assignment/index.html
+$dokka.location:ru.hse.ezh.execution/Assignment/Assignment/#ru.hse.ezh.parsing.WORD#ru.hse.ezh.parsing.WORD/PointingToDeclaration/-ezh/ru.hse.ezh.execution/-assignment/-assignment.html
+$dokka.location:ru.hse.ezh.execution/Assignment/doAssign/#ru.hse.ezh.Environment/PointingToDeclaration/-ezh/ru.hse.ezh.execution/-assignment/do-assign.html
+$dokka.location:ru.hse.ezh.execution/Command///PointingToDeclaration/-ezh/ru.hse.ezh.execution/-command/index.html
+$dokka.location:ru.hse.ezh.execution/Command/Command/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/-ezh/ru.hse.ezh.execution/-command/-command.html
+$dokka.location:ru.hse.ezh.execution/Command/execute/#java.io.InputStream#java.io.OutputStream#java.io.OutputStream#ru.hse.ezh.Environment/PointingToDeclaration/-ezh/ru.hse.ezh.execution/-command/execute.html
+$dokka.location:ru.hse.ezh.execution/Executor///PointingToDeclaration/-ezh/ru.hse.ezh.execution/-executor/index.html
+$dokka.location:ru.hse.ezh.execution/Executor/execute/#kotlin.collections.List[ru.hse.ezh.execution.Operation]#ru.hse.ezh.Environment/PointingToDeclaration/-ezh/ru.hse.ezh.execution/-executor/execute.html
+$dokka.location:ru.hse.ezh.execution/Exit///PointingToDeclaration/-ezh/ru.hse.ezh.execution/-exit/index.html
+$dokka.location:ru.hse.ezh.execution/Exit/Exit/#kotlin.Int/PointingToDeclaration/-ezh/ru.hse.ezh.execution/-exit/-exit.html
+$dokka.location:ru.hse.ezh.execution/Exit/statusCode/#/PointingToDeclaration/-ezh/ru.hse.ezh.execution/-exit/status-code.html
+$dokka.location:ru.hse.ezh.execution/Operation///PointingToDeclaration/-ezh/ru.hse.ezh.execution/-operation/index.html
+$dokka.location:ru.hse.ezh.parsing////PointingToDeclaration/-ezh/ru.hse.ezh.parsing/index.html
+$dokka.location:ru.hse.ezh.parsing/ASSIGN///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-a-s-s-i-g-n/index.html
+$dokka.location:ru.hse.ezh.parsing/Lexer///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-lexer/index.html
+$dokka.location:ru.hse.ezh.parsing/Lexer/lex/#kotlin.sequences.Sequence[kotlin.Char]/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-lexer/lex.html
+$dokka.location:ru.hse.ezh.parsing/Lexer/postprocess/#kotlin.collections.List[ru.hse.ezh.parsing.Token]#ru.hse.ezh.Environment/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-lexer/postprocess.html
+$dokka.location:ru.hse.ezh.parsing/PIPE///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-p-i-p-e/index.html
+$dokka.location:ru.hse.ezh.parsing/Parser///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-parser/index.html
+$dokka.location:ru.hse.ezh.parsing/Parser/keywords/#/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-parser/keywords.html
+$dokka.location:ru.hse.ezh.parsing/Parser/parse/#kotlin.collections.List[ru.hse.ezh.parsing.Token]/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-parser/parse.html
+$dokka.location:ru.hse.ezh.parsing/QSUBST///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-q-s-u-b-s-t/index.html
+$dokka.location:ru.hse.ezh.parsing/QSUBST/QSUBST/#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-q-s-u-b-s-t/-q-s-u-b-s-t.html
+$dokka.location:ru.hse.ezh.parsing/QSUBST/varName/#/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-q-s-u-b-s-t/var-name.html
+$dokka.location:ru.hse.ezh.parsing/SPACE///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-s-p-a-c-e/index.html
+$dokka.location:ru.hse.ezh.parsing/SUBST///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-s-u-b-s-t/index.html
+$dokka.location:ru.hse.ezh.parsing/SUBST/SUBST/#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-s-u-b-s-t/-s-u-b-s-t.html
+$dokka.location:ru.hse.ezh.parsing/SUBST/varName/#/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-s-u-b-s-t/var-name.html
+$dokka.location:ru.hse.ezh.parsing/Token///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-token/index.html
+$dokka.location:ru.hse.ezh.parsing/WORD///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-w-o-r-d/index.html
+$dokka.location:ru.hse.ezh.parsing/WORD/WORD/#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-w-o-r-d/-w-o-r-d.html
+$dokka.location:ru.hse.ezh.parsing/WORD/str/#/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-w-o-r-d/str.html
+$dokka.location:ru.hse.ezh.views////PointingToDeclaration/-ezh/ru.hse.ezh.views/index.html
+$dokka.location:ru.hse.ezh.views/ConsoleView///PointingToDeclaration/-ezh/ru.hse.ezh.views/-console-view/index.html
+$dokka.location:ru.hse.ezh.views/ConsoleView/ConsoleView/#/PointingToDeclaration/-ezh/ru.hse.ezh.views/-console-view/-console-view.html
+$dokka.location:ru.hse.ezh.views/ConsoleView/getInput/#/PointingToDeclaration/-ezh/ru.hse.ezh.views/-console-view/get-input.html
+$dokka.location:ru.hse.ezh.views/ConsoleView/writeError/#java.io.InputStream/PointingToDeclaration/-ezh/ru.hse.ezh.views/-console-view/write-error.html
+$dokka.location:ru.hse.ezh.views/ConsoleView/writeOutput/#java.io.InputStream/PointingToDeclaration/-ezh/ru.hse.ezh.views/-console-view/write-output.html
+$dokka.location:ru.hse.ezh.views/View///PointingToDeclaration/-ezh/ru.hse.ezh.views/-view/index.html
+$dokka.location:ru.hse.ezh.views/View/getInput/#/PointingToDeclaration/-ezh/ru.hse.ezh.views/-view/get-input.html
+$dokka.location:ru.hse.ezh.views/View/writeError/#java.io.InputStream/PointingToDeclaration/-ezh/ru.hse.ezh.views/-view/write-error.html
+$dokka.location:ru.hse.ezh.views/View/writeOutput/#java.io.InputStream/PointingToDeclaration/-ezh/ru.hse.ezh.views/-view/write-output.html
+$dokka.location:ru.hse.ezh////PointingToDeclaration/-ezh/ru.hse.ezh/index.html
+$dokka.location:ru.hse.ezh//main/#/PointingToDeclaration/-ezh/ru.hse.ezh/main.html
+$dokka.location:ru.hse.ezh/Environment.ExitStatus.EXITING///PointingToDeclaration/-ezh/ru.hse.ezh/-environment/-exit-status/-e-x-i-t-i-n-g/index.html
+$dokka.location:ru.hse.ezh/Environment.ExitStatus.RUNNING///PointingToDeclaration/-ezh/ru.hse.ezh/-environment/-exit-status/-r-u-n-n-i-n-g/index.html
+$dokka.location:ru.hse.ezh/Environment.ExitStatus///PointingToDeclaration/-ezh/ru.hse.ezh/-environment/-exit-status/index.html
+$dokka.location:ru.hse.ezh/Environment///PointingToDeclaration/-ezh/ru.hse.ezh/-environment/index.html
+$dokka.location:ru.hse.ezh/Environment/Environment/#/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/-environment.html
+$dokka.location:ru.hse.ezh/Environment/exitStatus/#/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/exit-status.html
+$dokka.location:ru.hse.ezh/Environment/getVariable/#ru.hse.ezh.parsing.WORD/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/get-variable.html
+$dokka.location:ru.hse.ezh/Environment/putVariable/#ru.hse.ezh.parsing.WORD#ru.hse.ezh.parsing.WORD/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/put-variable.html
+$dokka.location:ru.hse.ezh/Ezh///PointingToDeclaration/-ezh/ru.hse.ezh/-ezh/index.html
+$dokka.location:ru.hse.ezh/Ezh/Ezh/#/PointingToDeclaration/-ezh/ru.hse.ezh/-ezh/-ezh.html
+$dokka.location:ru.hse.ezh/Ezh/main/#/PointingToDeclaration/-ezh/ru.hse.ezh/-ezh/main.html
+ru.hse.ezh
+ru.hse.ezh.exceptions
+ru.hse.ezh.execution
+ru.hse.ezh.execution.commands
+ru.hse.ezh.parsing
+ru.hse.ezh.views
+
