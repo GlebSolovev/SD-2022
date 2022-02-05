@@ -19,7 +19,7 @@ class EchoCommandTest {
     fun testSingleWord() {
         val echo = EchoCommand(listOf("word"))
         val out = ByteArrayOutputStream()
-        echo.execute(input, out, err, env)
+        assertEquals(0, echo.execute(input, out, err, env))
 
         assertEquals("word\n", out.toString())
     }
@@ -28,7 +28,7 @@ class EchoCommandTest {
     fun testEmpty() {
         val echo = EchoCommand(listOf())
         val out = ByteArrayOutputStream()
-        echo.execute(input, out, err, env)
+        assertEquals(0, echo.execute(input, out, err, env))
 
         assertEquals("\n", out.toString())
     }
@@ -37,7 +37,7 @@ class EchoCommandTest {
     fun testMultipleWords() {
         val echo = EchoCommand(listOf("i", "hate", "kotlin"))
         val out = ByteArrayOutputStream()
-        echo.execute(input, out, err, env)
+        assertEquals(0, echo.execute(input, out, err, env))
 
         assertEquals("i hate kotlin\n", out.toString())
     }
@@ -46,7 +46,7 @@ class EchoCommandTest {
     fun testSpecialCharacters() {
         val echo = EchoCommand(listOf("", "\t\r\n", "", "", "    ", "ё", "\u9637\""))
         val out = ByteArrayOutputStream()
-        echo.execute(input, out, err, env)
+        assertEquals(0, echo.execute(input, out, err, env))
 
         assertEquals(" \t\r\n        ё \u9637\"\n", out.toString())
     }
