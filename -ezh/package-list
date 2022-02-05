@@ -72,8 +72,8 @@ $dokka.location:ru.hse.ezh/Environment.ExitStatus///PointingToDeclaration/-ezh/
 $dokka.location:ru.hse.ezh/Environment///PointingToDeclaration/-ezh/ru.hse.ezh/-environment/index.html
 $dokka.location:ru.hse.ezh/Environment/Environment/#/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/-environment.html
 $dokka.location:ru.hse.ezh/Environment/exitStatus/#/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/exit-status.html
-$dokka.location:ru.hse.ezh/Environment/getVariable/#ru.hse.ezh.parsing.WORD/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/get-variable.html
-$dokka.location:ru.hse.ezh/Environment/putVariable/#ru.hse.ezh.parsing.WORD#ru.hse.ezh.parsing.WORD/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/put-variable.html
+$dokka.location:ru.hse.ezh/Environment/getVariable/#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/get-variable.html
+$dokka.location:ru.hse.ezh/Environment/putVariable/#kotlin.String#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/put-variable.html
 $dokka.location:ru.hse.ezh/Ezh///PointingToDeclaration/-ezh/ru.hse.ezh/-ezh/index.html
 $dokka.location:ru.hse.ezh/Ezh/Ezh/#/PointingToDeclaration/-ezh/ru.hse.ezh/-ezh/-ezh.html
 $dokka.location:ru.hse.ezh/Ezh/main/#/PointingToDeclaration/-ezh/ru.hse.ezh/-ezh/main.html
