@@ -3,8 +3,8 @@ package ru.hse.ezh.execution.commands
 import ru.hse.ezh.Environment
 import ru.hse.ezh.exceptions.ExecutionIOException
 import ru.hse.ezh.execution.Command
+import ru.hse.ezh.execution.commands.utils.writeWrapped
 
-import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -39,18 +39,10 @@ class PwdCommand(args: List<String>) : Command(args) {
     @Throws(ExecutionIOException::class)
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
         if (args.isNotEmpty()) {
-            try {
-                err.write("pwd: expected zero arguments".toByteArray())
-            } catch (e: IOException) {
-                throw ExecutionIOException("err stream error", e)
-            }
+            err.writeWrapped("pwd: expected zero arguments")
             return 1
         }
-        try {
-            out.write(System.getProperty("user.dir").toByteArray())
-        } catch (e: IOException) {
-            throw ExecutionIOException("out stream error", e)
-        }
+        out.writeWrapped(System.getProperty("user.dir"))
         return 0
     }
 }

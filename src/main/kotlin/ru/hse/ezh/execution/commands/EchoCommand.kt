@@ -3,8 +3,8 @@ package ru.hse.ezh.execution.commands
 import ru.hse.ezh.Environment
 import ru.hse.ezh.exceptions.ExecutionIOException
 import ru.hse.ezh.execution.Command
+import ru.hse.ezh.execution.commands.utils.writeWrapped
 
-import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -37,11 +37,7 @@ class EchoCommand(args: List<String>) : Command(args) {
      */
     @Throws(ExecutionIOException::class)
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
-        try {
-            out.write(args.joinToString(separator = " ", postfix = "\n").toByteArray())
-        } catch (e: IOException) {
-            throw ExecutionIOException("out stream error", e)
-        }
+        out.writeWrapped(args.joinToString(separator = " ", postfix = "\n"))
         return 0
     }
 }
