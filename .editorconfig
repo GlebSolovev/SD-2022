@@ -1,2 +1,2 @@
 [*.{kt,kts}]
-disabled_rules = no-blank-line-before-rbrace
+disabled_rules = no-blank-line-before-rbrace # for linter
