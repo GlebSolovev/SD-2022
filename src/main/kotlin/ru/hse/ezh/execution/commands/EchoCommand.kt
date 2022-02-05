@@ -1,10 +1,14 @@
 package ru.hse.ezh.execution.commands
 
 import ru.hse.ezh.Environment
+import ru.hse.ezh.exceptions.ExecutionIOException
 import ru.hse.ezh.execution.Command
 
+import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+
+import kotlin.jvm.Throws
 
 /**
  * This class represents the 'echo' command.
@@ -28,8 +32,16 @@ class EchoCommand(args: List<String>) : Command(args) {
      *
      * @return
      * - 0 always
+     *
+     * @throws ExecutionIOException If [out] stream error occurred.
      */
+    @Throws(ExecutionIOException::class)
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
-        TODO("Not yet implemented")
+        try {
+            out.write(args.joinToString(separator = " ", postfix = "\n").toByteArray())
+        } catch (e: IOException) {
+            throw ExecutionIOException("out stream error", e)
+        }
+        return 0
     }
 }
