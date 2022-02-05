@@ -1,5 +1,7 @@
-package ru.hse.ezh
+package ru.hse.ezh.execution
 
+import ru.hse.ezh.Environment
+import ru.hse.ezh.parsing.WORD
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -17,13 +19,10 @@ sealed class Operation
  * @param lhs Variable name.
  * @param rhs Variable new value.
  */
-class Assignment(val lhs: WORD, val rhs: WORD) : Operation() {
+class Assignment(private val lhs: WORD, private val rhs: WORD) : Operation() {
 
     /**
-     * Performs assignment in [env] environment.
-     *
-     * If the variable already exists in [env], its value is overwritten.
-     * Else the variable is created in [env] with the value.
+     * Performs assignment in [env] environment using [Environment.putVariable].
      *
      * @param env The environment to modify.
      */
@@ -37,7 +36,7 @@ class Assignment(val lhs: WORD, val rhs: WORD) : Operation() {
  * @constructor
  * @param args Arguments for the command.
  */
-abstract class Command(val args: List<String>) : Operation() {
+abstract class Command(protected val args: List<String>) : Operation() {
 
     /**
      * Executes the command.

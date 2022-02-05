@@ -13,3 +13,9 @@ processors:
 
 console-reports:
   active: true
+
+complexity:
+  ComplexMethod:
+    threshold: 40
+  NestedBlockDepth:
+    threshold: 5

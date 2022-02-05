@@ -1,4 +1,4 @@
-package ru.hse.ezh
+package ru.hse.ezh.parsing
 
 /**
  * Tokens of Ezh shell language.
@@ -7,7 +7,7 @@ sealed class Token
 
 /**
  * Represents a single string that should be interpreted as an indivisible element.
- * In particular, a WORD can have space characters.
+ * In particular, a [WORD] can have space characters.
  *
  * For example: a single command argument, command name, variable value.
  *

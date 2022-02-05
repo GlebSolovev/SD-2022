@@ -1,6 +1,6 @@
-package ru.hse.ezh.commands
+package ru.hse.ezh.execution.commands
 
-import ru.hse.ezh.Command
+import ru.hse.ezh.execution.Command
 import ru.hse.ezh.Environment
 import java.io.InputStream
 import java.io.OutputStream

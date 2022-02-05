@@ -1,7 +1,8 @@
-package ru.hse.ezh.commands
+package ru.hse.ezh.execution.commands
 
-import ru.hse.ezh.Command
 import ru.hse.ezh.Environment
+import ru.hse.ezh.exceptions.CommandNotFoundException
+import ru.hse.ezh.execution.Command
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -14,7 +15,7 @@ import java.io.OutputStream
  * @param name Command name.
  * @param args Command arguments.
  */
-class ExternalCommand(val name: String, args: List<String>) : Command(args) {
+class ExternalCommand(private val name: String, args: List<String>) : Command(args) {
 
     /**
      * Executes an external command (see [Command.execute]).
@@ -33,6 +34,7 @@ class ExternalCommand(val name: String, args: List<String>) : Command(args) {
      *
      * @throws CommandNotFoundException If no external command named [name] was found.
      */
+    @Throws(CommandNotFoundException::class)
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
         TODO("Not yet implemented")
     }
