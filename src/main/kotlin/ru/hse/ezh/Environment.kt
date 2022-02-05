@@ -1,7 +1,5 @@
 package ru.hse.ezh
 
-import ru.hse.ezh.parsing.WORD
-
 /**
  * Class for storing environment variables and other session context.
  *
@@ -14,16 +12,21 @@ class Environment {
      */
     enum class ExitStatus { RUNNING, EXITING }
 
-    private val variables: MutableMap<WORD, WORD> = TODO("Not yet implemented")
+    private val variables: MutableMap<String, String> = mutableMapOf()
 
     /**
      * Status of current session.
      */
-    var exitStatus: ExitStatus = TODO("Not yet implemented")
+    var exitStatus: ExitStatus = ExitStatus.RUNNING
         /**
          * @throws IllegalStateException If the [exitStatus] is set to [ExitStatus.EXITING].
          */
-        set(exitStatus) = TODO("Not yet implemented")
+        set(exitStatus) {
+            if (field == ExitStatus.EXITING) {
+                throw IllegalStateException("resetting EXITING status is forbidden")
+            }
+            field = exitStatus
+        }
 
     /**
      * Puts a variable into this environment.
@@ -36,19 +39,29 @@ class Environment {
      *
      * @throws IllegalStateException If the [exitStatus] is set to [ExitStatus.EXITING].
      */
-    fun putVariable(name: WORD, value: WORD): Unit = TODO("Not yet implemented")
+    fun putVariable(name: String, value: String) {
+        if (exitStatus == ExitStatus.EXITING) {
+            throw IllegalStateException("putVariable in EXITING status is forbidden")
+        }
+        variables[name] = value
+    }
 
     /**
      * Gets the value of a variable named [name] from this environment.
      *
-     * If no such variable exists, a [WORD] containing an empty string is returned.
+     * If no such variable exists, an empty string is returned.
      *
      * @param name Variable name.
      *
-     * @return Variable value or an empty [WORD].
+     * @return Variable value or an empty string.
      *
      * @throws IllegalStateException If the [exitStatus] is set to [ExitStatus.EXITING].
      */
-    fun getVariable(name: WORD): WORD = TODO("Not yet implemented")
+    fun getVariable(name: String): String {
+        if (exitStatus == ExitStatus.EXITING) {
+            throw IllegalStateException("getVariable in EXITING status is forbidden")
+        }
+        return variables[name] ?: ""
+    }
 
 }
