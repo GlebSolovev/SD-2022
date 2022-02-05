@@ -1,9 +1,11 @@
 package ru.hse.ezh.views
 
 import ru.hse.ezh.exceptions.ViewException
+
 import java.io.DataInputStream
 import java.io.IOException
 import java.io.InputStream
+
 import kotlin.jvm.Throws
 
 /**

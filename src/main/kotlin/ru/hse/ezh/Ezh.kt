@@ -1,12 +1,13 @@
 package ru.hse.ezh
 
-import kotlin.system.exitProcess
+import ru.hse.ezh.execution.Executor
+import ru.hse.ezh.execution.Operation
 import ru.hse.ezh.parsing.Lexer
 import ru.hse.ezh.parsing.Parser
 import ru.hse.ezh.views.ConsoleView
 import ru.hse.ezh.views.View
-import ru.hse.ezh.execution.Operation
-import ru.hse.ezh.execution.Executor
+
+import kotlin.system.exitProcess
 
 /**
  * Main Ezh shell class.

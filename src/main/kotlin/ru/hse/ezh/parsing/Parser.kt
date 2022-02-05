@@ -1,10 +1,10 @@
 package ru.hse.ezh.parsing
 
+import ru.hse.ezh.execution.Operation
 import ru.hse.ezh.execution.commands.CatCommand
 import ru.hse.ezh.execution.commands.EchoCommand
 import ru.hse.ezh.execution.commands.PwdCommand
 import ru.hse.ezh.execution.commands.WcCommand
-import ru.hse.ezh.execution.Operation
 
 /**
  * Parses [Token]s into [Operation]s.
