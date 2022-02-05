@@ -1,5 +1,8 @@
 name: Run tests
-on: [push]
+on:
+  push:
+    branches:
+      - hw2-ezh-impl
 jobs:
 
   Ubuntu-based:

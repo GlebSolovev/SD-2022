@@ -1,5 +1,8 @@
 name: Publish-Dokka-documentation
-on: [push]
+on:
+  push:
+    branches:
+      - hw2-ezh-impl
 jobs:
   publish:
     runs-on: ubuntu-latest
