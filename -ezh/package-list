@@ -1,7 +1,7 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
-$dokka.location:kotlin/CommandNotFoundException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-command-not-found-exception/get-cause.html
-$dokka.location:kotlin/CommandNotFoundException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-command-not-found-exception/get-message.html
+$dokka.location:kotlin/CommandStartupException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-command-startup-exception/get-cause.html
+$dokka.location:kotlin/CommandStartupException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-command-startup-exception/get-message.html
 $dokka.location:kotlin/Environment.ExitStatus/getName/#/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/-exit-status/get-name.html
 $dokka.location:kotlin/Environment.ExitStatus/getOrdinal/#/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/-exit-status/get-ordinal.html
 $dokka.location:kotlin/ExecutionIOException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-execution-i-o-exception/get-cause.html
@@ -9,8 +9,8 @@ $dokka.location:kotlin/ExecutionIOException/getMessage/#/PointingToDeclaration/
 $dokka.location:kotlin/ViewException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-view-exception/get-cause.html
 $dokka.location:kotlin/ViewException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-view-exception/get-message.html
 $dokka.location:ru.hse.ezh.exceptions////PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/index.html
-$dokka.location:ru.hse.ezh.exceptions/CommandNotFoundException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-command-not-found-exception/index.html
-$dokka.location:ru.hse.ezh.exceptions/CommandNotFoundException/CommandNotFoundException/#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-command-not-found-exception/-command-not-found-exception.html
+$dokka.location:ru.hse.ezh.exceptions/CommandStartupException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-command-startup-exception/index.html
+$dokka.location:ru.hse.ezh.exceptions/CommandStartupException/CommandStartupException/#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-command-startup-exception/-command-startup-exception.html
 $dokka.location:ru.hse.ezh.exceptions/ExecutionIOException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-execution-i-o-exception/index.html
 $dokka.location:ru.hse.ezh.exceptions/ExecutionIOException/ExecutionIOException/#kotlin.String#kotlin.Throwable?/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-execution-i-o-exception/-execution-i-o-exception.html
 $dokka.location:ru.hse.ezh.exceptions/ViewException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-view-exception/index.html
@@ -86,6 +86,7 @@ $dokka.location:ru.hse.ezh/Environment.ExitStatus.RUNNING///PointingToDeclaratio
 $dokka.location:ru.hse.ezh/Environment.ExitStatus///PointingToDeclaration/-ezh/ru.hse.ezh/-environment/-exit-status/index.html
 $dokka.location:ru.hse.ezh/Environment///PointingToDeclaration/-ezh/ru.hse.ezh/-environment/index.html
 $dokka.location:ru.hse.ezh/Environment/Environment/#/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/-environment.html
+$dokka.location:ru.hse.ezh/Environment/getAllVariables/#/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/get-all-variables.html
 $dokka.location:ru.hse.ezh/Environment/getExitStatus/#/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/get-exit-status.html
 $dokka.location:ru.hse.ezh/Environment/getVariable/#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/get-variable.html
 $dokka.location:ru.hse.ezh/Environment/putVariable/#kotlin.String#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/put-variable.html
