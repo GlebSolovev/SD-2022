@@ -83,4 +83,9 @@ class ExternalCommandTest {
     fun testBashInLocalEnvironment() =
         testExternalCommandHelper("bash", listOf("-c", "echo \$x"), envVars = mapOf("x" to "5"))
 
+    @Test
+    fun testNonExistingCommand() = testExternalCommandHelper("ezh-non-existing-command", listOf("arg"))
+
+    @Test
+    fun testWindowsVerCommand() = testExternalCommandHelper("ver", listOf())
 }
