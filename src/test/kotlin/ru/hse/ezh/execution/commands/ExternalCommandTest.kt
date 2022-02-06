@@ -3,6 +3,7 @@ package ru.hse.ezh.execution.commands
 import org.junit.jupiter.api.assertThrows
 import ru.hse.ezh.Environment
 import ru.hse.ezh.exceptions.CommandStartupException
+import ru.hse.ezh.execution.commands.utils.CHARSET
 
 import java.io.*
 
@@ -56,8 +57,8 @@ class ExternalCommandTest {
             proc.errorStream.transferTo(expectedErr)
 
             assertEquals(expectedExitCode, externalCommand.execute(input, out, err, env))
-            assertEquals(expectedOut.toString(), out.toString())
-            assertEquals(expectedErr.toString(), err.toString())
+            assertEquals(expectedOut.toString(CHARSET), out.toString(CHARSET))
+            assertEquals(expectedErr.toString(CHARSET), err.toString(CHARSET))
 
         } catch (_: IOException) {
             assertThrows<CommandStartupException> { externalCommand.execute(input, out, err, env) }

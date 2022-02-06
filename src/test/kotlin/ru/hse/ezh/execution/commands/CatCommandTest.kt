@@ -1,6 +1,7 @@
 package ru.hse.ezh.execution.commands
 
 import ru.hse.ezh.Environment
+import ru.hse.ezh.execution.commands.utils.CHARSET
 
 import java.io.*
 
@@ -29,7 +30,7 @@ class CatCommandTest {
         val err = OutputStream.nullOutputStream()
 
         assertEquals(0, cat.execute(input, out, err, env))
-        assertEquals("text\n", out.toString())
+        assertEquals("text\n", out.toString(CHARSET))
     }
 
     @Test
@@ -40,7 +41,7 @@ class CatCommandTest {
         val err = OutputStream.nullOutputStream()
 
         assertEquals(0, cat.execute(input, out, err, env))
-        assertEquals(" \t\r\n ё\u9637\"\n\n", out.toString())
+        assertEquals(" \t\r\n ё\u9637\"\n\n", out.toString(CHARSET))
     }
 
     @Test
@@ -54,7 +55,7 @@ class CatCommandTest {
         val err = OutputStream.nullOutputStream()
 
         assertEquals(0, cat.execute(input, out, err, env))
-        assertEquals("text\n", out.toString())
+        assertEquals("text\n", out.toString(CHARSET))
 
         file.delete()
     }
@@ -70,7 +71,7 @@ class CatCommandTest {
         val err = OutputStream.nullOutputStream()
 
         assertEquals(0, cat.execute(input, out, err, env))
-        assertEquals(" \t\r\n ё\u9637\"\n\n", out.toString())
+        assertEquals(" \t\r\n ё\u9637\"\n\n", out.toString(CHARSET))
 
         file.delete()
     }
@@ -83,7 +84,7 @@ class CatCommandTest {
         val err = ByteArrayOutputStream()
 
         assertEquals(2, cat.execute(input, out, err, env))
-        assertTrue(err.toString().startsWith("cat: IOException during reading file\n"))
+        assertTrue(err.toString(CHARSET).startsWith("cat: IOException during reading file\n"))
     }
 
     @Test
@@ -94,7 +95,7 @@ class CatCommandTest {
         val err = ByteArrayOutputStream()
 
         assertEquals(1, cat.execute(input, out, err, env))
-        assertEquals("cat: expected one or zero arguments\n", err.toString())
+        assertEquals("cat: expected one or zero arguments\n", err.toString(CHARSET))
     }
 
 }

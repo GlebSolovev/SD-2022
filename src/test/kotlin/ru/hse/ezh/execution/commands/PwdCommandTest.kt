@@ -2,6 +2,7 @@ package ru.hse.ezh.execution.commands
 
 import org.junit.jupiter.api.Test
 import ru.hse.ezh.Environment
+import ru.hse.ezh.execution.commands.utils.CHARSET
 
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -21,7 +22,7 @@ class PwdCommandTest {
         val err = OutputStream.nullOutputStream()
 
         assertEquals(0, pwd.execute(input, out, err, env))
-        assertEquals(System.getProperty("user.dir") + "\n", out.toString())
+        assertEquals(System.getProperty("user.dir") + "\n", out.toString(CHARSET))
     }
 
     @Test
@@ -31,7 +32,7 @@ class PwdCommandTest {
         val err = ByteArrayOutputStream()
 
         assertEquals(1, pwd.execute(input, out, err, env))
-        assertEquals("pwd: expected zero arguments\n", err.toString())
+        assertEquals("pwd: expected zero arguments\n", err.toString(CHARSET))
     }
 
 }

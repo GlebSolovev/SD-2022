@@ -3,6 +3,7 @@ package ru.hse.ezh.execution.commands
 import ru.hse.ezh.Environment
 import ru.hse.ezh.exceptions.ExecutionIOException
 import ru.hse.ezh.execution.Command
+import ru.hse.ezh.execution.commands.utils.CHARSET
 import ru.hse.ezh.execution.commands.utils.readAllBytesWrapped
 import ru.hse.ezh.execution.commands.utils.writeLineWrapped
 
@@ -69,7 +70,7 @@ class WcCommand(args: List<String>) : Command(args) {
             lines += 1
             words += line.split("\\s+".toRegex()).filter { it.isNotEmpty() }.size
         }
-        String(content).lines().forEach { handleLine(it) }
+        String(content, CHARSET).lines().forEach { handleLine(it) }
 
         out.writeLineWrapped("$lines\t$words\t$bytes")
         return 0

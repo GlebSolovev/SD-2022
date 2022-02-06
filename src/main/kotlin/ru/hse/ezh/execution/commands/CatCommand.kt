@@ -3,6 +3,7 @@ package ru.hse.ezh.execution.commands
 import ru.hse.ezh.Environment
 import ru.hse.ezh.exceptions.ExecutionIOException
 import ru.hse.ezh.execution.Command
+import ru.hse.ezh.execution.commands.utils.CHARSET
 import ru.hse.ezh.execution.commands.utils.readAllWrapped
 import ru.hse.ezh.execution.commands.utils.writeLineWrapped
 
@@ -27,7 +28,7 @@ class CatCommand(args: List<String>) : Command(args) {
     /**
      * Executes the command (see [Command.execute]).
      *
-     * If a filename is given, prints its contents to [out].
+     * If a filename is given, prints its contents in UTF-8 to [out].
      * Else prints [input] to [out].
      *
      * Does not support huge files (> 2 GB).
@@ -52,7 +53,7 @@ class CatCommand(args: List<String>) : Command(args) {
         }
         val content = if (args.size == 1) {
             try {
-                File(args[0]).readText()
+                File(args[0]).readText(CHARSET)
             } catch (e: IOException) {
                 err.writeLineWrapped("cat: IOException during reading file\n${e.message}")
                 return 2

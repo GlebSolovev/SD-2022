@@ -1,6 +1,7 @@
 package ru.hse.ezh.execution.commands
 
 import ru.hse.ezh.Environment
+import ru.hse.ezh.execution.commands.utils.CHARSET
 
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -21,7 +22,7 @@ class EchoCommandTest {
         val out = ByteArrayOutputStream()
         assertEquals(0, echo.execute(input, out, err, env))
 
-        assertEquals("word\n", out.toString())
+        assertEquals("word\n", out.toString(CHARSET))
     }
 
     @Test
@@ -30,7 +31,7 @@ class EchoCommandTest {
         val out = ByteArrayOutputStream()
         assertEquals(0, echo.execute(input, out, err, env))
 
-        assertEquals("\n", out.toString())
+        assertEquals("\n", out.toString(CHARSET))
     }
 
     @Test
@@ -39,7 +40,7 @@ class EchoCommandTest {
         val out = ByteArrayOutputStream()
         assertEquals(0, echo.execute(input, out, err, env))
 
-        assertEquals("i hate kotlin\n", out.toString())
+        assertEquals("i hate kotlin\n", out.toString(CHARSET))
     }
 
     @Test
@@ -48,7 +49,7 @@ class EchoCommandTest {
         val out = ByteArrayOutputStream()
         assertEquals(0, echo.execute(input, out, err, env))
 
-        assertEquals(" \t\r\n        ё \u9637\"\n", out.toString())
+        assertEquals(" \t\r\n        ё \u9637\"\n", out.toString(CHARSET))
     }
 
 }

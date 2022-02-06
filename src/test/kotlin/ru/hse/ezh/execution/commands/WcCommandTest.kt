@@ -1,6 +1,7 @@
 package ru.hse.ezh.execution.commands
 
 import ru.hse.ezh.Environment
+import ru.hse.ezh.execution.commands.utils.CHARSET
 
 import java.io.*
 
@@ -28,7 +29,7 @@ class WcCommandTest {
         val err = OutputStream.nullOutputStream()
 
         assertEquals(0, wc.execute(input, out, err, env))
-        assertEquals(expectedOutput, out.toString())
+        assertEquals(expectedOutput, out.toString(CHARSET))
     }
 
     private fun testReadFromFileHelper(expectedOutput: String, inputString: String) {
@@ -41,7 +42,7 @@ class WcCommandTest {
         val err = OutputStream.nullOutputStream()
 
         assertEquals(0, wc.execute(input, out, err, env))
-        assertEquals(expectedOutput, out.toString())
+        assertEquals(expectedOutput, out.toString(CHARSET))
 
         file.delete()
     }
@@ -77,7 +78,7 @@ class WcCommandTest {
         val err = ByteArrayOutputStream()
 
         assertEquals(2, wc.execute(input, out, err, env))
-        assertTrue(err.toString().startsWith("wc: IOException during reading file\n"))
+        assertTrue(err.toString(CHARSET).startsWith("wc: IOException during reading file\n"))
     }
 
     @Test
@@ -88,7 +89,7 @@ class WcCommandTest {
         val err = ByteArrayOutputStream()
 
         assertEquals(1, wc.execute(input, out, err, env))
-        assertEquals("wc: expected one or zero arguments\n", err.toString())
+        assertEquals("wc: expected one or zero arguments\n", err.toString(CHARSET))
     }
 
 }

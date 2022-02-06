@@ -23,7 +23,7 @@ class EchoCommand(args: List<String>) : Command(args) {
     /**
      * Executes the command (see [Command.execute]).
      *
-     * Prints arguments as text, joined with whitespace, to [out].
+     * Prints arguments as UTF-8 text, joined with whitespace, to [out].
      *
      * @param input Ignored.
      * @param out Stream to print output to.
