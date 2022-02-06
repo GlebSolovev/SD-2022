@@ -18,10 +18,6 @@ $dokka.location:ru.hse.ezh.exceptions/ViewException/ViewException/#kotlin.String
 $dokka.location:ru.hse.ezh.execution.commands.utils////PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands.utils/index.html
 $dokka.location:ru.hse.ezh.execution.commands.utils/StreamUtilsKt///PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands.utils/-stream-utils-kt/index.html
 $dokka.location:ru.hse.ezh.execution.commands.utils/StreamUtilsKt/getCHARSET/#/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands.utils/-stream-utils-kt/get-c-h-a-r-s-e-t.html
-$dokka.location:ru.hse.ezh.execution.commands.utils/StreamUtilsKt/readAllBytesWrapped/java.io.InputStream#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands.utils/-stream-utils-kt/read-all-bytes-wrapped.html
-$dokka.location:ru.hse.ezh.execution.commands.utils/StreamUtilsKt/readAllWrapped/java.io.InputStream#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands.utils/-stream-utils-kt/read-all-wrapped.html
-$dokka.location:ru.hse.ezh.execution.commands.utils/StreamUtilsKt/writeLineWrapped/java.io.OutputStream#kotlin.String#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands.utils/-stream-utils-kt/write-line-wrapped.html
-$dokka.location:ru.hse.ezh.execution.commands.utils/StreamUtilsKt/writeWrapped/java.io.OutputStream#kotlin.String#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands.utils/-stream-utils-kt/write-wrapped.html
 $dokka.location:ru.hse.ezh.execution.commands////PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/index.html
 $dokka.location:ru.hse.ezh.execution.commands/CatCommand///PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-cat-command/index.html
 $dokka.location:ru.hse.ezh.execution.commands/CatCommand/CatCommand/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-cat-command/-cat-command.html
