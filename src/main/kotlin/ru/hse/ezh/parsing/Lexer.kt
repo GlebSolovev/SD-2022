@@ -29,6 +29,7 @@ object Lexer {
      *
      * @throws UnterminatedQuotesException When an unterminated quote is encountered.
      */
+    @Suppress("LongMethod", "NestedBlockDepth") // is ok for automata
     @Throws(UnterminatedQuotesException::class)
     fun lex(input: Sequence<Char>): List<Token> {
         val result = mutableListOf<Token>()
