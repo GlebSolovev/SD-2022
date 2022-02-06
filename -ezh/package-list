@@ -7,6 +7,10 @@ $dokka.location:ru.hse.ezh.exceptions/ExecutionIOException///PointingToDeclarati
 $dokka.location:ru.hse.ezh.exceptions/ExecutionIOException/ExecutionIOException/#kotlin.String#kotlin.Throwable?/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-execution-i-o-exception/-execution-i-o-exception.html
 $dokka.location:ru.hse.ezh.exceptions/ViewException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-view-exception/index.html
 $dokka.location:ru.hse.ezh.exceptions/ViewException/ViewException/#kotlin.String#kotlin.Throwable?/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-view-exception/-view-exception.html
+$dokka.location:ru.hse.ezh.execution.commands.utils////PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands.utils/index.html
+$dokka.location:ru.hse.ezh.execution.commands.utils//readAllWrapped/java.io.InputStream#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands.utils/read-all-wrapped.html
+$dokka.location:ru.hse.ezh.execution.commands.utils//writeLineWrapped/java.io.OutputStream#kotlin.String#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands.utils/write-line-wrapped.html
+$dokka.location:ru.hse.ezh.execution.commands.utils//writeWrapped/java.io.OutputStream#kotlin.String#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands.utils/write-wrapped.html
 $dokka.location:ru.hse.ezh.execution.commands////PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/index.html
 $dokka.location:ru.hse.ezh.execution.commands/CatCommand///PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-cat-command/index.html
 $dokka.location:ru.hse.ezh.execution.commands/CatCommand/CatCommand/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-cat-command/-cat-command.html
@@ -83,6 +87,7 @@ ru.hse.ezh
 ru.hse.ezh.exceptions
 ru.hse.ezh.execution
 ru.hse.ezh.execution.commands
+ru.hse.ezh.execution.commands.utils
 ru.hse.ezh.parsing
 ru.hse.ezh.views
 
