@@ -3,9 +3,19 @@ package ru.hse.ezh.execution.commands.utils
 import ru.hse.ezh.exceptions.ExecutionIOException
 
 import java.io.IOException
+import java.io.InputStream
 import java.io.OutputStream
 
 import kotlin.jvm.Throws
+
+@Throws(ExecutionIOException::class)
+fun InputStream.readAllWrapped(errorMessage: String = "internal input stream error"): String {
+    try {
+        return String(this.readAllBytes())
+    } catch (e: IOException) {
+        throw ExecutionIOException(errorMessage)
+    }
+}
 
 @Throws(ExecutionIOException::class)
 fun OutputStream.writeWrapped(str: String, errorMessage: String = "internal output stream error") {
@@ -15,3 +25,7 @@ fun OutputStream.writeWrapped(str: String, errorMessage: String = "internal outp
         throw ExecutionIOException(errorMessage)
     }
 }
+
+@Throws(ExecutionIOException::class)
+fun OutputStream.writeLineWrapped(str: String, errorMessage: String = "internal output stream error") =
+    writeWrapped(str + "\n", errorMessage)

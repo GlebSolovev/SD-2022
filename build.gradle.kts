@@ -28,6 +28,6 @@ tasks.test {
 }
 
 detekt {
-    buildUponDefaultConfig = true // preconfigure defaults
-    config = files("$projectDir/config/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+    buildUponDefaultConfig = true
+    config = files("$projectDir/config/detekt.yml")
 }

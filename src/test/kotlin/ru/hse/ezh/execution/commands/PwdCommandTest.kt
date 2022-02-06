@@ -21,7 +21,7 @@ class PwdCommandTest {
         val err = OutputStream.nullOutputStream()
 
         assertEquals(0, pwd.execute(input, out, err, env))
-        assertEquals(System.getProperty("user.dir"), out.toString())
+        assertEquals(System.getProperty("user.dir") + "\n", out.toString())
     }
 
     @Test
@@ -31,7 +31,7 @@ class PwdCommandTest {
         val err = ByteArrayOutputStream()
 
         assertEquals(1, pwd.execute(input, out, err, env))
-        assertEquals("pwd: expected zero arguments", err.toString())
+        assertEquals("pwd: expected zero arguments\n", err.toString())
     }
 
 }

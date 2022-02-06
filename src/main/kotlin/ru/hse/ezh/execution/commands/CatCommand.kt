@@ -2,7 +2,11 @@ package ru.hse.ezh.execution.commands
 
 import ru.hse.ezh.Environment
 import ru.hse.ezh.execution.Command
+import ru.hse.ezh.execution.commands.utils.readAllWrapped
+import ru.hse.ezh.execution.commands.utils.writeLineWrapped
 
+import java.io.File
+import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -34,6 +38,21 @@ class CatCommand(args: List<String>) : Command(args) {
      * - 2 if an [java.io.IOException] happens during reading file
      */
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
-        TODO("Not yet implemented")
+        if (args.size > 1) {
+            err.writeLineWrapped("cat: expected one or zero arguments")
+            return 1
+        }
+        val content = if (args.size == 1) {
+            try {
+                File(args[0]).readText()
+            } catch (e: IOException) {
+                err.writeLineWrapped("cat: IOException during reading file\n${e.message}")
+                return 2
+            }
+        } else {
+            input.readAllWrapped()
+        }
+        out.writeLineWrapped(content)
+        return 0
     }
 }

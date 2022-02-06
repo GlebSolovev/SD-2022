@@ -3,7 +3,7 @@ package ru.hse.ezh.execution.commands
 import ru.hse.ezh.Environment
 import ru.hse.ezh.exceptions.ExecutionIOException
 import ru.hse.ezh.execution.Command
-import ru.hse.ezh.execution.commands.utils.writeWrapped
+import ru.hse.ezh.execution.commands.utils.writeLineWrapped
 
 import java.io.InputStream
 import java.io.OutputStream
@@ -39,10 +39,10 @@ class PwdCommand(args: List<String>) : Command(args) {
     @Throws(ExecutionIOException::class)
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
         if (args.isNotEmpty()) {
-            err.writeWrapped("pwd: expected zero arguments")
+            err.writeLineWrapped("pwd: expected zero arguments")
             return 1
         }
-        out.writeWrapped(System.getProperty("user.dir"))
+        out.writeLineWrapped(System.getProperty("user.dir"))
         return 0
     }
 }
