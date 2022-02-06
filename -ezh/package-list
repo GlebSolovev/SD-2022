@@ -6,6 +6,10 @@ $dokka.location:kotlin/Environment.ExitStatus/getName/#/PointingToDeclaration/-
 $dokka.location:kotlin/Environment.ExitStatus/getOrdinal/#/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/-exit-status/get-ordinal.html
 $dokka.location:kotlin/ExecutionIOException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-execution-i-o-exception/get-cause.html
 $dokka.location:kotlin/ExecutionIOException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-execution-i-o-exception/get-message.html
+$dokka.location:kotlin/LexerException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-lexer-exception/get-cause.html
+$dokka.location:kotlin/LexerException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-lexer-exception/get-message.html
+$dokka.location:kotlin/UnterminatedQuotesException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-unterminated-quotes-exception/get-cause.html
+$dokka.location:kotlin/UnterminatedQuotesException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-unterminated-quotes-exception/get-message.html
 $dokka.location:kotlin/ViewException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-view-exception/get-cause.html
 $dokka.location:kotlin/ViewException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-view-exception/get-message.html
 $dokka.location:ru.hse.ezh.exceptions////PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/index.html
@@ -13,6 +17,9 @@ $dokka.location:ru.hse.ezh.exceptions/CommandStartupException///PointingToDeclar
 $dokka.location:ru.hse.ezh.exceptions/CommandStartupException/CommandStartupException/#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-command-startup-exception/-command-startup-exception.html
 $dokka.location:ru.hse.ezh.exceptions/ExecutionIOException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-execution-i-o-exception/index.html
 $dokka.location:ru.hse.ezh.exceptions/ExecutionIOException/ExecutionIOException/#kotlin.String#kotlin.Throwable?/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-execution-i-o-exception/-execution-i-o-exception.html
+$dokka.location:ru.hse.ezh.exceptions/LexerException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-lexer-exception/index.html
+$dokka.location:ru.hse.ezh.exceptions/UnterminatedQuotesException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-unterminated-quotes-exception/index.html
+$dokka.location:ru.hse.ezh.exceptions/UnterminatedQuotesException/UnterminatedQuotesException/#kotlin.Int/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-unterminated-quotes-exception/-unterminated-quotes-exception.html
 $dokka.location:ru.hse.ezh.exceptions/ViewException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-view-exception/index.html
 $dokka.location:ru.hse.ezh.exceptions/ViewException/ViewException/#kotlin.String#kotlin.Throwable?/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-view-exception/-view-exception.html
 $dokka.location:ru.hse.ezh.execution.commands.utils////PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands.utils/index.html
