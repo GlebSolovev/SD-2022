@@ -14,7 +14,7 @@ import kotlin.test.assertEquals
 
 class ExternalCommandTest {
 
-    private val testDir = File("ezh-test-temp-directory-cat")
+    private val testDir = File("ezh-test-temp-directory-external")
     private val file = testDir.resolve("file")
 
     @BeforeTest
@@ -25,7 +25,6 @@ class ExternalCommandTest {
     @AfterTest
     fun deleteTestFile() {
         testDir.delete()
-        file.delete()
     }
 
     private fun testExternalCommandHelper(
@@ -63,6 +62,8 @@ class ExternalCommandTest {
         } catch (_: IOException) {
             assertThrows<CommandStartupException> { externalCommand.execute(input, out, err, env) }
         }
+
+        file.delete()
     }
 
     @Test
