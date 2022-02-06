@@ -9,13 +9,17 @@ import java.io.OutputStream
 import kotlin.jvm.Throws
 
 @Throws(ExecutionIOException::class)
-fun InputStream.readAllWrapped(errorMessage: String = "internal input stream error"): String {
+fun InputStream.readAllBytesWrapped(errorMessage: String = "internal input stream error"): ByteArray {
     try {
-        return String(this.readAllBytes())
+        return this.readAllBytes()
     } catch (e: IOException) {
         throw ExecutionIOException(errorMessage)
     }
 }
+
+@Throws(ExecutionIOException::class)
+fun InputStream.readAllWrapped(errorMessage: String = "internal input stream error") =
+    String(readAllBytesWrapped(errorMessage))
 
 @Throws(ExecutionIOException::class)
 fun OutputStream.writeWrapped(str: String, errorMessage: String = "internal output stream error") {

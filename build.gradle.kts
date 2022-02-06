@@ -46,7 +46,6 @@ detekt {
     config = files("$projectDir/config/detekt.yml")
 }
 
-
 tasks.dokkaHtml.configure {
     dokkaSourceSets {
         pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
