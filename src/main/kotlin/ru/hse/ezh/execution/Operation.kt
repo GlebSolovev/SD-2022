@@ -27,7 +27,9 @@ class Assignment(private val lhs: WORD, private val rhs: WORD) : Operation() {
      *
      * @param env The environment to modify.
      */
-    fun doAssign(env: Environment): Unit = TODO("Not yet implemented")
+    fun doAssign(env: Environment) {
+        env.putVariable(lhs.str, rhs.str)
+    }
 
 }
 
@@ -56,4 +58,4 @@ abstract class Command(protected val args: List<String>) : Operation() {
  *
  * When this command is reached, the current Ezh session must be terminated with [statusCode] exit code.
  */
-class Exit(val statusCode: Int) : Operation()
+data class Exit(val statusCode: Int) : Operation()
