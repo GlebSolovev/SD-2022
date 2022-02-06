@@ -12,7 +12,7 @@ import kotlin.jvm.Throws
 fun InputStream.readAllBytesWrapped(errorMessage: String = "internal input stream error"): ByteArray {
     try {
         return this.readAllBytes()
-    } catch (e: IOException) {
+    } catch (_: IOException) {
         throw ExecutionIOException(errorMessage)
     }
 }
@@ -25,7 +25,7 @@ fun InputStream.readAllWrapped(errorMessage: String = "internal input stream err
 fun OutputStream.writeWrapped(str: String, errorMessage: String = "internal output stream error") {
     try {
         this.write(str.toByteArray())
-    } catch (e: IOException) {
+    } catch (_: IOException) {
         throw ExecutionIOException(errorMessage)
     }
 }

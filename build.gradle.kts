@@ -31,6 +31,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
+    implementation("org.buildobjects:jproc:2.8.0")
 
     testImplementation(kotlin("test"))
 

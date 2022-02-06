@@ -19,3 +19,11 @@ complexity:
     threshold: 40
   NestedBlockDepth:
     threshold: 5
+
+style:
+  ReturnCount:
+    max: 5
+  WildcardImport:
+    excludeImports:
+      - 'java.io.*'
+      - 'kotlin.test.*'

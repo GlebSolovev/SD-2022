@@ -64,4 +64,18 @@ class Environment {
         return variables[name] ?: ""
     }
 
+    /**
+     * Gets an immutable map from names to values of all variables in this environment.
+     *
+     * @return Immutable map.
+     *
+     * @throws IllegalStateException If the [exitStatus] is set to [ExitStatus.EXITING].
+     */
+    fun getAllVariables(): Map<String, String> {
+        if (exitStatus == ExitStatus.EXITING) {
+            throw IllegalStateException("getAllVariables in EXITING status is forbidden")
+        }
+        return variables
+    }
+
 }

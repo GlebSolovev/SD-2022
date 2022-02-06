@@ -1,7 +1,9 @@
 package ru.hse.ezh.execution.commands
 
+import org.buildobjects.process.ProcBuilder
+import org.buildobjects.process.StartupException
 import ru.hse.ezh.Environment
-import ru.hse.ezh.exceptions.CommandNotFoundException
+import ru.hse.ezh.exceptions.CommandStartupException
 import ru.hse.ezh.execution.Command
 
 import java.io.InputStream
@@ -33,10 +35,23 @@ class ExternalCommand(private val name: String, args: List<String>) : Command(ar
      *
      * @return External command return code.
      *
-     * @throws CommandNotFoundException If no external command named [name] was found.
+     * @throws CommandStartupException If external command named [name] failed to startup.
      */
-    @Throws(CommandNotFoundException::class)
+    @Throws(CommandStartupException::class)
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
-        TODO("Not yet implemented")
+        @Suppress("SpreadOperator")
+        val procBuilder = ProcBuilder(name, *args.toTypedArray())
+            .withVars(env.getAllVariables())
+            .withInputStream(input)
+            .withOutputStream(out)
+            .withErrorStream(err)
+            .withNoTimeout()
+            .ignoreExitStatus()
+        @Suppress("SwallowedException")
+        try {
+            return procBuilder.run().exitValue
+        } catch (e: StartupException) {
+            throw CommandStartupException("$name: could not startup process\n" + (e.cause?.message ?: "unknown reason"))
+        }
     }
 }
