@@ -1,4 +1,3 @@
-
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
 
@@ -54,4 +53,8 @@ tasks.dokkaHtml.configure {
             customStyleSheets = listOf(file("config/dokka/logo-styles.css"))
         }
     }
+}
+
+tasks.register("lint") {
+    dependsOn("detekt", "ktlintCheck")
 }

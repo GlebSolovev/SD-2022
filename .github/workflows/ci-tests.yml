@@ -17,7 +17,7 @@ jobs:
           distribution: 'adopt'
           cache: gradle
       - run: chmod +x gradlew
-      - run: ./gradlew check
+      - run: ./gradlew test
 
   Windows-based:
     runs-on: windows-latest
@@ -30,7 +30,7 @@ jobs:
           java-version: '15'
           distribution: 'adopt'
           cache: gradle
-      - run: .\gradlew.bat check
+      - run: .\gradlew.bat test
 
   MacOS-based:
     runs-on: macos-latest
@@ -44,4 +44,4 @@ jobs:
           distribution: 'adopt'
           cache: gradle
       - run: chmod +x gradlew
-      - run: ./gradlew check
+      - run: ./gradlew test
