@@ -1,7 +1,9 @@
 package ru.hse.ezh.execution
 
 import ru.hse.ezh.Environment
+import ru.hse.ezh.execution.commands.utils.convertToInput
 
+import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
 /**
@@ -26,12 +28,33 @@ object Executor {
      * If an [Exit] is encountered, the [Environment.exitStatus] in [globalEnv] is set to
      * [Environment.ExitStatus.EXITING] and the rest of [operations] are not executed.
      *
-     * @param operations The list of operations to execute.
+     * @param operations The list of operations to execute. Must be not empty.
      * @param globalEnv The global session environment.
      *
      * @return Last command exit code, output stream and error stream.
      */
-    fun execute(operations: List<Operation>, globalEnv: Environment): Triple<Int, InputStream, InputStream> =
-        TODO("Not yet implemented")
+    fun execute(operations: List<Operation>, globalEnv: Environment): Triple<Int, InputStream, InputStream> {
+        if (operations.isEmpty()) throw IllegalArgumentException("nothing to execute")
+        if (operations.size > 1) {
+            TODO("pipe")
+        }
+        val emptyInputStream = InputStream.nullInputStream()
+        when (val op = operations[0]) {
+            is Assignment -> {
+                op.doAssign(globalEnv)
+                return Triple(0, emptyInputStream, emptyInputStream)
+            }
+            is Command -> {
+                val out = ByteArrayOutputStream()
+                val err = ByteArrayOutputStream()
+                val exitCode = op.execute(emptyInputStream, out, err, globalEnv)
+                return Triple(exitCode, out.convertToInput(), err.convertToInput())
+            }
+            is Exit -> {
+                globalEnv.exitStatus = Environment.ExitStatus.EXITING
+                return Triple(op.statusCode, emptyInputStream, emptyInputStream)
+            }
+        }
+    }
 
 }
