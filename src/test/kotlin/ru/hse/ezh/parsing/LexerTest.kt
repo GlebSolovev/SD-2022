@@ -1,6 +1,7 @@
 package ru.hse.ezh.parsing
 
 import org.junit.jupiter.api.assertThrows
+import ru.hse.ezh.Environment
 import ru.hse.ezh.exceptions.UnterminatedQuotesException
 
 import kotlin.test.Test
@@ -146,4 +147,80 @@ class LexerLexTest {
 
 }
 
-class LexerTestPostprocess
+class LexerTestPostprocess {
+
+    private val emptyEnv = Environment()
+
+    @Test
+    fun testRemoveSpaces() {
+        val input = listOf(SPACE, WORD("a"), SPACE, WORD("b"), SPACE)
+        val expected = listOf(WORD("a"), WORD("b"))
+
+        assertEquals(expected, Lexer.postprocess(input, emptyEnv))
+    }
+
+    @Test
+    fun testRemoveSingleSpace() {
+        val input = listOf(SPACE)
+        val expected = listOf<Token>()
+
+        assertEquals(expected, Lexer.postprocess(input, emptyEnv))
+    }
+
+    @Test
+    fun testSimpleMerge() {
+        val input = listOf(WORD("a"), WORD("b"))
+        val expected = listOf(WORD("ab"))
+
+        assertEquals(expected, Lexer.postprocess(input, emptyEnv))
+    }
+
+    @Test
+    fun testMergeEmptyWords() {
+        val input = listOf(SPACE, WORD(""), SPACE, WORD(""), WORD(""), SPACE)
+        val expected = listOf(WORD(""), WORD(""))
+
+        assertEquals(expected, Lexer.postprocess(input, emptyEnv))
+    }
+
+    @Test
+    fun testMergeEmptyWordAtEnd() {
+        val input = listOf(WORD("a"), SPACE, WORD(""), WORD(""))
+        val expected = listOf(WORD("a"), WORD(""))
+
+        assertEquals(expected, Lexer.postprocess(input, emptyEnv))
+    }
+
+    @Test
+    fun testAssignSimple() {
+        val input = listOf(WORD("a"), ASSIGN, WORD("b"))
+        val expected = listOf(WORD("a"), ASSIGN, WORD("b"))
+
+        assertEquals(expected, Lexer.postprocess(input, emptyEnv))
+    }
+
+    @Test
+    fun testAssignMultiple() {
+        val input = listOf(ASSIGN, ASSIGN)
+        val expected = listOf(ASSIGN, ASSIGN)
+
+        assertEquals(expected, Lexer.postprocess(input, emptyEnv))
+    }
+
+    @Test
+    fun testMergeNearAssign() {
+        val input = listOf(WORD("a"), WORD("b"), ASSIGN, WORD("c"))
+        val expected = listOf(WORD("ab"), ASSIGN, WORD("c"))
+
+        assertEquals(expected, Lexer.postprocess(input, emptyEnv))
+    }
+
+    @Test
+    fun testMergeEmptyNearAssign() {
+        val input = listOf(WORD(""), WORD(""), ASSIGN, WORD(""), WORD(""))
+        val expected = listOf(WORD(""), ASSIGN, WORD(""))
+
+        assertEquals(expected, Lexer.postprocess(input, emptyEnv))
+    }
+
+}

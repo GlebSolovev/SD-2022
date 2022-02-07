@@ -150,7 +150,7 @@ object Lexer {
         tokens.forEach {
             when (it) {
                 is WORD -> {
-                    rawWord.append(it)
+                    rawWord.append(it.str)
                     merging = true
                 }
                 is SPACE -> {
