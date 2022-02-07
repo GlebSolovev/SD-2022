@@ -29,3 +29,6 @@ style:
       - 'java.util.*'
       - 'kotlin.test.*'
       - 'ru.hse.ezh.execution.commands.*'
+      - 'ru.hse.ezh.exceptions.*'
+  ForbiddenComment:
+    allowedPatterns: 'TODO'

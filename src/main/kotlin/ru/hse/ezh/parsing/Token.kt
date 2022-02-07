@@ -35,14 +35,20 @@ data class QSUBST(val varName: String) : Token()
 /**
  * Represents one of space characters or a sequence of them. Used as tokens delimiter.
  */
-object SPACE : Token()
+object SPACE : Token() {
+    override fun toString() = "SPACE"
+}
 
 /**
  * Represents an assignment symbol as an operation.
  */
-object ASSIGN : Token()
+object ASSIGN : Token() {
+    override fun toString() = "ASSIGN"
+}
 
 /**
  * Represents a pipe symbol.
  */
-object PIPE : Token()
+object PIPE : Token() {
+    override fun toString() = "PIPE"
+}
