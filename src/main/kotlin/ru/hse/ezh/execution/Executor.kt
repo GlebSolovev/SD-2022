@@ -29,17 +29,19 @@ object Executor {
      * If an [ExitCommand] is encountered, the [Environment.exitStatus] in [globalEnv] is set to
      * [Environment.ExitStatus.EXITING] and the rest of [operations] are not executed.
      *
+     * If [operations] is empty, a zero status code and empty streams are returned.
+     *
      * @param operations The list of operations to execute. Must be not empty.
      * @param globalEnv The global session environment.
      *
      * @return Last command exit code, output stream and error stream.
      */
     fun execute(operations: List<Operation>, globalEnv: Environment): Triple<Int, InputStream, InputStream> {
-        if (operations.isEmpty()) throw IllegalArgumentException("nothing to execute")
+        val emptyInputStream = InputStream.nullInputStream()
+        if (operations.isEmpty()) return Triple(0, emptyInputStream, emptyInputStream)
         if (operations.size > 1) {
             TODO("pipe, check env status")
         }
-        val emptyInputStream = InputStream.nullInputStream()
         when (val op = operations[0]) {
             is Assignment -> {
                 op.doAssign(globalEnv)

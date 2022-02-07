@@ -1,6 +1,5 @@
 package ru.hse.ezh.execution
 
-import org.junit.jupiter.api.assertThrows
 import ru.hse.ezh.Environment
 import ru.hse.ezh.execution.commands.ExitCommand
 import ru.hse.ezh.execution.commands.utils.CHARSET
@@ -42,8 +41,14 @@ class ExecutorTest {
     }
 
     @Test
-    fun testInvalidArguments() {
-        assertThrows<IllegalArgumentException> { Executor.execute(listOf(), Environment()) }
+    fun testEmptyArguments() {
+        val env = Environment()
+        val (code, out, err) = Executor.execute(listOf(), env)
+
+        assertEquals(0, code)
+        assertEquals("", out.readString())
+        assertEquals("", err.readString())
+        assertEquals(Environment.ExitStatus.RUNNING, env.exitStatus)
     }
 
     class MockCommand(val id: Int, args: List<String>) : Command(args) {
