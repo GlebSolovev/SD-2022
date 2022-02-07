@@ -77,10 +77,12 @@ $dokka.location:ru.hse.ezh.execution/Executor/execute/#kotlin.collections.List[r
 $dokka.location:ru.hse.ezh.execution/Operation///PointingToDeclaration/-ezh/ru.hse.ezh.execution/-operation/index.html
 $dokka.location:ru.hse.ezh.parsing////PointingToDeclaration/-ezh/ru.hse.ezh.parsing/index.html
 $dokka.location:ru.hse.ezh.parsing/ASSIGN///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-a-s-s-i-g-n/index.html
+$dokka.location:ru.hse.ezh.parsing/ASSIGN/toString/#/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-a-s-s-i-g-n/to-string.html
 $dokka.location:ru.hse.ezh.parsing/Lexer///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-lexer/index.html
 $dokka.location:ru.hse.ezh.parsing/Lexer/lex/#kotlin.sequences.Sequence[kotlin.Char]/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-lexer/lex.html
 $dokka.location:ru.hse.ezh.parsing/Lexer/postprocess/#kotlin.collections.List[ru.hse.ezh.parsing.Token]#ru.hse.ezh.Environment/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-lexer/postprocess.html
 $dokka.location:ru.hse.ezh.parsing/PIPE///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-p-i-p-e/index.html
+$dokka.location:ru.hse.ezh.parsing/PIPE/toString/#/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-p-i-p-e/to-string.html
 $dokka.location:ru.hse.ezh.parsing/Parser///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-parser/index.html
 $dokka.location:ru.hse.ezh.parsing/Parser/getKnownCommands/#/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-parser/get-known-commands.html
 $dokka.location:ru.hse.ezh.parsing/Parser/parse/#kotlin.collections.List[ru.hse.ezh.parsing.Token]/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-parser/parse.html
@@ -88,6 +90,7 @@ $dokka.location:ru.hse.ezh.parsing/QSUBST///PointingToDeclaration/-ezh/ru.hse.e
 $dokka.location:ru.hse.ezh.parsing/QSUBST/QSUBST/#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-q-s-u-b-s-t/-q-s-u-b-s-t.html
 $dokka.location:ru.hse.ezh.parsing/QSUBST/getVarName/#/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-q-s-u-b-s-t/get-var-name.html
 $dokka.location:ru.hse.ezh.parsing/SPACE///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-s-p-a-c-e/index.html
+$dokka.location:ru.hse.ezh.parsing/SPACE/toString/#/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-s-p-a-c-e/to-string.html
 $dokka.location:ru.hse.ezh.parsing/SUBST///PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-s-u-b-s-t/index.html
 $dokka.location:ru.hse.ezh.parsing/SUBST/SUBST/#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-s-u-b-s-t/-s-u-b-s-t.html
 $dokka.location:ru.hse.ezh.parsing/SUBST/getVarName/#/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-s-u-b-s-t/get-var-name.html
@@ -117,7 +120,7 @@ $dokka.location:ru.hse.ezh/Environment/getVariable/#kotlin.String/PointingToDecl
 $dokka.location:ru.hse.ezh/Environment/putVariable/#kotlin.String#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/put-variable.html
 $dokka.location:ru.hse.ezh/Environment/setExitStatus/#ru.hse.ezh.Environment.ExitStatus/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/set-exit-status.html
 $dokka.location:ru.hse.ezh/Ezh///PointingToDeclaration/-ezh/ru.hse.ezh/-ezh/index.html
-$dokka.location:ru.hse.ezh/Ezh/Ezh/#/PointingToDeclaration/-ezh/ru.hse.ezh/-ezh/-ezh.html
+$dokka.location:ru.hse.ezh/Ezh/Ezh/#ru.hse.ezh.views.View/PointingToDeclaration/-ezh/ru.hse.ezh/-ezh/-ezh.html
 $dokka.location:ru.hse.ezh/Ezh/main/#/PointingToDeclaration/-ezh/ru.hse.ezh/-ezh/main.html
 $dokka.location:ru.hse.ezh/EzhKt///PointingToDeclaration/-ezh/ru.hse.ezh/-ezh-kt/index.html
 $dokka.location:ru.hse.ezh/EzhKt/main/#/PointingToDeclaration/-ezh/ru.hse.ezh/-ezh-kt/main.html
