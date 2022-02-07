@@ -69,29 +69,26 @@ class LexerLexTest {
 
     @Test
     fun testMultipleQuotes() {
-        val expectedFully = listOf(WORD("abc"))
-        assertEquals(expectedFully, lex("\'a\'b\'c\'"))
+        val expected = listOf(WORD("abc"))
 
-        val expectedWeakly = listOf(WORD("abc"))
-        assertEquals(expectedWeakly, lex("\"a\"b\"c\""))
+        assertEquals(expected, lex("\'a\'b\'c\'"))
+        assertEquals(expected, lex("\"a\"b\"c\""))
     }
 
     @Test
     fun testQuotesAndSpaces() {
-        val expectedFully = listOf(SPACE, WORD("a"), SPACE, WORD("b"), SPACE)
-        assertEquals(expectedFully, lex(" \"a\" \"b\" "))
+        val expected = listOf(SPACE, WORD("a"), SPACE, WORD("b"), SPACE)
 
-        val expectedWeakly = listOf(SPACE, WORD("a"), SPACE, WORD("b"), SPACE)
-        assertEquals(expectedWeakly, lex(" \'a\' \'b\' "))
+        assertEquals(expected, lex(" \"a\" \"b\" "))
+        assertEquals(expected, lex(" \'a\' \'b\' "))
     }
 
     @Test
     fun testEmptyQuotes() {
-        val expectedFully = listOf(SPACE, WORD(""), SPACE)
-        assertEquals(expectedFully, lex(" \"\" "))
+        val expected = listOf(SPACE, WORD(""), SPACE)
 
-        val expectedWeakly = listOf(SPACE, WORD(""), SPACE)
-        assertEquals(expectedWeakly, lex(" \'\' "))
+        assertEquals(expected, lex(" \"\" "))
+        assertEquals(expected, lex(" \'\' "))
     }
 
     @Test
@@ -102,4 +99,51 @@ class LexerLexTest {
         assertThrows<UnterminatedQuotesException> { lex("\"\"\"") }
     }
 
+    @Test
+    fun testEmptyQuotesInWord() {
+        val expectedStrange = listOf(WORD(""), WORD("b"))
+
+        assertEquals(expectedStrange, lex("\"\"b"))
+        assertEquals(expectedStrange, lex("\'\'b"))
+
+        val expectedUsual = listOf(WORD("ab"))
+
+        assertEquals(expectedUsual, lex("a\"\"b"))
+        assertEquals(expectedUsual, lex("a\'\'b"))
+    }
+
+    @Test
+    fun testAssignSimple() {
+        val expected = listOf(WORD("a"), ASSIGN, WORD("b"))
+        assertEquals(expected, lex("a=b"))
+    }
+
+    @Test
+    fun testAssignWithSpaces() {
+        val expected = listOf(WORD("a"), SPACE, ASSIGN, SPACE, WORD("b"))
+        assertEquals(expected, lex("a =   b"))
+    }
+
+    @Test
+    fun testAssignMultiple() {
+        val expected = listOf(ASSIGN, ASSIGN, SPACE, ASSIGN, WORD("a"), ASSIGN)
+        assertEquals(expected, lex("== =a="))
+    }
+
+    @Test
+    fun testAssignQuoted() {
+        val expected = listOf(WORD("="))
+
+        assertEquals(expected, lex("\'=\'"))
+        assertEquals(expected, lex("\"=\""))
+    }
+
+    @Test
+    fun testAssignNearEmptyQuotes() {
+        val expectedStrange = listOf(WORD(""), ASSIGN, WORD(""))
+        assertEquals(expectedStrange, lex("\"\"=\'\'"))
+    }
+
 }
+
+class LexerTestPostprocess

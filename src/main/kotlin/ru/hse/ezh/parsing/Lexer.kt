@@ -36,6 +36,14 @@ object Lexer {
         var state = LexState.UNQUOTED_WORD
         val rawToken = StringBuilder()
         var position = 0
+
+        fun addNotEmptyWord() {
+            if (rawToken.isNotEmpty()) {
+                result.add(WORD(rawToken.toString()))
+                rawToken.clear()
+            }
+        }
+
         input.forEach {
             position++
             state = when (state) {
@@ -43,10 +51,14 @@ object Lexer {
                     when (it) {
                         '\'' -> LexState.FULLY_QUOTED_WORD
                         '\"' -> LexState.WEAKLY_QUOTED_WORD
+                        '=' -> {
+                            addNotEmptyWord()
+                            result.add(ASSIGN)
+                            state
+                        }
                         else -> {
                             if (isWhitespace(it)) {
-                                if (rawToken.isNotEmpty()) result.add(WORD(rawToken.toString()))
-                                rawToken.clear()
+                                addNotEmptyWord()
                                 result.add(SPACE)
                                 LexState.WHITESPACE
                             } else {
@@ -59,6 +71,10 @@ object Lexer {
                 LexState.WHITESPACE -> when (it) {
                     '\'' -> LexState.FULLY_QUOTED_WORD
                     '\"' -> LexState.WEAKLY_QUOTED_WORD
+                    '=' -> {
+                        result.add(ASSIGN)
+                        LexState.UNQUOTED_WORD
+                    }
                     else -> {
                         if (isWhitespace(it)) {
                             state
@@ -119,6 +135,39 @@ object Lexer {
      *
      * @return The resulting tokens. Can only contain the following tokens: [WORD], [ASSIGN], [PIPE].
      */
-    fun postprocess(tokens: List<Token>, globalEnv: Environment): List<Token> = TODO("Not yet implemented")
+    fun postprocess(tokens: List<Token>, globalEnv: Environment): List<Token> {
+        val result = mutableListOf<Token>()
+        val rawWord = StringBuilder()
+        var merging = false
+
+        fun addMerged() {
+            if (merging) {
+                result.add(WORD(rawWord.toString()))
+                rawWord.clear()
+            }
+        }
+
+        tokens.forEach {
+            when (it) {
+                is WORD -> {
+                    rawWord.append(it)
+                    merging = true
+                }
+                is SPACE -> {
+                    addMerged()
+                    merging = false
+                }
+                is ASSIGN -> {
+                    addMerged()
+                    result.add(ASSIGN)
+                    merging = false
+                }
+                else -> TODO("pipe, subst, qsubst, $globalEnv")
+            }
+        }
+        addMerged()
+
+        return result
+    }
 
 }
