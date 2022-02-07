@@ -18,6 +18,8 @@ $dokka.location:kotlin/Parser.ParseState/getName/#/PointingToDeclaration/-ezh/r
 $dokka.location:kotlin/Parser.ParseState/getOrdinal/#/PointingToDeclaration/-ezh/ru.hse.ezh.parsing/-parser/-parse-state/get-ordinal.html
 $dokka.location:kotlin/ParserException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-parser-exception/get-cause.html
 $dokka.location:kotlin/ParserException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-parser-exception/get-message.html
+$dokka.location:kotlin/SpaceNearAssignException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-space-near-assign-exception/get-cause.html
+$dokka.location:kotlin/SpaceNearAssignException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-space-near-assign-exception/get-message.html
 $dokka.location:kotlin/UnterminatedQuotesException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-unterminated-quotes-exception/get-cause.html
 $dokka.location:kotlin/UnterminatedQuotesException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-unterminated-quotes-exception/get-message.html
 $dokka.location:kotlin/ViewException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-view-exception/get-cause.html
@@ -35,6 +37,8 @@ $dokka.location:ru.hse.ezh.exceptions/LexerException///PointingToDeclaration/-e
 $dokka.location:ru.hse.ezh.exceptions/NotPipedOperationsException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-not-piped-operations-exception/index.html
 $dokka.location:ru.hse.ezh.exceptions/NotPipedOperationsException/NotPipedOperationsException/#ru.hse.ezh.parsing.Token?/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-not-piped-operations-exception/-not-piped-operations-exception.html
 $dokka.location:ru.hse.ezh.exceptions/ParserException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-parser-exception/index.html
+$dokka.location:ru.hse.ezh.exceptions/SpaceNearAssignException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-space-near-assign-exception/index.html
+$dokka.location:ru.hse.ezh.exceptions/SpaceNearAssignException/SpaceNearAssignException/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-space-near-assign-exception/-space-near-assign-exception.html
 $dokka.location:ru.hse.ezh.exceptions/UnterminatedQuotesException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-unterminated-quotes-exception/index.html
 $dokka.location:ru.hse.ezh.exceptions/UnterminatedQuotesException/UnterminatedQuotesException/#kotlin.Int/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-unterminated-quotes-exception/-unterminated-quotes-exception.html
 $dokka.location:ru.hse.ezh.exceptions/ViewException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-view-exception/index.html
