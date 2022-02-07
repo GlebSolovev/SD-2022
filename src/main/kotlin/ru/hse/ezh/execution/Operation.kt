@@ -52,10 +52,3 @@ abstract class Command(protected val args: List<String>) : Operation() {
     abstract fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int
 
 }
-
-/**
- * This class represents 'exit' command.
- *
- * When this command is reached, the current Ezh session must be terminated with [statusCode] exit code.
- */
-data class Exit(val statusCode: Int) : Operation()

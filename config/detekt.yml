@@ -27,3 +27,4 @@ style:
     excludeImports:
       - 'java.io.*'
       - 'kotlin.test.*'
+      - 'ru.hse.ezh.execution.commands.*'

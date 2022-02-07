@@ -1,6 +1,7 @@
 package ru.hse.ezh.execution
 
 import ru.hse.ezh.Environment
+import ru.hse.ezh.execution.commands.ExitCommand
 import ru.hse.ezh.execution.commands.utils.convertToInput
 
 import java.io.ByteArrayOutputStream
@@ -12,7 +13,7 @@ import java.io.InputStream
  * [Executor] is also responsible for determining a specific action depending on [Operation] type:
  * - [Assignment.doAssign] for [Assignment]
  * - [Command.execute] for [Command]
- * - exiting for [Exit]
+ * - exiting for [ExitCommand]
  */
 object Executor {
 
@@ -25,7 +26,7 @@ object Executor {
      *
      * If [operations] contains a single [Assignment], it will be performed on [globalEnv] rather than on its copy.
      *
-     * If an [Exit] is encountered, the [Environment.exitStatus] in [globalEnv] is set to
+     * If an [ExitCommand] is encountered, the [Environment.exitStatus] in [globalEnv] is set to
      * [Environment.ExitStatus.EXITING] and the rest of [operations] are not executed.
      *
      * @param operations The list of operations to execute. Must be not empty.
@@ -36,7 +37,7 @@ object Executor {
     fun execute(operations: List<Operation>, globalEnv: Environment): Triple<Int, InputStream, InputStream> {
         if (operations.isEmpty()) throw IllegalArgumentException("nothing to execute")
         if (operations.size > 1) {
-            TODO("pipe")
+            TODO("pipe, check env status")
         }
         val emptyInputStream = InputStream.nullInputStream()
         when (val op = operations[0]) {
@@ -49,10 +50,6 @@ object Executor {
                 val err = ByteArrayOutputStream()
                 val exitCode = op.execute(emptyInputStream, out, err, globalEnv)
                 return Triple(exitCode, out.convertToInput(), err.convertToInput())
-            }
-            is Exit -> {
-                globalEnv.exitStatus = Environment.ExitStatus.EXITING
-                return Triple(op.statusCode, emptyInputStream, emptyInputStream)
             }
         }
     }

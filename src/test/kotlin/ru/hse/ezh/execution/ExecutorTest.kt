@@ -2,6 +2,7 @@ package ru.hse.ezh.execution
 
 import org.junit.jupiter.api.assertThrows
 import ru.hse.ezh.Environment
+import ru.hse.ezh.execution.commands.ExitCommand
 import ru.hse.ezh.execution.commands.utils.CHARSET
 import ru.hse.ezh.parsing.WORD
 
@@ -30,7 +31,7 @@ class ExecutorTest {
 
     @Test
     fun testExit() {
-        val exit = Exit(5)
+        val exit = ExitCommand(listOf("5"))
         val env = Environment()
         val (code, out, err) = Executor.execute(listOf(exit), env)
 
