@@ -26,5 +26,6 @@ style:
   WildcardImport:
     excludeImports:
       - 'java.io.*'
+      - 'java.util.*'
       - 'kotlin.test.*'
       - 'ru.hse.ezh.execution.commands.*'

@@ -5,6 +5,7 @@ import ru.hse.ezh.parsing.WORD
 
 import java.io.InputStream
 import java.io.OutputStream
+import java.util.*
 
 /**
  * This class represents Ezh operations: assignment, calling a command, exiting.
@@ -20,7 +21,7 @@ sealed class Operation
  * @param lhs Variable name.
  * @param rhs Variable new value.
  */
-class Assignment(private val lhs: WORD, private val rhs: WORD) : Operation() {
+data class Assignment(private val lhs: WORD, private val rhs: WORD) : Operation() {
 
     /**
      * Performs assignment in [env] environment using [Environment.putVariable].
@@ -50,5 +51,19 @@ abstract class Command(protected val args: List<String>) : Operation() {
      * The return value must be command's exit code.
      */
     abstract fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int
+
+    /**
+     * Commands are equal if and only if their types and [args] are equal.
+     */
+    override fun equals(other: Any?): Boolean {
+        return if (other != null && other::class == this::class) args == (other as Command).args else false
+    }
+
+    /**
+     * Generates hash code according to [equals].
+     */
+    override fun hashCode(): Int {
+        return Objects.hash(this::class, args)
+    }
 
 }

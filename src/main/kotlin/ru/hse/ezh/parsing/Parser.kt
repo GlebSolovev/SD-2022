@@ -13,7 +13,7 @@ import ru.hse.ezh.execution.commands.*
  */
 object Parser {
 
-    enum class ParseState {
+    private enum class ParseState {
         INITIAL,
         FIRST_WORD,
         ASSIGNMENT,
@@ -21,7 +21,10 @@ object Parser {
         ARGUMENTS
     }
 
-    private val knownCommands: Map<Token, (List<String>) -> Command> = mapOf(
+    /**
+     * An immutable map from known [Operation] names to corresponding class constructors.
+     */
+    val knownCommands: Map<Token, (List<String>) -> Command> = mapOf(
         WORD("cat") to ::CatCommand,
         WORD("echo") to ::EchoCommand,
         WORD("pwd") to ::PwdCommand,
@@ -104,7 +107,7 @@ object Parser {
                         state
                     }
                     is ASSIGN -> {
-                        throw EmptyLHSException(lastToken)
+                        throw NotPipedOperationsException(lastToken)
                     }
                     else -> unsupportedToken()
                 }
