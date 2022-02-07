@@ -51,6 +51,8 @@ object Parser {
         var firstWord: WORD? = null
         val args = mutableListOf<String>()
 
+        var lastToken: Token? = null
+
         fun unsupportedToken(): Nothing = throw IllegalArgumentException("unsupported token")
 
         fun addCommand() {
@@ -58,8 +60,6 @@ object Parser {
             val command = commandSupplier(args)
             result.add(command)
         }
-
-        var lastToken: Token? = null
 
         tokens.forEach {
             state = when (state) {

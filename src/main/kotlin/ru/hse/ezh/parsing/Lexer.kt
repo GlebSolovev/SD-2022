@@ -1,6 +1,7 @@
 package ru.hse.ezh.parsing
 
 import ru.hse.ezh.Environment
+import ru.hse.ezh.exceptions.SpaceNearAssignException
 import ru.hse.ezh.exceptions.UnterminatedQuotesException
 
 import java.lang.Character.isWhitespace
@@ -139,6 +140,7 @@ object Lexer {
         val result = mutableListOf<Token>()
         val rawWord = StringBuilder()
         var merging = false
+        var lastToken: Token? = null
 
         fun addMerged() {
             if (merging) {
@@ -154,16 +156,19 @@ object Lexer {
                     merging = true
                 }
                 is SPACE -> {
+                    if (lastToken is ASSIGN) throw SpaceNearAssignException()
                     addMerged()
                     merging = false
                 }
                 is ASSIGN -> {
+                    if (lastToken is SPACE) throw SpaceNearAssignException()
                     addMerged()
                     result.add(ASSIGN)
                     merging = false
                 }
                 else -> TODO("pipe, subst, qsubst, $globalEnv")
             }
+            lastToken = it
         }
         addMerged()
 

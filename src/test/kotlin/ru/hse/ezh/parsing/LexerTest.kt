@@ -2,6 +2,7 @@ package ru.hse.ezh.parsing
 
 import org.junit.jupiter.api.assertThrows
 import ru.hse.ezh.Environment
+import ru.hse.ezh.exceptions.SpaceNearAssignException
 import ru.hse.ezh.exceptions.UnterminatedQuotesException
 
 import kotlin.test.Test
@@ -219,6 +220,23 @@ class LexerTestPostprocess {
     fun testMergeEmptyNearAssign() {
         val input = listOf(WORD(""), WORD(""), ASSIGN, WORD(""), WORD(""))
         val expected = listOf(WORD(""), ASSIGN, WORD(""))
+
+        assertEquals(expected, Lexer.postprocess(input, emptyEnv))
+    }
+
+    @Test
+    fun testSpaceNearAssign() {
+        val inputAfter = listOf(ASSIGN, SPACE)
+        assertThrows<SpaceNearAssignException> { Lexer.postprocess(inputAfter, emptyEnv) }
+
+        val inputBefore = listOf(SPACE, ASSIGN)
+        assertThrows<SpaceNearAssignException> { Lexer.postprocess(inputBefore, emptyEnv) }
+    }
+
+    @Test
+    fun testConsecutiveSpaces() {
+        val input = listOf(WORD("a"), SPACE, SPACE, SPACE, WORD("b"))
+        val expected = listOf(WORD("a"), WORD("b"))
 
         assertEquals(expected, Lexer.postprocess(input, emptyEnv))
     }
