@@ -1,10 +1,11 @@
 package ru.hse.ezh.views
 
 import ru.hse.ezh.exceptions.ViewException
+import ru.hse.ezh.execution.commands.utils.CHARSET
 
-import java.io.DataInputStream
 import java.io.IOException
 import java.io.InputStream
+import java.io.InputStreamReader
 
 import kotlin.jvm.Throws
 
@@ -16,7 +17,7 @@ class ConsoleView : View {
     private enum class ReadState { NORMAL, FULLY_QUOTED, WEAKLY_QUOTED }
 
     /**
-     * Reads [System. in] until an unquoted \n is encountered.
+     * Reads [System. in] as UTF-8 text until an unquoted \n is encountered.
      *
      * @return A single user instruction as text.
      *
@@ -25,13 +26,14 @@ class ConsoleView : View {
     @Throws(ViewException::class)
     override fun getInput(): Sequence<Char> {
         val result: MutableList<Char> = mutableListOf()
-        val input = DataInputStream(System.`in`)
+        val reader = InputStreamReader(System.`in`, CHARSET)
 
         var state = ReadState.NORMAL
         loop@ while (true) {
             try {
-                val c = input.readChar()
-                state = when (c) {
+                val c = reader.read()
+                if (c == -1) throw ViewException("eof")
+                state = when (c.toChar()) {
                     '\n' -> if (state == ReadState.NORMAL) break@loop else state
                     '\'' -> when (state) {
                         ReadState.NORMAL -> ReadState.FULLY_QUOTED
@@ -45,7 +47,7 @@ class ConsoleView : View {
                     }
                     else -> state
                 }
-                result.add(c)
+                result.add(c.toChar())
             } catch (e: IOException) {
                 throw ViewException("an IOException has occurred", e)
             }
