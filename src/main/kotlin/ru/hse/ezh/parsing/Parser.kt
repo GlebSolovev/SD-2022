@@ -22,7 +22,7 @@ object Parser {
     }
 
     /**
-     * An immutable map from known [Operation] names to corresponding class constructors.
+     * An immutable map from known [Command] names to corresponding class constructors.
      */
     val knownCommands: Map<Token, (List<String>) -> Command> = mapOf(
         WORD("cat") to ::CatCommand,
