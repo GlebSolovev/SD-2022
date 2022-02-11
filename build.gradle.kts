@@ -4,6 +4,8 @@ import org.jetbrains.dokka.base.DokkaBaseConfiguration
 plugins {
     kotlin("jvm") version "1.6.10"
 
+    application
+
     id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
     id("org.jlleitschuh.gradle.ktlint-idea") version "10.2.1"
 
@@ -45,6 +47,14 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
+}
+
+application {
+    mainClass.set("ru.hse.ezh.EzhKt")
 }
 
 detekt {
