@@ -76,10 +76,10 @@ class ExternalCommandTest {
     fun testFailedPing() = testExternalCommandHelper("ping", listOf("trash"))
 
     @Test
-    fun testCatFromInput() = testExternalCommandHelper("cat", listOf(), "text")
+    fun testCatFromInput() = testExternalCommandHelper("cat", emptyList(), "text")
 
     @Test
-    fun testPrintenv() = testExternalCommandHelper("printenv", listOf())
+    fun testPrintenv() = testExternalCommandHelper("printenv", emptyList())
 
     @Test
     fun testBashInLocalEnvironment() =
@@ -89,5 +89,5 @@ class ExternalCommandTest {
     fun testNonExistingCommand() = testExternalCommandHelper("ezh-non-existing-command", listOf("arg"))
 
     @Test
-    fun testWindowsVerCommand() = testExternalCommandHelper("ver", listOf())
+    fun testWindowsVerCommand() = testExternalCommandHelper("ver", emptyList())
 }

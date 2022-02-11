@@ -17,7 +17,7 @@ class PwdCommandTest {
 
     @Test
     fun testSimple() {
-        val pwd = PwdCommand(listOf())
+        val pwd = PwdCommand(emptyList())
         val out = ByteArrayOutputStream()
         val err = OutputStream.nullOutputStream()
 

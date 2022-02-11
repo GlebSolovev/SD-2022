@@ -43,7 +43,7 @@ class ExecutorTest {
     @Test
     fun testEmptyArguments() {
         val env = Environment()
-        val (code, out, err) = Executor.execute(listOf(), env)
+        val (code, out, err) = Executor.execute(emptyList(), env)
 
         assertEquals(0, code)
         assertEquals("", out.readString())
@@ -51,7 +51,7 @@ class ExecutorTest {
         assertEquals(Environment.ExitStatus.RUNNING, env.exitStatus)
     }
 
-    class MockCommand(val id: Int, args: List<String>) : Command(args) {
+    class MockCommand(private val id: Int, args: List<String>) : Command(args) {
         override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
             input.transferTo(out)
             out.writeString(id.toString())
@@ -63,7 +63,7 @@ class ExecutorTest {
 
     @Test
     fun testCommand() {
-        val command = MockCommand(1, listOf())
+        val command = MockCommand(1, emptyList())
         val env = Environment()
         val (code, out, err) = Executor.execute(listOf(command), env)
 

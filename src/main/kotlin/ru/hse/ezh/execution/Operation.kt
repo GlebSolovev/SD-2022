@@ -1,6 +1,9 @@
 package ru.hse.ezh.execution
 
 import ru.hse.ezh.Environment
+import ru.hse.ezh.exceptions.CommandStartupException
+import ru.hse.ezh.exceptions.ExecutionIOException
+import ru.hse.ezh.execution.commands.ExternalCommand
 import ru.hse.ezh.parsing.WORD
 
 import java.io.InputStream
@@ -49,7 +52,11 @@ abstract class Command(protected val args: List<String>) : Operation() {
      * It can have access to [env] information like variables.
      *
      * The return value must be command's exit code.
+     *
+     * @throws CommandStartupException If external command of [ExternalCommand] failed to startup.
+     * @throws ExecutionIOException If [input], [out] or [err] stream error occurred.
      */
+    @Throws(CommandStartupException::class, ExecutionIOException::class)
     abstract fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int
 
     /**

@@ -44,8 +44,13 @@ object Parser {
      * @param tokens Tokens to parse. Can only contain [WORD], [ASSIGN], [PIPE].
      *
      * @return The resulting operations.
+     *
+     * @throws EmptyLHSException If LHS of assignment is empty.
+     * @throws EmptyRHSException If RHS of assignment is empty.
+     * @throws NotPipedOperationsException If consecutive operations are not separated by [PIPE].
      */
     @Suppress("LongMethod", "ThrowsCount") // is ok for automata
+    @Throws(EmptyLHSException::class, EmptyRHSException::class, NotPipedOperationsException::class)
     fun parse(tokens: List<Token>): List<Operation> {
 
         val result = mutableListOf<Operation>()

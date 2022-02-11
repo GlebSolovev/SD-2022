@@ -28,7 +28,7 @@ object Lexer {
      *
      * @return The resulting tokens.
      *
-     * @throws UnterminatedQuotesException When an unterminated quote is encountered.
+     * @throws UnterminatedQuotesException If an unterminated quote is encountered.
      */
     @Suppress("LongMethod", "NestedBlockDepth") // is ok for automata
     @Throws(UnterminatedQuotesException::class)
@@ -135,7 +135,10 @@ object Lexer {
      * @param globalEnv Environment to take variable values from.
      *
      * @return The resulting tokens. Can only contain the following tokens: [WORD], [ASSIGN], [PIPE].
+     *
+     * @throws SpaceNearAssignException If [SPACE] near [ASSIGN] is encountered.
      */
+    @Throws(SpaceNearAssignException::class)
     fun postprocess(tokens: List<Token>, globalEnv: Environment): List<Token> {
         val result = mutableListOf<Token>()
         val rawWord = StringBuilder()

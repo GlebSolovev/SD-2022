@@ -24,7 +24,7 @@ class CatCommandTest {
 
     @Test
     fun testReadFromInput() {
-        val cat = CatCommand(listOf())
+        val cat = CatCommand(emptyList())
         val input = ByteArrayInputStream("text".toByteArray())
         val out = ByteArrayOutputStream()
         val err = OutputStream.nullOutputStream()
@@ -35,7 +35,7 @@ class CatCommandTest {
 
     @Test
     fun testReadFromStrangeInput() {
-        val cat = CatCommand(listOf())
+        val cat = CatCommand(emptyList())
         val input = ByteArrayInputStream(" \t\r\n ё\u9637\"\n".toByteArray())
         val out = ByteArrayOutputStream()
         val err = OutputStream.nullOutputStream()

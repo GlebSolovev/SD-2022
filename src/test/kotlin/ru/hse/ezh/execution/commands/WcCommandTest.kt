@@ -23,7 +23,7 @@ class WcCommandTest {
     }
 
     private fun testReadFromInputHelper(expectedOutput: String, inputString: String) {
-        val wc = WcCommand(listOf())
+        val wc = WcCommand(emptyList())
         val input = ByteArrayInputStream(inputString.toByteArray())
         val out = ByteArrayOutputStream()
         val err = OutputStream.nullOutputStream()

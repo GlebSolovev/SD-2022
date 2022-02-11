@@ -1,6 +1,8 @@
 package ru.hse.ezh.execution
 
 import ru.hse.ezh.Environment
+import ru.hse.ezh.exceptions.CommandStartupException
+import ru.hse.ezh.exceptions.ExecutionIOException
 import ru.hse.ezh.execution.commands.ExitCommand
 import ru.hse.ezh.execution.commands.utils.convertToInput
 
@@ -35,23 +37,27 @@ object Executor {
      * @param globalEnv The global session environment.
      *
      * @return Last command exit code, output stream and error stream.
+     *
+     * @throws CommandStartupException See [Command.execute].
+     * @throws ExecutionIOException See [Command.execute].
      */
+    @Throws(CommandStartupException::class, ExecutionIOException::class)
     fun execute(operations: List<Operation>, globalEnv: Environment): Triple<Int, InputStream, InputStream> {
         val emptyInputStream = InputStream.nullInputStream()
         if (operations.isEmpty()) return Triple(0, emptyInputStream, emptyInputStream)
         if (operations.size > 1) {
             TODO("pipe, check env status")
         }
-        when (val op = operations[0]) {
+        return when (val op = operations[0]) {
             is Assignment -> {
                 op.doAssign(globalEnv)
-                return Triple(0, emptyInputStream, emptyInputStream)
+                Triple(0, emptyInputStream, emptyInputStream)
             }
             is Command -> {
                 val out = ByteArrayOutputStream()
                 val err = ByteArrayOutputStream()
                 val exitCode = op.execute(emptyInputStream, out, err, globalEnv)
-                return Triple(exitCode, out.convertToInput(), err.convertToInput())
+                Triple(exitCode, out.convertToInput(), err.convertToInput())
             }
         }
     }

@@ -27,7 +27,7 @@ class EchoCommandTest {
 
     @Test
     fun testEmpty() {
-        val echo = EchoCommand(listOf())
+        val echo = EchoCommand(emptyList())
         val out = ByteArrayOutputStream()
         assertEquals(0, echo.execute(input, out, err, env))
 

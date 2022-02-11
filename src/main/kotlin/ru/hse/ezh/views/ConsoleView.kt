@@ -19,7 +19,7 @@ class ConsoleView : View {
     /**
      * Reads [System. in] as UTF-8 text until an unquoted \n is encountered.
      *
-     * @return A single user instruction as text.
+     * @return A single user instruction as finite text.
      *
      * @throws ViewException If an IOException has occurred.
      */
@@ -58,6 +58,8 @@ class ConsoleView : View {
     /**
      * Prints [out] to [System.out].
      *
+     * @param out A stream containing the results of an instruction.
+     *
      * @throws ViewException If an IOException has occurred.
      */
     @Throws(ViewException::class)
@@ -71,6 +73,8 @@ class ConsoleView : View {
 
     /**
      * Prints [err] to [System.err].
+     *
+     * @param err A stream containing the errors of an instruction.
      *
      * @throws ViewException If an IOException has occurred.
      */

@@ -11,14 +11,14 @@ import kotlin.test.assertEquals
 
 class ExitCommandTest {
 
-    val input = InputStream.nullInputStream()
-    val out = OutputStream.nullOutputStream()
+    private val input: InputStream = InputStream.nullInputStream()
+    private val out: OutputStream = OutputStream.nullOutputStream()
+    private val env = Environment()
 
     @Test
     fun testExitWithoutStatusCode() {
-        val exit = ExitCommand(listOf())
+        val exit = ExitCommand(emptyList())
         val err = ByteArrayOutputStream()
-        val env = Environment()
 
         assertEquals(Environment.ExitStatus.RUNNING, env.exitStatus)
         assertEquals(0, exit.execute(input, out, err, env))
@@ -29,7 +29,6 @@ class ExitCommandTest {
     fun testExitWithStatusCode() {
         val exit = ExitCommand(listOf("5"))
         val err = ByteArrayOutputStream()
-        val env = Environment()
 
         assertEquals(Environment.ExitStatus.RUNNING, env.exitStatus)
         assertEquals(5, exit.execute(input, out, err, env))
@@ -40,7 +39,6 @@ class ExitCommandTest {
     fun testExitWithInvalidArguments() {
         val exit = ExitCommand(listOf("5", "5"))
         val err = ByteArrayOutputStream()
-        val env = Environment()
 
         assertEquals(Environment.ExitStatus.RUNNING, env.exitStatus)
         assertEquals(1, exit.execute(input, out, err, env))
@@ -51,7 +49,6 @@ class ExitCommandTest {
     fun testExitWithNonIntegerArgument() {
         val exit = ExitCommand(listOf("five"))
         val err = ByteArrayOutputStream()
-        val env = Environment()
 
         assertEquals(Environment.ExitStatus.RUNNING, env.exitStatus)
         assertEquals(2, exit.execute(input, out, err, env))
