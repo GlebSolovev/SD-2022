@@ -10,6 +10,8 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.19.0"
 
     id("org.jetbrains.dokka") version "1.6.10"
+
+    id("com.adarshr.test-logger") version "3.1.0"
 }
 
 buildscript {
