@@ -12,6 +12,10 @@ plugins {
     id("org.jetbrains.dokka") version "1.6.10"
 
     id("com.adarshr.test-logger") version "3.1.0"
+
+    jacoco
+
+    id("org.barfuin.gradle.jacocolog") version "2.0.0"
 }
 
 buildscript {
@@ -59,4 +63,31 @@ tasks.dokkaHtml.configure {
 
 tasks.register("lint") {
     dependsOn("detekt", "ktlintCheck")
+}
+
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+
+tasks.jacocoTestReport {
+
+    dependsOn(tasks.test) // tests are required to run before generating the report
+    reports {
+        html.required.set(true)
+        xml.required.set(false)
+        csv.required.set(false)
+    }
+
+    finalizedBy("jacocoTestCoverageVerification")
+
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = "0.8".toBigDecimal()
+            }
+        }
+    }
 }
