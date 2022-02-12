@@ -57,6 +57,19 @@ application {
     mainClass.set("ru.hse.ezh.EzhKt")
 }
 
+tasks.withType<Jar> { // build proper .jar will all dependencies
+    manifest {
+        attributes["Main-Class"] = "ru.hse.ezh.EzhKt"
+    }
+
+    from(sourceSets.main.get().output)
+
+    dependsOn(configurations.runtimeClasspath)
+    from({
+        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+    })
+}
+
 detekt {
     buildUponDefaultConfig = true
     config = files("$projectDir/config/detekt.yml")
