@@ -4,6 +4,8 @@ $dokka.location:kotlin/CommandStartupException/getCause/#/PointingToDeclaration/
 $dokka.location:kotlin/CommandStartupException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-command-startup-exception/get-message.html
 $dokka.location:kotlin/EmptyLHSException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-l-h-s-exception/get-cause.html
 $dokka.location:kotlin/EmptyLHSException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-l-h-s-exception/get-message.html
+$dokka.location:kotlin/EmptyPipeException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-pipe-exception/get-cause.html
+$dokka.location:kotlin/EmptyPipeException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-pipe-exception/get-message.html
 $dokka.location:kotlin/EmptyRHSException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-r-h-s-exception/get-cause.html
 $dokka.location:kotlin/EmptyRHSException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-r-h-s-exception/get-message.html
 $dokka.location:kotlin/EmptySubstitutionException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-substitution-exception/get-cause.html
@@ -29,6 +31,8 @@ $dokka.location:ru.hse.ezh.exceptions/CommandStartupException///PointingToDeclar
 $dokka.location:ru.hse.ezh.exceptions/CommandStartupException/CommandStartupException/#kotlin.String/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-command-startup-exception/-command-startup-exception.html
 $dokka.location:ru.hse.ezh.exceptions/EmptyLHSException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-l-h-s-exception/index.html
 $dokka.location:ru.hse.ezh.exceptions/EmptyLHSException/EmptyLHSException/#ru.hse.ezh.parsing.Token?/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-l-h-s-exception/-empty-l-h-s-exception.html
+$dokka.location:ru.hse.ezh.exceptions/EmptyPipeException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-pipe-exception/index.html
+$dokka.location:ru.hse.ezh.exceptions/EmptyPipeException/EmptyPipeException/#ru.hse.ezh.parsing.Token?/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-pipe-exception/-empty-pipe-exception.html
 $dokka.location:ru.hse.ezh.exceptions/EmptyRHSException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-r-h-s-exception/index.html
 $dokka.location:ru.hse.ezh.exceptions/EmptyRHSException/EmptyRHSException/#ru.hse.ezh.parsing.Token?/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-r-h-s-exception/-empty-r-h-s-exception.html
 $dokka.location:ru.hse.ezh.exceptions/EmptySubstitutionException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-substitution-exception/index.html
