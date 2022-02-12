@@ -6,6 +6,8 @@ $dokka.location:kotlin/EmptyLHSException/getCause/#/PointingToDeclaration/-ezh/
 $dokka.location:kotlin/EmptyLHSException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-l-h-s-exception/get-message.html
 $dokka.location:kotlin/EmptyRHSException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-r-h-s-exception/get-cause.html
 $dokka.location:kotlin/EmptyRHSException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-r-h-s-exception/get-message.html
+$dokka.location:kotlin/EmptySubstitutionException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-substitution-exception/get-cause.html
+$dokka.location:kotlin/EmptySubstitutionException/getMessage/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-substitution-exception/get-message.html
 $dokka.location:kotlin/Environment.ExitStatus/getName/#/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/-exit-status/get-name.html
 $dokka.location:kotlin/Environment.ExitStatus/getOrdinal/#/PointingToDeclaration/-ezh/ru.hse.ezh/-environment/-exit-status/get-ordinal.html
 $dokka.location:kotlin/ExecutionIOException/getCause/#/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-execution-i-o-exception/get-cause.html
@@ -29,6 +31,8 @@ $dokka.location:ru.hse.ezh.exceptions/EmptyLHSException///PointingToDeclaration/
 $dokka.location:ru.hse.ezh.exceptions/EmptyLHSException/EmptyLHSException/#ru.hse.ezh.parsing.Token?/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-l-h-s-exception/-empty-l-h-s-exception.html
 $dokka.location:ru.hse.ezh.exceptions/EmptyRHSException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-r-h-s-exception/index.html
 $dokka.location:ru.hse.ezh.exceptions/EmptyRHSException/EmptyRHSException/#ru.hse.ezh.parsing.Token?/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-r-h-s-exception/-empty-r-h-s-exception.html
+$dokka.location:ru.hse.ezh.exceptions/EmptySubstitutionException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-substitution-exception/index.html
+$dokka.location:ru.hse.ezh.exceptions/EmptySubstitutionException/EmptySubstitutionException/#kotlin.Int/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-empty-substitution-exception/-empty-substitution-exception.html
 $dokka.location:ru.hse.ezh.exceptions/ExecutionIOException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-execution-i-o-exception/index.html
 $dokka.location:ru.hse.ezh.exceptions/ExecutionIOException/ExecutionIOException/#kotlin.String#kotlin.Throwable?/PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-execution-i-o-exception/-execution-i-o-exception.html
 $dokka.location:ru.hse.ezh.exceptions/LexerException///PointingToDeclaration/-ezh/ru.hse.ezh.exceptions/-lexer-exception/index.html
