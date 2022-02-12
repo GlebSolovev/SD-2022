@@ -134,21 +134,20 @@ class EzhTest {
         assertEquals("", view.getOut())
     }
 
-// TODO: ProcessBuilder does not pass the environment for mysterious reasons
-//    @Test
-//    fun testExternalWithEnvironment() {
-//        val view = MockView(listOf("x=9", "y=7 | bash -c 'echo \$x 6 3 \$y'", "exit"))
-//
-//        assertEquals(0, Ezh(view).main())
-//        if (view.getErr().startsWith("bash: could not startup process")) {
-//            // no bash
-//            assertEquals("", view.getOut())
-//        } else {
-//            // yes bash
-//            assertEquals("", view.getErr())
-//            assertEquals("9 6 3 7\n", view.getOut())
-//        }
-//    }
+    @Test
+    fun testExternalWithEnvironment() {
+        val view = MockView(listOf("x=9", "y=7 | bash -c 'echo \$x 6 3 \$y'", "exit"))
+
+        assertEquals(0, Ezh(view).main())
+        if (view.getErr().startsWith("bash: could not startup process")) {
+            // no bash
+            assertEquals("", view.getOut())
+        } else {
+            // yes bash
+            assertEquals("", view.getErr())
+            assertEquals("9 6 3 7\n", view.getOut())
+        }
+    }
 
     @Test
     fun testLexerFails() = ezhSuccessfulSessionHelper(
