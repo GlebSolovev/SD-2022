@@ -2,6 +2,7 @@ package ru.hse.ezh.parsing
 
 import org.junit.jupiter.api.assertThrows
 import ru.hse.ezh.Environment
+import ru.hse.ezh.exceptions.EmptySubstitutionException
 import ru.hse.ezh.exceptions.SpaceNearAssignException
 import ru.hse.ezh.exceptions.UnterminatedQuotesException
 
@@ -144,6 +145,128 @@ class LexerLexTest {
     fun testAssignNearEmptyQuotes() {
         val expectedStrange = listOf(WORD(""), ASSIGN, WORD(""))
         assertEquals(expectedStrange, lex("\"\"=\'\'"))
+    }
+
+    @Test
+    fun testUnquotedOneSidedPipe() {
+        val expected = listOf(WORD("pwd"), PIPE)
+        assertEquals(expected, lex("pwd|"))
+    }
+
+    @Test
+    fun testUnquotedTwoSidedPipe() {
+        val expected = listOf(WORD("pwd"), PIPE, WORD("wc"))
+        assertEquals(expected, lex("pwd|wc"))
+    }
+
+    @Test
+    fun testUnquotedPipeWithSpaces() {
+        val expected = listOf(WORD("pwd"), SPACE, PIPE, SPACE, WORD("cat"))
+        assertEquals(expected, lex("pwd  | cat"))
+    }
+
+    @Test
+    fun testSingleSubst() {
+        val expected = listOf(SUBST("var"))
+        assertEquals(expected, lex("\$var"))
+    }
+
+    @Test
+    fun testSubstBetweenWordsWithSpaces() {
+        val expected = listOf(WORD("ex"), SPACE, SUBST("var"), SPACE, WORD("t"))
+        assertEquals(expected, lex("ex \$var t"))
+    }
+
+    @Test
+    fun testConsecutiveSubsts() {
+        val expected = listOf(SUBST("x"), SUBST("y"))
+        assertEquals(expected, lex("\$x\$y"))
+    }
+
+    @Test
+    fun testSubstBeforeQuotes() {
+        val expectedFully = listOf(SUBST("x"), WORD("word"))
+        assertEquals(expectedFully, lex("\$x\'word\'"))
+
+        val expectedWeakly = listOf(SUBST("x"), WORD("word"))
+        assertEquals(expectedWeakly, lex("\$x\"word\""))
+    }
+
+    @Test
+    fun testSubstWithAssign() {
+        val expected = listOf(SUBST("x"), ASSIGN, SUBST("y"))
+        assertEquals(expected, lex("\$x=\$y"))
+    }
+
+    @Test
+    fun testSubstWithPipe() {
+        val expected = listOf(SUBST("x"), PIPE, SUBST("y"))
+        assertEquals(expected, lex("\$x|\$y"))
+    }
+
+    @Test
+    fun testEmptySubst() {
+        assertThrows<EmptySubstitutionException> { lex("\$\$") }
+        assertThrows<EmptySubstitutionException> { lex("\$ ") }
+        assertThrows<EmptySubstitutionException> { lex("\$=") }
+        assertThrows<EmptySubstitutionException> { lex("\$|") }
+        assertThrows<EmptySubstitutionException> { lex("\$\'") }
+        assertThrows<EmptySubstitutionException> { lex("\$\"") }
+    }
+
+    @Test
+    fun testFullyQuotedSubst() {
+        val expected = listOf(WORD("\$x"))
+        assertEquals(expected, lex("\'\$x\'"))
+    }
+
+    @Test
+    fun testQuotedPipe() {
+        val expectedFully = listOf(WORD("|"))
+        assertEquals(expectedFully, lex("\'|\'"))
+
+        val expectedWeakly = listOf(WORD("|"))
+        assertEquals(expectedWeakly, lex("\"|\""))
+    }
+
+    @Test
+    fun testSingleQSubst() {
+        val expected = listOf(QSUBST("x"))
+        assertEquals(expected, lex("\"\$x\""))
+    }
+
+    @Test
+    fun testQSubstWithWords() {
+        val expected = listOf(WORD("word"), QSUBST("x"), WORD("  word"))
+        assertEquals(expected, lex("\"word\$x  word\""))
+    }
+
+    @Test
+    fun testQSubstBetweenUnquotedWord() {
+        val expected = listOf(WORD("word"), QSUBST("x"), WORD("word"))
+        assertEquals(expected, lex("word\"\$x\"word"))
+    }
+
+    @Test
+    fun testMultipleQSubsts() {
+        val expected = listOf(QSUBST("x"), QSUBST("y"))
+        assertEquals(expected, lex("\"\$x\$y\""))
+    }
+
+    @Test
+    fun testQSubstsWithSpecialCharacters() {
+        val expected = listOf(QSUBST("x"), WORD("|"), QSUBST("y"), WORD("="), QSUBST("z"), WORD("\'"))
+        assertEquals(expected, lex("\"\$x|\$y=\$z\'\""))
+    }
+
+    @Test
+    fun testUnterminatedQuotesAfterQSubst() {
+        assertThrows<UnterminatedQuotesException> { lex("\"\$x") }
+    }
+
+    @Test
+    fun testEmptyQSubst() {
+        assertThrows<EmptySubstitutionException> { lex("\"\$\"") }
     }
 
 }

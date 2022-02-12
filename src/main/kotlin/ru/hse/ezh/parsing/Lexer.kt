@@ -1,6 +1,7 @@
 package ru.hse.ezh.parsing
 
 import ru.hse.ezh.Environment
+import ru.hse.ezh.exceptions.EmptySubstitutionException
 import ru.hse.ezh.exceptions.SpaceNearAssignException
 import ru.hse.ezh.exceptions.UnterminatedQuotesException
 
@@ -18,6 +19,8 @@ object Lexer {
         WHITESPACE,
         FULLY_QUOTED_WORD,
         WEAKLY_QUOTED_WORD,
+        SUBSTITUTION,
+        WEAKLY_QUOTED_SUBSTITUTION
     }
 
     /**
@@ -29,9 +32,10 @@ object Lexer {
      * @return The resulting tokens.
      *
      * @throws UnterminatedQuotesException If an unterminated quote is encountered.
+     * @throws EmptySubstitutionException If an empty variable name in a substitution is encountered.
      */
-    @Suppress("LongMethod", "NestedBlockDepth") // is ok for automata
-    @Throws(UnterminatedQuotesException::class)
+    @Suppress("LongMethod", "NestedBlockDepth", "ComplexMethod") // is ok for automata
+    @Throws(UnterminatedQuotesException::class, EmptySubstitutionException::class)
     fun lex(input: Sequence<Char>): List<Token> {
         val result = mutableListOf<Token>()
         var state = LexState.UNQUOTED_WORD
@@ -45,6 +49,16 @@ object Lexer {
             }
         }
 
+        fun addNotEmptySubstitutionOrThrow(isQuoted: Boolean) {
+            if (rawToken.isEmpty()) throw EmptySubstitutionException(position)
+            result.add((if (isQuoted) ::QSUBST else ::SUBST)(rawToken.toString()))
+            rawToken.clear()
+        }
+
+        fun addNotEmptySubstOrThrow() = addNotEmptySubstitutionOrThrow(false)
+
+        fun addNotEmptyQSubstOrThrow() = addNotEmptySubstitutionOrThrow(true)
+
         input.forEach {
             position++
             state = when (state) {
@@ -56,6 +70,15 @@ object Lexer {
                             addNotEmptyWord()
                             result.add(ASSIGN)
                             state
+                        }
+                        '|' -> {
+                            addNotEmptyWord()
+                            result.add(PIPE)
+                            state
+                        }
+                        '$' -> {
+                            addNotEmptyWord()
+                            LexState.SUBSTITUTION
                         }
                         else -> {
                             if (isWhitespace(it)) {
@@ -76,6 +99,11 @@ object Lexer {
                         result.add(ASSIGN)
                         LexState.UNQUOTED_WORD
                     }
+                    '|' -> {
+                        result.add(PIPE)
+                        LexState.UNQUOTED_WORD
+                    }
+                    '$' -> LexState.SUBSTITUTION
                     else -> {
                         if (isWhitespace(it)) {
                             state
@@ -100,23 +128,90 @@ object Lexer {
                         if (rawToken.isEmpty()) result.add(WORD(""))
                         LexState.UNQUOTED_WORD
                     }
+                    '$' -> {
+                        addNotEmptyWord()
+                        LexState.WEAKLY_QUOTED_SUBSTITUTION
+                    }
                     else -> {
                         rawToken.append(it)
                         state
+                    }
+                }
+                LexState.SUBSTITUTION -> when (it) {
+                    '\'' -> {
+                        addNotEmptySubstOrThrow()
+                        LexState.FULLY_QUOTED_WORD
+                    }
+                    '\"' -> {
+                        addNotEmptySubstOrThrow()
+                        LexState.WEAKLY_QUOTED_WORD
+                    }
+                    '=' -> {
+                        addNotEmptySubstOrThrow()
+                        result.add(ASSIGN)
+                        LexState.UNQUOTED_WORD
+                    }
+                    '|' -> {
+                        addNotEmptySubstOrThrow()
+                        result.add(PIPE)
+                        LexState.UNQUOTED_WORD
+                    }
+                    '$' -> {
+                        addNotEmptySubstOrThrow()
+                        state
+                    }
+                    else -> {
+                        if (isWhitespace(it)) {
+                            addNotEmptySubstOrThrow()
+                            result.add(SPACE)
+                            LexState.WHITESPACE
+                        } else {
+                            rawToken.append(it)
+                            state
+                        }
+                    }
+                }
+                LexState.WEAKLY_QUOTED_SUBSTITUTION -> when (it) {
+                    '\'', '=', '|' -> {
+                        addNotEmptyQSubstOrThrow()
+                        rawToken.append(it)
+                        LexState.WEAKLY_QUOTED_WORD
+                    }
+                    '\"' -> {
+                        addNotEmptyQSubstOrThrow()
+                        LexState.UNQUOTED_WORD
+                    }
+                    '$' -> {
+                        addNotEmptyQSubstOrThrow()
+                        state
+                    }
+                    else -> {
+                        if (isWhitespace(it)) {
+                            addNotEmptyQSubstOrThrow()
+                            rawToken.append(it)
+                            LexState.WEAKLY_QUOTED_WORD
+                        } else {
+                            rawToken.append(it)
+                            state
+                        }
                     }
                 }
             }
         }
         return when (state) {
             LexState.UNQUOTED_WORD -> {
-                if (rawToken.isNotEmpty()) result.add(WORD(rawToken.toString()))
+                addNotEmptyWord()
                 result
             }
             LexState.WHITESPACE -> {
                 result
             }
-            LexState.FULLY_QUOTED_WORD, LexState.WEAKLY_QUOTED_WORD -> {
+            LexState.FULLY_QUOTED_WORD, LexState.WEAKLY_QUOTED_WORD, LexState.WEAKLY_QUOTED_SUBSTITUTION -> {
                 throw UnterminatedQuotesException(position)
+            }
+            LexState.SUBSTITUTION -> {
+                addNotEmptySubstOrThrow()
+                result
             }
         }
     }

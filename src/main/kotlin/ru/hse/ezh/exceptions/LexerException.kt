@@ -27,6 +27,14 @@ sealed class LexerException(message: String, position: Int?) :
 class UnterminatedQuotesException(position: Int) : LexerException("unterminated quotes", position)
 
 /**
+ * This exception is thrown when an empty variable name in a substitution is encountered.
+ *
+ * Generated [LexerException] message contains predefined exception description.
+ */
+class EmptySubstitutionException(position: Int) :
+    LexerException("empty substitution is forbidden: no variable name", position)
+
+/**
  * This exception is thrown when [SPACE] near [ASSIGN] is encountered.
  *
  * Generated [LexerException] message contains predefined exception description, but the error position is unknown.
