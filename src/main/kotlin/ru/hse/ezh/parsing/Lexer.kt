@@ -199,20 +199,11 @@ object Lexer {
             }
         }
         return when (state) {
-            LexState.UNQUOTED_WORD -> {
-                addNotEmptyWord()
-                result
-            }
-            LexState.WHITESPACE -> {
-                result
-            }
-            LexState.FULLY_QUOTED_WORD, LexState.WEAKLY_QUOTED_WORD, LexState.WEAKLY_QUOTED_SUBSTITUTION -> {
+            LexState.UNQUOTED_WORD -> result.also { addNotEmptyWord() }
+            LexState.WHITESPACE -> result
+            LexState.FULLY_QUOTED_WORD, LexState.WEAKLY_QUOTED_WORD, LexState.WEAKLY_QUOTED_SUBSTITUTION ->
                 throw UnterminatedQuotesException(position)
-            }
-            LexState.SUBSTITUTION -> {
-                addNotEmptySubstOrThrow()
-                result
-            }
+            LexState.SUBSTITUTION -> result.also { addNotEmptySubstOrThrow() }
         }
     }
 

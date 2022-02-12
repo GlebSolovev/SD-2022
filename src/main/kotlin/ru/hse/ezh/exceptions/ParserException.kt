@@ -45,3 +45,13 @@ class EmptyRHSException(lastToken: Token?) : ParserException("empty RHS of assig
  * @param lastToken See [ParserException] constructor.
  */
 class NotPipedOperationsException(lastToken: Token?) : ParserException("sequential operations without pipe", lastToken)
+
+/**
+ * This exception is thrown when [PIPE] doesn't have an operation on one side.
+ *
+ * Generated [ParserException] message contains predefined exception description.
+ *
+ * @constructor
+ * @param lastToken See [ParserException] constructor.
+ */
+class EmptyPipeException(lastToken: Token?) : ParserException("pipe must be between two operations", lastToken)

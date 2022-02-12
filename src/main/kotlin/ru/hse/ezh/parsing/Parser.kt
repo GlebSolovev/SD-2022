@@ -1,6 +1,7 @@
 package ru.hse.ezh.parsing
 
 import ru.hse.ezh.exceptions.EmptyLHSException
+import ru.hse.ezh.exceptions.EmptyPipeException
 import ru.hse.ezh.exceptions.EmptyRHSException
 import ru.hse.ezh.exceptions.NotPipedOperationsException
 import ru.hse.ezh.execution.Assignment
@@ -18,7 +19,8 @@ object Parser {
         FIRST_WORD,
         ASSIGNMENT,
         RHS,
-        ARGUMENTS
+        ARGUMENTS,
+        PIPE_STARTED
     }
 
     /**
@@ -48,9 +50,15 @@ object Parser {
      * @throws EmptyLHSException If LHS of assignment is empty.
      * @throws EmptyRHSException If RHS of assignment is empty.
      * @throws NotPipedOperationsException If consecutive operations are not separated by [PIPE].
+     * @throws EmptyPipeException If [PIPE] doesn't have an operation on one side.
      */
-    @Suppress("LongMethod", "ThrowsCount") // is ok for automata
-    @Throws(EmptyLHSException::class, EmptyRHSException::class, NotPipedOperationsException::class)
+    @Suppress("ComplexMethod", "ThrowsCount") // is ok for automata
+    @Throws(
+        EmptyLHSException::class,
+        EmptyRHSException::class,
+        NotPipedOperationsException::class,
+        EmptyPipeException::class
+    )
     fun parse(tokens: List<Token>): List<Operation> {
 
         val result = mutableListOf<Operation>()
@@ -61,79 +69,59 @@ object Parser {
 
         var lastToken: Token? = null
 
-        fun unsupportedToken(): Nothing = throw IllegalArgumentException("unsupported token")
-
         fun addCommand() {
             val commandSupplier = knownCommands[firstWord!!] ?: { args -> ExternalCommand(firstWord!!.str, args) }
-            val command = commandSupplier(args)
+            val command = commandSupplier(args.toList())
             result.add(command)
+            args.clear()
         }
 
-        tokens.forEach {
+        tokens.forEach { token ->
             state = when (state) {
-                ParseState.INITIAL -> when (it) {
-                    is WORD -> {
-                        firstWord = it
-                        ParseState.FIRST_WORD
-                    }
-                    is ASSIGN -> {
-                        throw EmptyLHSException(lastToken)
-                    }
-                    else -> unsupportedToken()
+                ParseState.INITIAL -> when (token) {
+                    is WORD -> ParseState.FIRST_WORD.also { firstWord = token }
+                    is ASSIGN -> throw EmptyLHSException(null)
+                    is PIPE -> throw EmptyPipeException(null)
+                    else -> throw IllegalArgumentException("unsupported token")
                 }
-                ParseState.FIRST_WORD -> when (it) {
-                    is WORD -> {
-                        args.add(it.str)
-                        ParseState.ARGUMENTS
-                    }
-                    is ASSIGN -> {
-                        ParseState.ASSIGNMENT
-                    }
-                    else -> unsupportedToken()
+                ParseState.FIRST_WORD -> when (token) {
+                    is WORD -> ParseState.ARGUMENTS.also { args.add(token.str) }
+                    is ASSIGN -> ParseState.ASSIGNMENT
+                    is PIPE -> ParseState.PIPE_STARTED.also { addCommand() }
+                    else -> throw IllegalArgumentException("unsupported token")
                 }
-                ParseState.ASSIGNMENT -> when (it) {
-                    is WORD -> {
-                        result.add(Assignment(firstWord!!, it))
-                        ParseState.RHS
-                    }
-                    is ASSIGN -> {
-                        throw EmptyRHSException(lastToken)
-                    }
-                    else -> unsupportedToken()
+                ParseState.ASSIGNMENT -> when (token) {
+                    is WORD -> ParseState.RHS.also { result.add(Assignment(firstWord!!, token)) }
+                    is ASSIGN, PIPE -> throw EmptyRHSException(lastToken)
+                    else -> throw IllegalArgumentException("unsupported token")
                 }
-                ParseState.RHS -> when (it) {
+                ParseState.RHS -> when (token) {
                     is WORD -> throw NotPipedOperationsException(lastToken)
                     is ASSIGN -> throw EmptyLHSException(lastToken)
-                    else -> unsupportedToken()
+                    is PIPE -> ParseState.PIPE_STARTED
+                    else -> throw IllegalArgumentException("unsupported token")
                 }
-                ParseState.ARGUMENTS -> when (it) {
-                    is WORD -> {
-                        args.add(it.str)
-                        state
-                    }
-                    is ASSIGN -> {
-                        throw NotPipedOperationsException(lastToken)
-                    }
-                    else -> unsupportedToken()
+                ParseState.ARGUMENTS -> when (token) {
+                    is WORD -> state.also { args.add(token.str) }
+                    is ASSIGN -> throw NotPipedOperationsException(lastToken)
+                    is PIPE -> ParseState.PIPE_STARTED.also { addCommand() }
+                    else -> throw IllegalArgumentException("unsupported token")
+                }
+                ParseState.PIPE_STARTED -> when (token) {
+                    is WORD -> ParseState.FIRST_WORD.also { firstWord = token }
+                    is ASSIGN -> throw EmptyLHSException(lastToken)
+                    is PIPE -> throw EmptyPipeException(lastToken)
+                    else -> throw IllegalArgumentException("unsupported token")
                 }
             }
-            lastToken = it
+            lastToken = token
         }
 
         return when (state) {
-            ParseState.INITIAL -> {
-                result
-            }
-            ParseState.FIRST_WORD, ParseState.ARGUMENTS -> {
-                addCommand()
-                result
-            }
-            ParseState.ASSIGNMENT -> {
-                throw EmptyRHSException(lastToken)
-            }
-            ParseState.RHS -> {
-                result
-            }
+            ParseState.INITIAL, ParseState.RHS -> result
+            ParseState.FIRST_WORD, ParseState.ARGUMENTS -> result.also { addCommand() }
+            ParseState.ASSIGNMENT -> throw EmptyRHSException(lastToken)
+            ParseState.PIPE_STARTED -> throw EmptyPipeException(lastToken)
         }
     }
 
