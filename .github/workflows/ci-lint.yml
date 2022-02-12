@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - hw2-ezh-impl
+      - hw3-ezh-subst-pipe-impl
 jobs:
 
   Ubuntu-based:
