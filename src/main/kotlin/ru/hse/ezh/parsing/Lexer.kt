@@ -233,8 +233,64 @@ object Lexer {
      *
      * @throws SpaceNearAssignException If [SPACE] near [ASSIGN] is encountered.
      */
+    @Suppress("ThrowsCount") // is ok for internal automata
     @Throws(SpaceNearAssignException::class)
     fun postprocess(tokens: List<Token>, globalEnv: Environment): List<Token> {
+
+        fun splitSubstValue(value: String): List<Token> {
+            if (value.isEmpty()) return listOf(WORD(""))
+
+            val result = mutableListOf<Token>()
+            val rawToken = StringBuilder()
+            var state = LexState.UNQUOTED_WORD
+
+            fun addNotEmptyWord() {
+                if (rawToken.isNotEmpty()) {
+                    result.add(WORD(rawToken.toString()))
+                    rawToken.clear()
+                }
+            }
+
+            value.forEach {
+                state = when (state) {
+                    LexState.UNQUOTED_WORD -> if (it.isWhitespace()) {
+                        addNotEmptyWord()
+                        result.add(SPACE)
+                        LexState.WHITESPACE
+                    } else {
+                        rawToken.append(it)
+                        state
+                    }
+                    LexState.WHITESPACE -> if (it.isWhitespace()) {
+                        state
+                    } else {
+                        rawToken.append(it)
+                        LexState.UNQUOTED_WORD
+                    }
+                    else -> throw IllegalStateException("unreachable state")
+                }
+            }
+            return when (state) {
+                LexState.UNQUOTED_WORD -> {
+                    addNotEmptyWord()
+                    result
+                }
+                LexState.WHITESPACE -> {
+                    result
+                }
+                else -> throw IllegalStateException("unreachable state")
+            }
+        }
+
+        val substitutedTokens = mutableListOf<Token>()
+        tokens.forEach {
+            when (it) {
+                is QSUBST -> substitutedTokens.add(WORD(globalEnv.getVariable(it.varName)))
+                is SUBST -> substitutedTokens.addAll(splitSubstValue(globalEnv.getVariable(it.varName)))
+                else -> substitutedTokens.add(it)
+            }
+        }
+
         val result = mutableListOf<Token>()
         val rawWord = StringBuilder()
         var merging = false
@@ -247,7 +303,7 @@ object Lexer {
             }
         }
 
-        tokens.forEach {
+        substitutedTokens.forEach {
             when (it) {
                 is WORD -> {
                     rawWord.append(it.str)
@@ -264,7 +320,12 @@ object Lexer {
                     result.add(ASSIGN)
                     merging = false
                 }
-                else -> TODO("pipe, subst, qsubst, $globalEnv")
+                is PIPE -> {
+                    addMerged()
+                    result.add(PIPE)
+                    merging = false
+                }
+                is SUBST, is QSUBST -> throw IllegalStateException("subst tokens are unreachable here")
             }
             lastToken = it
         }

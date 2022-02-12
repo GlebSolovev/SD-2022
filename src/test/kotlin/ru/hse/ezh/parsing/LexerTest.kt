@@ -364,4 +364,128 @@ class LexerTestPostprocess {
         assertEquals(expected, Lexer.postprocess(input, emptyEnv))
     }
 
+    @Test
+    fun testReplaceQSubst() {
+        val env = Environment()
+        env.putVariable("x", "value of x")
+
+        val input = listOf(QSUBST("x"))
+        val expected = listOf(WORD("value of x"))
+
+        assertEquals(expected, Lexer.postprocess(input, env))
+    }
+
+    @Test
+    fun testReplaceSubst() {
+        val env = Environment()
+        env.putVariable("x", "value of x")
+
+        val input = listOf(SUBST("x"))
+        val expected = listOf(WORD("value"), WORD("of"), WORD("x"))
+
+        assertEquals(expected, Lexer.postprocess(input, env))
+    }
+
+    @Test
+    fun testEmptyReplace() {
+        val env = Environment()
+        env.putVariable("x", "")
+
+        val input = listOf(SUBST("x"), SPACE, QSUBST("x"))
+        val expected = listOf(WORD(""), WORD(""))
+
+        assertEquals(expected, Lexer.postprocess(input, env))
+    }
+
+    @Test
+    fun testReplaceBySpaces() {
+        val env = Environment()
+        env.putVariable("x", "   ")
+
+        val input = listOf(SUBST("x"), QSUBST("x"))
+        val expected = listOf(WORD("   "))
+
+        assertEquals(expected, Lexer.postprocess(input, env))
+    }
+
+    @Test
+    fun testReplaceBySpacesAtEnds() {
+        val env = Environment()
+        env.putVariable("x", "  value  ")
+
+        val input = listOf(SUBST("x"), QSUBST("x"))
+        val expected = listOf(WORD("value"), WORD("  value  "))
+
+        assertEquals(expected, Lexer.postprocess(input, env))
+    }
+
+    @Test
+    fun testReplaceBySpaceCharacters() {
+        val env = Environment()
+        env.putVariable("x", "\tvalue\r\nof\t\t\nx\r")
+
+        val input = listOf(SUBST("x"), QSUBST("x"))
+        val expected = listOf(WORD("value"), WORD("of"), WORD("x"), WORD("\tvalue\r\nof\t\t\nx\r"))
+
+        assertEquals(expected, Lexer.postprocess(input, env))
+    }
+
+    @Test
+    fun testReplaceBySpecialCharacters() {
+        val env = Environment()
+        env.putVariable("x", "value=|\$x\'\$x\'\"\$x\"")
+
+        val input = listOf(SUBST("x"), SPACE, QSUBST("x"))
+        val expected = listOf(WORD("value=|\$x\'\$x\'\"\$x\""), WORD("value=|\$x\'\$x\'\"\$x\""))
+
+        assertEquals(expected, Lexer.postprocess(input, env))
+    }
+
+    @Test
+    fun testStrangeReplace() {
+        val env = Environment()
+        env.putVariable("x", "\t\r\nё\n|\u9637= \'\'")
+
+        val input = listOf(SUBST("x"), SPACE, QSUBST("x"))
+        val expected = listOf(WORD("ё"), WORD("|\u9637="), WORD("\'\'"), WORD("\t\r\nё\n|\u9637= \'\'"))
+
+        assertEquals(expected, Lexer.postprocess(input, env))
+    }
+
+    @Test
+    fun testReplaceUnknownVariable() {
+        val input = listOf(SUBST("x"), SPACE, QSUBST("x"))
+        val expected = listOf(WORD(""), WORD(""))
+
+        assertEquals(expected, Lexer.postprocess(input, emptyEnv))
+    }
+
+    @Test
+    fun testMergeReplaced() {
+        val env = Environment()
+        env.putVariable("x", "ex")
+        env.putVariable("y", "it")
+        env.putVariable("z", " 5")
+
+        val input = listOf(SUBST("x"), QSUBST("y"), SPACE, SUBST("z"))
+        val expected = listOf(WORD("exit"), WORD("5"))
+
+        assertEquals(expected, Lexer.postprocess(input, env))
+    }
+
+    @Test
+    fun testPipeSimple() {
+        val input = listOf(WORD("pwd"), PIPE, WORD("wc"))
+        val expected = listOf(WORD("pwd"), PIPE, WORD("wc"))
+
+        assertEquals(expected, Lexer.postprocess(input, emptyEnv))
+    }
+
+    @Test
+    fun testPipeMultipleWithSpaces() {
+        val input = listOf(WORD("word"), SPACE, PIPE, SPACE, PIPE, PIPE, SPACE, WORD("word"))
+        val expected = listOf(WORD("word"), PIPE, PIPE, PIPE, WORD("word"))
+
+        assertEquals(expected, Lexer.postprocess(input, emptyEnv))
+    }
 }
