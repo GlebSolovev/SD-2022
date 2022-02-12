@@ -110,10 +110,34 @@ class EzhTest {
         Triple(0, "1\t0\t0\n", "")
     )
 
+    @Test
+    fun testExternal() {
+        val view = MockView(listOf("bash -c \'echo word\'", "exit"))
+
+        assertEquals(0, Ezh(view).main())
+        if (view.getErr().startsWith("bash: could not startup process")) {
+            // no bash
+            assertEquals("", view.getOut())
+        } else {
+            // yes bash
+            assertEquals("", view.getErr())
+            assertEquals("word\n", view.getOut())
+        }
+    }
+
+    @Test
+    fun testExternalUnknown() {
+        val view = MockView(listOf("ezh-unknown-command", "exit"))
+
+        assertEquals(0, Ezh(view).main())
+        assertTrue(view.getErr().startsWith("ezh-unknown-command: could not startup process"))
+        assertEquals("", view.getOut())
+    }
+
 // TODO: ProcessBuilder does not pass the environment for mysterious reasons
 //    @Test
-//    fun testExternal() {
-//        val view = MockView(listOf("x=9", "y=7", "bash -c 'echo \$x 6 3 \$y'", "exit"))
+//    fun testExternalWithEnvironment() {
+//        val view = MockView(listOf("x=9", "y=7 | bash -c 'echo \$x 6 3 \$y'", "exit"))
 //
 //        assertEquals(0, Ezh(view).main())
 //        if (view.getErr().startsWith("bash: could not startup process")) {
@@ -128,22 +152,24 @@ class EzhTest {
 
     @Test
     fun testLexerFails() = ezhSuccessfulSessionHelper(
-        listOf("echo \"oh no\'", "a = 5", "exit"),
+        listOf("echo \"oh no\'", "a = 5", "$=5", "exit"),
         Triple(
             0, "",
             "lexing error: unterminated quotes, at position: 12\n" +
-                "lexing error: space near assign is forbidden, at position: unknown\n"
+                "lexing error: space near assign is forbidden, at position: unknown\n" +
+                "lexing error: empty substitution is forbidden: no variable name, at position: 2\n"
         )
     )
 
     @Test
     fun testParserFails() = ezhSuccessfulSessionHelper(
-        listOf("=5", "5=", "x=5 echo \$x", "exit"),
+        listOf("=5", "5=", "x=5 echo \$x", "|", "exit"),
         Triple(
             0, "",
             "parsing error: empty LHS of assignment, last valid token: null\n" +
                 "parsing error: empty RHS of assignment, last valid token: ASSIGN\n" +
-                "parsing error: sequential operations without pipe, last valid token: WORD(str=5)\n"
+                "parsing error: sequential operations without pipe, last valid token: WORD(str=5)\n" +
+                "parsing error: pipe must be between two operations, last valid token: null\n"
         )
     )
 
@@ -163,6 +189,15 @@ class EzhTest {
             }
         }
         assertEquals(-1, Ezh(view).main())
+    }
+
+    @Test
+    fun testPipe() {
+        testFile.writeText("hello", CHARSET)
+        ezhSuccessfulSessionHelper(
+            listOf("echo word | wc", "exit"),
+            Triple(0, "2\t1\t5\n", "")
+        )
     }
 
 }
