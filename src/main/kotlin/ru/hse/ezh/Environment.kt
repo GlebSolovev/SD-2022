@@ -78,4 +78,21 @@ class Environment {
         return variables
     }
 
+    /**
+     * Replaces the state of this environment with the state of [env].
+     *
+     * @return This environment with replaced state.
+     *
+     * @throws IllegalStateException If the [exitStatus] of this environment is set to [ExitStatus.EXITING].
+     */
+    fun replaceWith(env: Environment): Environment {
+        if (exitStatus == ExitStatus.EXITING) {
+            throw IllegalStateException("replaceWith in EXITING status is forbidden")
+        }
+        variables.clear()
+        variables.putAll(env.variables)
+        exitStatus = env.exitStatus
+        return this
+    }
+
 }

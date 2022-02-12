@@ -4,8 +4,8 @@ import ru.hse.ezh.Environment
 import ru.hse.ezh.exceptions.CommandStartupException
 import ru.hse.ezh.exceptions.ExecutionIOException
 import ru.hse.ezh.execution.commands.ExitCommand
-import ru.hse.ezh.execution.commands.utils.convertToInput
 
+import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
@@ -45,21 +45,34 @@ object Executor {
     fun execute(operations: List<Operation>, globalEnv: Environment): Triple<Int, InputStream, InputStream> {
         val emptyInputStream = InputStream.nullInputStream()
         if (operations.isEmpty()) return Triple(0, emptyInputStream, emptyInputStream)
-        if (operations.size > 1) {
-            TODO("pipe, check env status")
-        }
-        return when (val op = operations[0]) {
-            is Assignment -> {
-                op.doAssign(globalEnv)
-                Triple(0, emptyInputStream, emptyInputStream)
+
+        val localEnv = Environment().replaceWith(globalEnv)
+        var input = emptyInputStream
+        var out = ByteArrayOutputStream()
+        val err = ByteArrayOutputStream()
+        var exitCode = 0
+
+        loop@ for (op in operations) {
+            when (op) {
+                is Assignment -> {
+                    op.doAssign(localEnv)
+                }
+                is Command -> {
+                    out = ByteArrayOutputStream()
+                    exitCode = op.execute(input, out, err, localEnv)
+                    input = ByteArrayInputStream(out.toByteArray())
+                    if (localEnv.exitStatus == Environment.ExitStatus.EXITING) break@loop
+                }
             }
-            is Command -> {
-                val out = ByteArrayOutputStream()
-                val err = ByteArrayOutputStream()
-                val exitCode = op.execute(emptyInputStream, out, err, globalEnv)
-                Triple(exitCode, out.convertToInput(), err.convertToInput())
-            }
         }
+
+        if (operations.size == 1) globalEnv.replaceWith(localEnv)
+
+        return Triple(
+            exitCode,
+            ByteArrayInputStream(out.toByteArray()),
+            ByteArrayInputStream(err.toByteArray())
+        )
     }
 
 }
