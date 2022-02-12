@@ -392,7 +392,7 @@ class LexerTestPostprocess {
         env.putVariable("x", "")
 
         val input = listOf(SUBST("x"), SPACE, QSUBST("x"))
-        val expected = listOf(WORD(""), WORD(""))
+        val expected = listOf(WORD(""))
 
         assertEquals(expected, Lexer.postprocess(input, env))
     }
@@ -455,7 +455,7 @@ class LexerTestPostprocess {
     @Test
     fun testReplaceUnknownVariable() {
         val input = listOf(SUBST("x"), SPACE, QSUBST("x"))
-        val expected = listOf(WORD(""), WORD(""))
+        val expected = listOf(WORD(""))
 
         assertEquals(expected, Lexer.postprocess(input, emptyEnv))
     }

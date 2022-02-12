@@ -229,7 +229,7 @@ object Lexer {
     fun postprocess(tokens: List<Token>, globalEnv: Environment): List<Token> {
 
         fun splitSubstValue(value: String): List<Token> {
-            if (value.isEmpty()) return listOf(WORD(""))
+            if (value.isEmpty()) return emptyList()
 
             val result = mutableListOf<Token>()
             val rawToken = StringBuilder()
