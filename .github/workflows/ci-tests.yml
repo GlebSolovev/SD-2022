@@ -31,7 +31,7 @@ jobs:
           java-version: '15'
           distribution: 'adopt'
           cache: gradle
-      - run: echo Windows cmd hangs in CI while executing the Gradle 'test' task, UNFIXABLE
+      - run: .\gradlew.bat test
 
   MacOS-based:
     runs-on: macos-latest
