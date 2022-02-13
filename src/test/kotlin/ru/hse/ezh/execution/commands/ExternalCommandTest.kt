@@ -6,6 +6,7 @@ import ru.hse.ezh.exceptions.CommandStartupException
 import ru.hse.ezh.execution.commands.utils.CHARSET
 
 import java.io.*
+import java.util.concurrent.TimeUnit
 
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -49,7 +50,8 @@ class ExternalCommandTest {
             processBuilder.redirectInput(file)
             val proc = processBuilder.start()
 
-            val expectedExitCode = proc.waitFor()
+            proc.waitFor(6, TimeUnit.SECONDS) // prevent any hanging
+            val expectedExitCode = proc.exitValue()
             val expectedOut = ByteArrayOutputStream()
             proc.inputStream.transferTo(expectedOut)
             val expectedErr = ByteArrayOutputStream()
@@ -61,6 +63,9 @@ class ExternalCommandTest {
 
         } catch (_: IOException) {
             assertThrows<CommandStartupException> { externalCommand.execute(input, out, err, env) }
+        } catch (_: IllegalThreadStateException) {
+            // most likely no command with that name was found (which is slow)
+            assertThrows<CommandStartupException> { externalCommand.execute(input, out, err, env) }
         }
 
         file.delete()
@@ -71,9 +76,6 @@ class ExternalCommandTest {
 
     @Test
     fun testEcho() = testExternalCommandHelper("echo", listOf("the", "best", "command"))
-
-    @Test
-    fun testFailedPing() = testExternalCommandHelper("ping", listOf("trash"))
 
     @Test
     fun testCatFromInput() = testExternalCommandHelper("cat", emptyList(), "text")
