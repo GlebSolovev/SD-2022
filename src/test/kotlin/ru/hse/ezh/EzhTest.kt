@@ -112,6 +112,8 @@ class EzhTest {
 
     @Test
     fun testExternal() {
+        if (System.getProperty("os.name").startsWith("Windows")) return
+
         val view = MockView(listOf("bash -c \'echo word\'", "exit"))
 
         assertEquals(0, Ezh(view).main())
@@ -136,6 +138,8 @@ class EzhTest {
 
     @Test
     fun testExternalWithEnvironment() {
+        if (System.getProperty("os.name").startsWith("Windows")) return
+
         val view = MockView(listOf("x=9", "y=7 | bash -c 'echo \$x 6 3 \$y'", "exit"))
 
         assertEquals(0, Ezh(view).main())

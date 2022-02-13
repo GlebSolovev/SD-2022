@@ -64,8 +64,7 @@ class ExternalCommandTest {
         } catch (_: IOException) {
             assertThrows<CommandStartupException> { externalCommand.execute(input, out, err, env) }
         } catch (_: IllegalThreadStateException) {
-            // most likely no command with that name was found (which is slow)
-            assertThrows<CommandStartupException> { externalCommand.execute(input, out, err, env) }
+            println("haha: code=${externalCommand.execute(input, out, err, env)} out=${out.toString(CHARSET)}")
         }
 
         file.delete()
