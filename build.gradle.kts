@@ -60,6 +60,9 @@ application {
 }
 
 tasks.withType<Jar> { // build proper .jar will all dependencies
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
     manifest {
         attributes["Main-Class"] = "ru.hse.ezh.EzhKt"
     }

@@ -16,6 +16,11 @@ class ConsoleView : View {
 
     private enum class ReadState { NORMAL, FULLY_QUOTED, WEAKLY_QUOTED }
 
+    private val ansiReset = "\u001B[0m"
+    private val ansiPurple = "\u001B[35m"
+    private val ezhPrefix = "Ё > "
+    private val multilinePrefix = "> "
+
     /**
      * Reads [System. in] as UTF-8 text until an unquoted \n is encountered.
      *
@@ -25,6 +30,8 @@ class ConsoleView : View {
      */
     @Throws(ViewException::class)
     override fun getInput(): Sequence<Char> {
+        print(ansiPurple + ezhPrefix + ansiReset)
+
         val result: MutableList<Char> = mutableListOf()
         val reader = InputStreamReader(System.`in`, CHARSET)
 
@@ -34,7 +41,9 @@ class ConsoleView : View {
                 val c = reader.read()
                 if (c == -1) throw ViewException("eof")
                 state = when (c.toChar()) {
-                    '\n' -> if (state == ReadState.NORMAL) break@loop else state
+                    '\n' -> if (state == ReadState.NORMAL) break@loop else state.also {
+                        print(ansiPurple + multilinePrefix + ansiReset)
+                    }
                     '\'' -> when (state) {
                         ReadState.NORMAL -> ReadState.FULLY_QUOTED
                         ReadState.FULLY_QUOTED -> ReadState.NORMAL
