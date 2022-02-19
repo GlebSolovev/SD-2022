@@ -40,9 +40,15 @@ class PwdCommand(args: List<String>) : Command(args) {
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
         if (args.isNotEmpty()) {
             err.writeLineWrapped("pwd: expected zero arguments")
-            return 1
+            return ReturnCode.INVALID_ARGS.code
         }
         out.writeLineWrapped(System.getProperty("user.dir"))
-        return 0
+        return ReturnCode.SUCCESS.code
     }
+
+    private enum class ReturnCode(val code: Int) {
+        SUCCESS(0),
+        INVALID_ARGS(1)
+    }
+
 }

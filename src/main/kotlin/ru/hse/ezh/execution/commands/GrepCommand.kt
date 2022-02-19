@@ -4,7 +4,6 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.CliktError
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.optional
-import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.validate
@@ -24,8 +23,6 @@ import java.io.OutputStream
 import java.lang.Integer.max
 import java.lang.Integer.min
 import java.util.regex.PatternSyntaxException
-
-import kotlin.jvm.Throws
 
 /**
  * This class represents the 'grep' command.
@@ -49,6 +46,10 @@ class GrepCommand(args: List<String>) : Command(args) {
      *
      * Finds the matches of the pattern in input.
      * Then prints the lines containing the matches to [out] delimited by \n.
+     *
+     * If "-A" flag is provided:
+     *  - overlapping and consecutive regions are merged
+     *  - when printing, regions are delimited by --\n
      *
      * Does not support huge files (> 2 GB).
      *
@@ -108,10 +109,10 @@ class GrepCommand(args: List<String>) : Command(args) {
 
         var lastPrintedLine = 0
         matchingLineIndices.forEach { matchingLineIndex ->
-            val upperBound = min(matchingLineIndex + cli.extraLinesCount, contentLines.size)
+            val upperBound = min(matchingLineIndex + (cli.extraLinesCount ?: 0), contentLines.size)
             val range = max(lastPrintedLine, matchingLineIndex)..upperBound
-            if (lastPrintedLine !in range) {
-                out.writeLineWrapped("")
+            if (lastPrintedLine + 1 !in range && cli.extraLinesCount != null) {
+                out.writeLineWrapped("--")
             }
             range.forEach {
                 out.writeLineWrapped(contentLines[it])
@@ -128,9 +129,8 @@ class GrepCommand(args: List<String>) : Command(args) {
             .flag(default = false)
         val caseInsensitiveMode: Boolean by option("-i", help = "enable case-insensitive mode")
             .flag(default = false)
-        val extraLinesCount: Int by option("-A", help = "print extra following lines for each match")
+        val extraLinesCount: Int? by option("-A", help = "print extra following lines for each match")
             .int()
-            .default(0)
             .validate { it >= 0 }
 
         val pattern: String by argument()

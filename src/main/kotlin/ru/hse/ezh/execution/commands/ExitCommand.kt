@@ -48,10 +48,18 @@ class ExitCommand(args: List<String>) : Command(args) {
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
         env.exitStatus = Environment.ExitStatus.EXITING
         return if (args.size == 1) {
-            args[0].toIntOrNull() ?: 2.also { err.writeWrapped("exit: expected integer status code") }
+            args[0].toIntOrNull() ?: ReturnCode.INVALID_STATUS_CODE.code
+                .also { err.writeWrapped("exit: expected integer status code") }
         } else if (args.size > 1) {
-            1.also { err.writeWrapped("exit: expected one or zero arguments") }
-        } else 0
+            ReturnCode.INVALID_ARGS.code
+                .also { err.writeWrapped("exit: expected one or zero arguments") }
+        } else ReturnCode.SUCCESS.code
+    }
+
+    private enum class ReturnCode(val code: Int) {
+        SUCCESS(0),
+        INVALID_ARGS(1),
+        INVALID_STATUS_CODE(2),
     }
 
 }

@@ -40,4 +40,5 @@ class EchoCommand(args: List<String>) : Command(args) {
         out.writeWrapped(args.joinToString(separator = " ", postfix = "\n"))
         return 0
     }
+
 }

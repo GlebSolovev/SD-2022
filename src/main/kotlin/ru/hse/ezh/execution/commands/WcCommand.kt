@@ -48,7 +48,7 @@ class WcCommand(args: List<String>) : Command(args) {
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
         if (args.size > 1) {
             err.writeLineWrapped("wc: expected one or zero arguments")
-            return 1
+            return ReturnCode.INVALID_ARGS.code
         }
 
         val content = if (args.size == 1) {
@@ -56,7 +56,7 @@ class WcCommand(args: List<String>) : Command(args) {
                 File(args[0]).readBytes()
             } catch (e: IOException) {
                 err.writeLineWrapped("wc: IOException during reading file\n${e.message}")
-                return 2
+                return ReturnCode.IO_EXCEPTION.code
             }
         } else {
             input.readAllBytesWrapped()
@@ -73,6 +73,13 @@ class WcCommand(args: List<String>) : Command(args) {
         String(content, CHARSET).lines().forEach { handleLine(it) }
 
         out.writeLineWrapped("$lines\t$words\t$bytes")
-        return 0
+        return ReturnCode.SUCCESS.code
     }
+
+    private enum class ReturnCode(val code: Int) {
+        SUCCESS(0),
+        INVALID_ARGS(1),
+        IO_EXCEPTION(2)
+    }
+
 }

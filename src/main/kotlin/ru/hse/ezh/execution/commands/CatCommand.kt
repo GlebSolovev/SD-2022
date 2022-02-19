@@ -49,19 +49,26 @@ class CatCommand(args: List<String>) : Command(args) {
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
         if (args.size > 1) {
             err.writeLineWrapped("cat: expected one or zero arguments")
-            return 1
+            return ReturnCode.INVALID_ARGS.code
         }
         val content = if (args.size == 1) {
             try {
                 File(args[0]).readText(CHARSET)
             } catch (e: IOException) {
                 err.writeLineWrapped("cat: IOException during reading file\n${e.message}")
-                return 2
+                return ReturnCode.IO_EXCEPTION.code
             }
         } else {
             input.readAllWrapped()
         }
         out.writeLineWrapped(content)
-        return 0
+        return ReturnCode.SUCCESS.code
     }
+
+    private enum class ReturnCode(val code: Int) {
+        SUCCESS(0),
+        INVALID_ARGS(1),
+        IO_EXCEPTION(2)
+    }
+
 }
