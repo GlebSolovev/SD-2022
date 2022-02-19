@@ -43,6 +43,8 @@ dependencies {
     testImplementation(kotlin("test"))
 
     dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.6.0")
+
+    implementation("com.github.ajalt.clikt:clikt:3.4.0")
 }
 
 tasks.test {

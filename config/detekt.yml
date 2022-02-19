@@ -32,3 +32,5 @@ style:
       - 'ru.hse.ezh.exceptions.*'
   ForbiddenComment:
     allowedPatterns: 'TODO'
+  MagicNumber:
+    ignoreEnums: true
