@@ -107,18 +107,21 @@ class GrepCommand(args: List<String>) : Command(args) {
             }
             .map { it.index }
 
-        var lastPrintedLine = 0
+        var lastPrintedLine = -1
+        var hasMatchingLines = false
         matchingLineIndices.forEach { matchingLineIndex ->
-            val upperBound = min(matchingLineIndex + (cli.extraLinesCount ?: 0), contentLines.size)
-            val range = max(lastPrintedLine, matchingLineIndex)..upperBound
-            if (lastPrintedLine + 1 !in range && cli.extraLinesCount != null) {
+            val upperBound = min(matchingLineIndex + (cli.extraLinesCount ?: 0), contentLines.size - 1)
+            val range = max(lastPrintedLine + 1, matchingLineIndex)..upperBound
+            if (lastPrintedLine + 1 !in range && cli.extraLinesCount != null && hasMatchingLines) {
                 out.writeLineWrapped("--")
             }
             range.forEach {
                 out.writeLineWrapped(contentLines[it])
             }
             lastPrintedLine = upperBound
+            hasMatchingLines = true
         }
+        if (!hasMatchingLines) out.writeLineWrapped("")
 
         return ReturnCode.SUCCESS.code
     }
@@ -131,7 +134,7 @@ class GrepCommand(args: List<String>) : Command(args) {
             .flag(default = false)
         val extraLinesCount: Int? by option("-A", help = "print extra following lines for each match")
             .int()
-            .validate { it >= 0 }
+            .validate { require(it >= 0) { "-A parameter must be non-negative" } }
 
         val pattern: String by argument()
         val file: File? by argument().file(mustExist = true, canBeDir = false, mustBeReadable = true).optional()
