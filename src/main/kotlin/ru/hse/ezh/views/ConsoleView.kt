@@ -74,8 +74,9 @@ class ConsoleView : View {
     @Throws(ViewException::class)
     override fun writeOutput(out: InputStream) {
         try {
-            out.transferTo(System.out)
-            System.out.write("\n".toByteArray(CHARSET))
+            val outBytes = out.readAllBytes()
+            System.out.write(outBytes)
+            if (outBytes.isNotEmpty()) System.out.write("\n".toByteArray(CHARSET))
         } catch (e: IOException) {
             throw ViewException("an IOException has occurred", e)
         }

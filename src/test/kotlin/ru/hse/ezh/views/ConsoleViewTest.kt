@@ -72,6 +72,18 @@ class ConsoleViewTest {
     }
 
     @Test
+    fun testWriteEmptyOutput() {
+        val view = ConsoleView()
+
+        val input = ByteArrayInputStream("".toByteArray(CHARSET))
+        val out = ByteArrayOutputStream()
+        System.setOut(PrintStream(out))
+
+        view.writeOutput(input)
+        assertEquals("", out.toString(CHARSET))
+    }
+
+    @Test
     fun testWriteError() {
         val view = ConsoleView()
         val str = "command: its error\ncause: detailed\n"

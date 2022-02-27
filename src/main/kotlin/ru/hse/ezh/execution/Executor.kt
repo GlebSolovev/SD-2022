@@ -59,7 +59,6 @@ object Executor {
                 }
                 is Command -> {
                     out = ByteArrayOutputStream()
-                    println()
                     exitCode = op.execute(input, out, err, localEnv)
                     input = ByteArrayInputStream(out.toByteArray())
                     if (localEnv.exitStatus == Environment.ExitStatus.EXITING) break@loop
