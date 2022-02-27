@@ -4,6 +4,7 @@ import ru.hse.ezh.Environment
 import ru.hse.ezh.exceptions.ExecutionIOException
 import ru.hse.ezh.execution.Command
 import ru.hse.ezh.execution.commands.utils.writeLineWrapped
+import ru.hse.ezh.execution.commands.utils.writeWrapped
 
 import java.io.InputStream
 import java.io.OutputStream
@@ -42,7 +43,7 @@ class PwdCommand(args: List<String>) : Command(args) {
             err.writeLineWrapped("pwd: expected zero arguments")
             return 1
         }
-        out.writeLineWrapped(System.getProperty("user.dir"))
+        out.writeWrapped(System.getProperty("user.dir"))
         return 0
     }
 }

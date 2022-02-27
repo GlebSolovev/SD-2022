@@ -45,20 +45,20 @@ class ConsoleViewTest {
     @Test
     fun testWriteOutput() {
         val view = ConsoleView()
-        val str = "command: its output\n"
+        val str = "command: its output"
 
         val input = ByteArrayInputStream(str.toByteArray(CHARSET))
         val out = ByteArrayOutputStream()
         System.setOut(PrintStream(out))
 
         view.writeOutput(input)
-        assertEquals(str, out.toString(CHARSET))
+        assertEquals(str + "\n", out.toString(CHARSET))
     }
 
     @Test
     fun testWriteError() {
         val view = ConsoleView()
-        val str = "command: its error\ncause: detailed"
+        val str = "command: its error\ncause: detailed\n"
 
         val input = ByteArrayInputStream(str.toByteArray(CHARSET))
         val err = ByteArrayOutputStream()

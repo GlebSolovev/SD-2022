@@ -56,7 +56,7 @@ class ConsoleView : View {
     }
 
     /**
-     * Prints [out] to [System.out].
+     * Prints [out] to [System.out] with \n postfix.
      *
      * @param out A stream containing the results of an instruction.
      *
@@ -66,6 +66,7 @@ class ConsoleView : View {
     override fun writeOutput(out: InputStream) {
         try {
             out.transferTo(System.out)
+            println()
         } catch (e: IOException) {
             throw ViewException("an IOException has occurred", e)
         }

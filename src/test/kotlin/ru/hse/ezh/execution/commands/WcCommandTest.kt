@@ -53,22 +53,22 @@ class WcCommandTest {
     }
 
     @Test
-    fun testReadFromSimpleInput() = testReadHelper("1\t1\t4\n", "text")
+    fun testReadFromSimpleInput() = testReadHelper("1\t1\t4", "text")
 
     @Test
-    fun testReadFromMultipleSpacesInput() = testReadHelper("1\t3\t6\n", "a b  c")
+    fun testReadFromMultipleSpacesInput() = testReadHelper("1\t3\t6", "a b  c")
 
     @Test
-    fun testReadFromLineBreakEndingInput() = testReadHelper("3\t2\t4\n", "a\nb\n")
+    fun testReadFromLineBreakEndingInput() = testReadHelper("3\t2\t4", "a\nb\n")
 
     @Test
-    fun testReadFromStrangeCharactersInput() = testReadHelper("2\t2\t6\n", "ё\n\u9637")
+    fun testReadFromStrangeCharactersInput() = testReadHelper("2\t2\t6", "ё\n\u9637")
 
     @Test
-    fun testReadFromInputWithTabsAndCarets() = testReadHelper("3\t3\t9\n", "a\t\r\n\t\tc\rd")
+    fun testReadFromInputWithTabsAndCarets() = testReadHelper("3\t3\t9", "a\t\r\n\t\tc\rd")
 
     @Test
-    fun testReadFromStrangeInput() = testReadHelper("3\t2\t16\n", " \t\r\n    ё \u9637\"\n")
+    fun testReadFromStrangeInput() = testReadHelper("3\t2\t16", " \t\r\n    ё \u9637\"\n")
 
     @Test
     fun testReadFromNotExistingFile() {

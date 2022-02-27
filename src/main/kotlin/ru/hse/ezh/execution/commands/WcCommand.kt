@@ -6,6 +6,7 @@ import ru.hse.ezh.execution.Command
 import ru.hse.ezh.execution.commands.utils.CHARSET
 import ru.hse.ezh.execution.commands.utils.readAllBytesWrapped
 import ru.hse.ezh.execution.commands.utils.writeLineWrapped
+import ru.hse.ezh.execution.commands.utils.writeWrapped
 
 import java.io.*
 
@@ -72,7 +73,7 @@ class WcCommand(args: List<String>) : Command(args) {
         }
         String(content, CHARSET).lines().forEach { handleLine(it) }
 
-        out.writeLineWrapped("$lines\t$words\t$bytes")
+        out.writeWrapped("$lines\t$words\t$bytes")
         return 0
     }
 }

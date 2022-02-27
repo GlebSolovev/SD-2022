@@ -3,7 +3,7 @@ package ru.hse.ezh.execution.commands
 import ru.hse.ezh.Environment
 import ru.hse.ezh.exceptions.ExecutionIOException
 import ru.hse.ezh.execution.Command
-import ru.hse.ezh.execution.commands.utils.writeWrapped
+import ru.hse.ezh.execution.commands.utils.writeLineWrapped
 
 import java.io.InputStream
 import java.io.OutputStream
@@ -48,9 +48,9 @@ class ExitCommand(args: List<String>) : Command(args) {
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
         env.exitStatus = Environment.ExitStatus.EXITING
         return if (args.size == 1) {
-            args[0].toIntOrNull() ?: 2.also { err.writeWrapped("exit: expected integer status code") }
+            args[0].toIntOrNull() ?: 2.also { err.writeLineWrapped("exit: expected integer status code") }
         } else if (args.size > 1) {
-            1.also { err.writeWrapped("exit: expected one or zero arguments") }
+            1.also { err.writeLineWrapped("exit: expected one or zero arguments") }
         } else 0
     }
 
