@@ -21,6 +21,8 @@ class ConsoleView : View {
     private val ezhPrefix = "Ё > "
     private val multilinePrefix = "> "
 
+    private fun writeToOut(str: String) = System.out.write(str.toByteArray(CHARSET))
+
     /**
      * Reads [System. in] as UTF-8 text until an unquoted \n is encountered.
      *
@@ -30,7 +32,7 @@ class ConsoleView : View {
      */
     @Throws(ViewException::class)
     override fun getInput(): Sequence<Char> {
-        print(ansiPurple + ezhPrefix + ansiReset)
+        writeToOut(ansiPurple + ezhPrefix + ansiReset)
 
         val result: MutableList<Char> = mutableListOf()
         val reader = InputStreamReader(System.`in`, CHARSET)
@@ -42,7 +44,7 @@ class ConsoleView : View {
                 if (c == -1) throw ViewException("eof")
                 state = when (c.toChar()) {
                     '\n' -> if (state == ReadState.NORMAL) break@loop else state.also {
-                        print(ansiPurple + multilinePrefix + ansiReset)
+                        writeToOut(ansiPurple + multilinePrefix + ansiReset)
                     }
                     '\'' -> when (state) {
                         ReadState.NORMAL -> ReadState.FULLY_QUOTED
@@ -76,7 +78,7 @@ class ConsoleView : View {
         try {
             val outBytes = out.readAllBytes()
             System.out.write(outBytes)
-            if (outBytes.isNotEmpty()) System.out.write("\n".toByteArray(CHARSET))
+            if (outBytes.isNotEmpty()) writeToOut("\n")
         } catch (e: IOException) {
             throw ViewException("an IOException has occurred", e)
         }
