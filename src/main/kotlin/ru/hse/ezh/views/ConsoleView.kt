@@ -66,7 +66,7 @@ class ConsoleView : View {
     override fun writeOutput(out: InputStream) {
         try {
             out.transferTo(System.out)
-            println()
+            System.out.write("\n".toByteArray(CHARSET))
         } catch (e: IOException) {
             throw ViewException("an IOException has occurred", e)
         }
