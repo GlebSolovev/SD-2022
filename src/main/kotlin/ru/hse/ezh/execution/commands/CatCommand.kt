@@ -54,7 +54,7 @@ class CatCommand(args: List<String>) : Command(args) {
         }
         val content = if (args.size == 1) {
             try {
-                File(args[0]).readText(CHARSET)
+                File(System.getProperty("user.dir"), args[0]).readText(CHARSET)
             } catch (e: IOException) {
                 err.writeLineWrapped("cat: IOException during reading file\n${e.message}")
                 return 2

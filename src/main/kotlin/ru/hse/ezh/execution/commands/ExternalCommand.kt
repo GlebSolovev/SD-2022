@@ -5,6 +5,7 @@ import org.buildobjects.process.StartupException
 import ru.hse.ezh.Environment
 import ru.hse.ezh.exceptions.CommandStartupException
 import ru.hse.ezh.execution.Command
+import java.io.File
 
 import java.io.InputStream
 import java.io.OutputStream
@@ -47,6 +48,7 @@ class ExternalCommand(private val name: String, args: List<String>) : Command(ar
             .withErrorStream(err)
             .withNoTimeout()
             .ignoreExitStatus()
+        procBuilder.withWorkingDirectory(File(System.getProperty("user.dir")))
         @Suppress("SwallowedException")
         try {
             return procBuilder.run().exitValue
