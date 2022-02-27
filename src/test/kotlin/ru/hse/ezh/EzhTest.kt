@@ -61,7 +61,7 @@ class EzhTest {
         testFile.writeText("hello", CHARSET)
         ezhSuccessfulSessionHelper(
             listOf("cat ${testFile.canonicalPath}", "exit"),
-            Triple(0, "hello\n", "")
+            Triple(0, "hello", "")
         )
     }
 
@@ -74,7 +74,7 @@ class EzhTest {
     @Test
     fun testEcho() = ezhSuccessfulSessionHelper(
         listOf("echo blah blah", "exit"),
-        Triple(0, "blah blah\n", "")
+        Triple(0, "blah blah", "")
     )
 
     @Test
@@ -86,7 +86,7 @@ class EzhTest {
     @Test
     fun testPwd() = ezhSuccessfulSessionHelper(
         listOf("pwd", "exit"),
-        Triple(0, System.getProperty("user.dir") + "\n", "")
+        Triple(0, System.getProperty("user.dir"), "")
     )
 
     @Test
@@ -100,14 +100,14 @@ class EzhTest {
         testFile.writeText("hello", CHARSET)
         ezhSuccessfulSessionHelper(
             listOf("wc ${testFile.canonicalPath}", "exit"),
-            Triple(0, "1\t1\t5\n", "")
+            Triple(0, "1\t1\t5", "")
         )
     }
 
     @Test
     fun testWcFails() = ezhSuccessfulSessionHelper(
         listOf("wc", "exit"),
-        Triple(0, "1\t0\t0\n", "")
+        Triple(0, "1\t0\t0", "")
     )
 
     @Test
@@ -199,7 +199,7 @@ class EzhTest {
         testFile.writeText("hello", CHARSET)
         ezhSuccessfulSessionHelper(
             listOf("echo word | wc", "exit"),
-            Triple(0, "2\t1\t5\n", "")
+            Triple(0, "1\t1\t4", "")
         )
     }
 

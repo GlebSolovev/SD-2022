@@ -35,5 +35,3 @@ internal fun OutputStream.writeWrapped(str: String, errorMessage: String = "inte
 @Throws(ExecutionIOException::class)
 internal fun OutputStream.writeLineWrapped(str: String, errorMessage: String = "internal output stream error") =
     writeWrapped(str + "\n", errorMessage)
-
-internal fun ByteArrayOutputStream.convertToInput() = ByteArrayInputStream(this.toByteArray())

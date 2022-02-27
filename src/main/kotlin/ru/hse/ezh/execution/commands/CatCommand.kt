@@ -6,6 +6,7 @@ import ru.hse.ezh.execution.Command
 import ru.hse.ezh.execution.commands.utils.CHARSET
 import ru.hse.ezh.execution.commands.utils.readAllWrapped
 import ru.hse.ezh.execution.commands.utils.writeLineWrapped
+import ru.hse.ezh.execution.commands.utils.writeWrapped
 
 import java.io.File
 import java.io.IOException
@@ -61,7 +62,7 @@ class CatCommand(args: List<String>) : Command(args) {
         } else {
             input.readAllWrapped()
         }
-        out.writeLineWrapped(content)
+        out.writeWrapped(content)
         return ReturnCode.SUCCESS.code
     }
 

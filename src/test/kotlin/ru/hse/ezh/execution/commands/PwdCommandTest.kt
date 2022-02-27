@@ -22,7 +22,7 @@ class PwdCommandTest {
         val err = OutputStream.nullOutputStream()
 
         assertEquals(0, pwd.execute(input, out, err, env))
-        assertEquals(System.getProperty("user.dir") + "\n", out.toString(CHARSET))
+        assertEquals(System.getProperty("user.dir"), out.toString(CHARSET))
     }
 
     @Test

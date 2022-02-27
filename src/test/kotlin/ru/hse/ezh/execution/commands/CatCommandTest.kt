@@ -30,7 +30,7 @@ class CatCommandTest {
         val err = OutputStream.nullOutputStream()
 
         assertEquals(0, cat.execute(input, out, err, env))
-        assertEquals("text\n", out.toString(CHARSET))
+        assertEquals("text", out.toString(CHARSET))
     }
 
     @Test
@@ -41,7 +41,7 @@ class CatCommandTest {
         val err = OutputStream.nullOutputStream()
 
         assertEquals(0, cat.execute(input, out, err, env))
-        assertEquals(" \t\r\n ё\u9637\"\n\n", out.toString(CHARSET))
+        assertEquals(" \t\r\n ё\u9637\"\n", out.toString(CHARSET))
     }
 
     @Test
@@ -55,7 +55,7 @@ class CatCommandTest {
         val err = OutputStream.nullOutputStream()
 
         assertEquals(0, cat.execute(input, out, err, env))
-        assertEquals("text\n", out.toString(CHARSET))
+        assertEquals("text", out.toString(CHARSET))
 
         file.delete()
     }
@@ -71,7 +71,7 @@ class CatCommandTest {
         val err = OutputStream.nullOutputStream()
 
         assertEquals(0, cat.execute(input, out, err, env))
-        assertEquals(" \t\r\n ё\u9637\"\n\n", out.toString(CHARSET))
+        assertEquals(" \t\r\n ё\u9637\"\n", out.toString(CHARSET))
 
         file.delete()
     }

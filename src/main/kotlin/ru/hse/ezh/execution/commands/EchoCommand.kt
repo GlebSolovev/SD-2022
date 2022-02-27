@@ -37,7 +37,7 @@ class EchoCommand(args: List<String>) : Command(args) {
      */
     @Throws(ExecutionIOException::class)
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
-        out.writeWrapped(args.joinToString(separator = " ", postfix = "\n"))
+        out.writeWrapped(args.joinToString(separator = " "))
         return 0
     }
 

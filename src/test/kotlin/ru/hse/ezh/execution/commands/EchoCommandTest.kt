@@ -22,7 +22,7 @@ class EchoCommandTest {
         val out = ByteArrayOutputStream()
         assertEquals(0, echo.execute(input, out, err, env))
 
-        assertEquals("word\n", out.toString(CHARSET))
+        assertEquals("word", out.toString(CHARSET))
     }
 
     @Test
@@ -31,7 +31,7 @@ class EchoCommandTest {
         val out = ByteArrayOutputStream()
         assertEquals(0, echo.execute(input, out, err, env))
 
-        assertEquals("\n", out.toString(CHARSET))
+        assertEquals("", out.toString(CHARSET))
     }
 
     @Test
@@ -40,7 +40,7 @@ class EchoCommandTest {
         val out = ByteArrayOutputStream()
         assertEquals(0, echo.execute(input, out, err, env))
 
-        assertEquals("i hate kotlin\n", out.toString(CHARSET))
+        assertEquals("i hate kotlin", out.toString(CHARSET))
     }
 
     @Test
@@ -49,7 +49,7 @@ class EchoCommandTest {
         val out = ByteArrayOutputStream()
         assertEquals(0, echo.execute(input, out, err, env))
 
-        assertEquals(" \t\r\n        ё \u9637\"\n", out.toString(CHARSET))
+        assertEquals(" \t\r\n        ё \u9637\"", out.toString(CHARSET))
     }
 
 }
