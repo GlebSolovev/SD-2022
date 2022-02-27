@@ -15,6 +15,7 @@ import ru.hse.ezh.execution.Command
 import ru.hse.ezh.execution.commands.utils.CHARSET
 import ru.hse.ezh.execution.commands.utils.readAllWrapped
 import ru.hse.ezh.execution.commands.utils.writeLineWrapped
+import ru.hse.ezh.execution.commands.utils.writeWrapped
 
 import java.io.File
 import java.io.IOException
@@ -108,20 +109,22 @@ class GrepCommand(args: List<String>) : Command(args) {
             .map { it.index }
 
         var lastPrintedLine = -1
-        var hasMatchingLines = false
+        var isFirstMatchingLine = true
+        val outputLines = mutableListOf<String>()
         matchingLineIndices.forEach { matchingLineIndex ->
             val upperBound = min(matchingLineIndex + (cli.extraLinesCount ?: 0), contentLines.size - 1)
             val range = max(lastPrintedLine + 1, matchingLineIndex)..upperBound
-            if (lastPrintedLine + 1 !in range && cli.extraLinesCount != null && hasMatchingLines) {
-                out.writeLineWrapped("--")
+            if (lastPrintedLine + 1 !in range && cli.extraLinesCount != null && !isFirstMatchingLine) {
+                outputLines.add("--")
             }
             range.forEach {
-                out.writeLineWrapped(contentLines[it])
+                outputLines.add(contentLines[it])
             }
             lastPrintedLine = upperBound
-            hasMatchingLines = true
+            isFirstMatchingLine = false
         }
-        if (!hasMatchingLines) out.writeLineWrapped("")
+
+        out.writeWrapped(outputLines.joinToString(separator = "\n"))
 
         return ReturnCode.SUCCESS.code
     }

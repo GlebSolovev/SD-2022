@@ -32,6 +32,7 @@ object Parser {
         WORD("pwd") to ::PwdCommand,
         WORD("wc") to ::WcCommand,
         WORD("exit") to ::ExitCommand,
+        WORD("grep") to ::GrepCommand
     )
 
     /**

@@ -111,6 +111,21 @@ class EzhTest {
     )
 
     @Test
+    fun testGrep() {
+        testFile.writeText("word\nneighbor", CHARSET)
+        ezhSuccessfulSessionHelper(
+            listOf("grep -wiA 5 wOrd ${testFile.canonicalPath}", "exit"),
+            Triple(0, "word\nneighbor", "")
+        )
+    }
+
+    @Test
+    fun testGrepFails() = ezhSuccessfulSessionHelper(
+        listOf("grep", "exit"),
+        Triple(0, "", "grep: invalid arguments")
+    )
+
+    @Test
     fun testExternal() {
         if (System.getProperty("os.name").startsWith("Windows")) return
 

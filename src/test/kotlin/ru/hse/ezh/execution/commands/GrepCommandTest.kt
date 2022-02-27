@@ -94,50 +94,50 @@ class GrepCommandTest {
     }
 
     @Test
-    fun testNoFlagsSingleLineMatch() = testReadHelper("some word in world\n", "some word in world", listOf("word"))
+    fun testNoFlagsSingleLineMatch() = testReadHelper("some word in world", "some word in world", listOf("word"))
 
     @Test
     fun testNoFlagsSingleLineMultiMatch() =
-        testReadHelper("some word and word in words\n", "some word and word in words", listOf("word"))
+        testReadHelper("some word and word in words", "some word and word in words", listOf("word"))
 
     @Test
-    fun testNoFlagsSingleLineMismatch() = testReadHelper("\n", "some thing in world", listOf("word"))
+    fun testNoFlagsSingleLineMismatch() = testReadHelper("", "some thing in world", listOf("word"))
 
     @Test
-    fun testNoFlagsEmptyInput() = testReadHelper("\n", "", listOf("word"))
+    fun testNoFlagsEmptyInput() = testReadHelper("", "", listOf("word"))
 
     @Test
     fun testNoFlagsMultiLine() =
-        testReadHelper("some word in world\nword\n", "some word in world\nworld\nword", listOf("word"))
+        testReadHelper("some word in world\nword", "some word in world\nworld\nword", listOf("word"))
 
     @Test
-    fun testNoFlagsMatchAtEndings() = testReadHelper("some word\nword some\n", "some word\nword some", listOf("word"))
+    fun testNoFlagsMatchAtEndings() = testReadHelper("some word\nword some", "some word\nword some", listOf("word"))
 
     @Test
-    fun testNoFlagsCaseSensitive() = testReadHelper("wOrd\n", "Word\nword\nWORD\nwOrd", listOf("wOrd"))
+    fun testNoFlagsCaseSensitive() = testReadHelper("wOrd", "Word\nword\nWORD\nwOrd", listOf("wOrd"))
 
     @Test
-    fun testNoFlagsEmptyLines() = testReadHelper("word\nword\n", "\n\nword\n\n\nword\n", listOf("word"))
+    fun testNoFlagsEmptyLines() = testReadHelper("word\nword", "\n\nword\n\n\nword\n", listOf("word"))
 
     @Test
     fun testNoFlagsStrangeLineDelimiters() =
-        testReadHelper("some\tword\nword\nother word\n", "some\tword\n\ranother\rword\r\nother word\n", listOf("word"))
+        testReadHelper("some\tword\nword\nother word", "some\tword\n\ranother\rword\r\nother word\n", listOf("word"))
 
     @Test
     fun testNoFlagsStrangeSymbols() =
-        testReadHelper("\u9637 ё\t\n", "\u9637 ё\t\n\u9636 ё\t\n\u9636\t", listOf("\u9637 ё\t"))
+        testReadHelper("\u9637 ё\t", "\u9637 ё\t\n\u9636 ё\t\n\u9636\t", listOf("\u9637 ё\t"))
 
     @Test
     fun testNoFlagsRegexPatterns() {
-        testReadHelper("word\n", "word 1\n2 word\nword", listOf("^word$"))
-        testReadHelper("vord 5\n", "vord 5\nword5\nword  5\n ord 5\nword", listOf("\\word\\s\\d"))
-        testReadHelper("word\nw_rd\nw_r\n", "word\n_ord\nw_rd\nw_r\nwo\nward", listOf("[a-zA-Z][^ard][rd]+"))
-        testReadHelper("o\nword\na\n\nworddro\n", "o\nword\na\n\nworddro", listOf("w?[ord]*"))
+        testReadHelper("word", "word 1\n2 word\nword", listOf("^word$"))
+        testReadHelper("vord 5", "vord 5\nword5\nword  5\n ord 5\nword", listOf("\\word\\s\\d"))
+        testReadHelper("word\nw_rd\nw_r", "word\n_ord\nw_rd\nw_r\nwo\nward", listOf("[a-zA-Z][^ard][rd]+"))
+        testReadHelper("o\nword\na\n\nworddro", "o\nword\na\n\nworddro", listOf("w?[ord]*"))
     }
 
     @Test
     fun testUselessMultilineRegexPattern() {
-        testReadHelper("\n", "word\nword", listOf("word\nword"))
+        testReadHelper("", "word\nword", listOf("word\nword"))
     }
 
     @Test
@@ -172,61 +172,61 @@ class GrepCommandTest {
 
     @Test
     fun testValidCLIArguments() {
-        testReadFromInputHelper("\n", "", listOf("pattern", "-A5"))
-        testReadFromInputHelper("\n", "", listOf("pattern", "-w", "-w"))
-        testReadFromInputHelper("\n", "", listOf("pattern", "-wi"))
-        testReadFromInputHelper("\n", "", listOf("pattern", "-wiA", "5"))
-        testReadFromInputHelper("\n", "", listOf("-A", "5", "pattern", "-w", "-i"))
+        testReadFromInputHelper("", "", listOf("pattern", "-A5"))
+        testReadFromInputHelper("", "", listOf("pattern", "-w", "-w"))
+        testReadFromInputHelper("", "", listOf("pattern", "-wi"))
+        testReadFromInputHelper("", "", listOf("pattern", "-wiA", "5"))
+        testReadFromInputHelper("", "", listOf("-A", "5", "pattern", "-w", "-i"))
     }
 
     @Test
     fun testCaseInsensitiveFlag() {
-        testReadHelper("word\nWord\nwOrd\nWORD\n", "word\nWord\nwOrd\nWORD\nward", listOf("word", "-i"))
+        testReadHelper("word\nWord\nwOrd\nWORD", "word\nWord\nwOrd\nWORD\nward", listOf("word", "-i"))
     }
 
     @Test
     fun testWordSearchFlag() =
-        testReadHelper(" word \nword\t\n", "wordword\n word \nword_\nword\t\nWord", listOf("word", "-w"))
+        testReadHelper(" word \nword\t", "wordword\n word \nword_\nword\t\nWord", listOf("word", "-w"))
 
     @Test
     fun testWordSearchFlagStrangeWordDelimiters() = testReadHelper(
-        "word  word\nword\tword\nword\nword\nword\t\tword\n",
+        "word  word\nword\tword\nword\nword\nword\t\tword",
         "word  word\nword\tword\nword\rword\nword\t\tword\nword\u9637word",
         listOf("word", "-w")
     )
 
     @Test
     fun testFollowingLinesFlagNonOverlappingZero() {
-        testReadHelper("\n", "", listOf("word", "-A", "0"))
-        testReadHelper("word\n--\nword\n", "word\nnot\nword", listOf("word", "-A", "0"))
+        testReadHelper("", "", listOf("word", "-A", "0"))
+        testReadHelper("word\n--\nword", "word\nnot\nword", listOf("word", "-A", "0"))
     }
 
     @Test
     fun testFollowingLinesFlagNonOverlappingMulti() {
-        testReadHelper("\n", "", listOf("word", "-A", "1"))
-        testReadHelper("word\nnot\n--\nword\n", "word\nnot\nother\nword", listOf("word", "-A", "1"))
-        testReadHelper("word\nnot\n--\nword\n", "ward\nword\nnot\nother\nword", listOf("word", "-A", "1"))
-        testReadHelper("word\nnot\nother\n--\nword\n", "word\nnot\nother\nnot\nword", listOf("word", "-A", "2"))
+        testReadHelper("", "", listOf("word", "-A", "1"))
+        testReadHelper("word\nnot\n--\nword", "word\nnot\nother\nword", listOf("word", "-A", "1"))
+        testReadHelper("word\nnot\n--\nword", "ward\nword\nnot\nother\nword", listOf("word", "-A", "1"))
+        testReadHelper("word\nnot\nother\n--\nword", "word\nnot\nother\nnot\nword", listOf("word", "-A", "2"))
     }
 
     @Test
     fun testFollowingLinesFlagOverlappingZero() =
-        testReadHelper("word\nword\n--\nword\n", "word\nword\nnot\nword", listOf("word", "-A", "0"))
+        testReadHelper("word\nword\n--\nword", "word\nword\nnot\nword", listOf("word", "-A", "0"))
 
     @Test
     fun testFollowingLinesFlagOverlappingMulti() {
         testReadHelper(
-            "word\nnot\nword\nnot\n--\nword\n",
+            "word\nnot\nword\nnot\n--\nword",
             "word\nnot\nword\nnot\nother\nword",
             listOf("word", "-A", "1")
         )
         testReadHelper(
-            "word\nnot\nword\nnot\n--\nword\n",
+            "word\nnot\nword\nnot\n--\nword",
             "ward\nword\nnot\nword\nnot\nother\nword",
             listOf("word", "-A", "1")
         )
         testReadHelper(
-            "word\nnot\nword\nnot\nother\nword\n\n\n--\nword\n",
+            "word\nnot\nword\nnot\nother\nword\n\n\n--\nword",
             "word\nnot\nword\nnot\nother\nword\n\n\n\nword",
             listOf("word", "-A", "2")
         )

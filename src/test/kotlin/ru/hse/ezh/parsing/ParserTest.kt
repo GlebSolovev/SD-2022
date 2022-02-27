@@ -46,6 +46,9 @@ class ParserTest {
     fun testWcCommand() = testCommandHelper("wc", "file")
 
     @Test
+    fun testGrepCommand() = testCommandHelper("grep", "pattern", "file")
+
+    @Test
     fun testExternalCommand() {
         val input = listOf(WORD("external-command"), WORD("first"), WORD("second"))
         val expected = listOf(ExternalCommand("external-command", listOf("first", "second")))
