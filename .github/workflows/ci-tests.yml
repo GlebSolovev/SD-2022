@@ -4,7 +4,7 @@ on:
     branches:
       - hw2-ezh-impl
       - hw3-ezh-subst-pipe-impl
-      - hw5-outsource
+      - hw5-outsource 
 jobs:
 
   Ubuntu-based:
