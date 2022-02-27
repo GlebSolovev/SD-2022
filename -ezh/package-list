@@ -65,6 +65,9 @@ $dokka.location:ru.hse.ezh.execution.commands/ExitCommand/execute/#java.io.Input
 $dokka.location:ru.hse.ezh.execution.commands/ExternalCommand///PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-external-command/index.html
 $dokka.location:ru.hse.ezh.execution.commands/ExternalCommand/ExternalCommand/#kotlin.String#kotlin.collections.List[kotlin.String]/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-external-command/-external-command.html
 $dokka.location:ru.hse.ezh.execution.commands/ExternalCommand/execute/#java.io.InputStream#java.io.OutputStream#java.io.OutputStream#ru.hse.ezh.Environment/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-external-command/execute.html
+$dokka.location:ru.hse.ezh.execution.commands/GrepCommand///PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-grep-command/index.html
+$dokka.location:ru.hse.ezh.execution.commands/GrepCommand/GrepCommand/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-grep-command/-grep-command.html
+$dokka.location:ru.hse.ezh.execution.commands/GrepCommand/execute/#java.io.InputStream#java.io.OutputStream#java.io.OutputStream#ru.hse.ezh.Environment/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-grep-command/execute.html
 $dokka.location:ru.hse.ezh.execution.commands/PwdCommand///PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-pwd-command/index.html
 $dokka.location:ru.hse.ezh.execution.commands/PwdCommand/PwdCommand/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-pwd-command/-pwd-command.html
 $dokka.location:ru.hse.ezh.execution.commands/PwdCommand/execute/#java.io.InputStream#java.io.OutputStream#java.io.OutputStream#ru.hse.ezh.Environment/PointingToDeclaration/-ezh/ru.hse.ezh.execution.commands/-pwd-command/execute.html
