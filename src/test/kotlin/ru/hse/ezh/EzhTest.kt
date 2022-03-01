@@ -159,8 +159,8 @@ class EzhTest {
         Triple(
             0, "",
             "lexing error: unterminated quotes, at position: 12\n" +
-            "lexing error: space near assign is forbidden, at position: unknown\n" +
-            "lexing error: empty substitution is forbidden: no variable name, at position: 2\n"
+                    "lexing error: space near assign is forbidden, at position: unknown\n" +
+                    "lexing error: empty substitution is forbidden: no variable name, at position: 2\n"
         )
     )
 
