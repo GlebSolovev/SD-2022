@@ -39,7 +39,10 @@ class CdCommand(args: List<String>) : Command(args) {
         var dir = File.listRoots()[0]
 
         if (args.isNotEmpty()) {
-            dir = File(System.getProperty("user.dir"), args[0])
+            if (args[0].startsWith(System.getProperty("user.dir")))
+                dir = File(args[0])
+            else
+                dir = File(System.getProperty("user.dir"), args[0])
         }
 
         if (!dir.exists()) {

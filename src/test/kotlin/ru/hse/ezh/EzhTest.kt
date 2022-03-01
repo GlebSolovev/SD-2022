@@ -60,7 +60,7 @@ class EzhTest {
     fun testCat() {
         testFile.writeText("hello", CHARSET)
         ezhSuccessfulSessionHelper(
-            listOf("cat ${testFile.canonicalPath}", "exit"),
+            listOf("cat \"${testFile.canonicalPath}\"", "exit"),
             Triple(0, "hello", "")
         )
     }
@@ -99,7 +99,7 @@ class EzhTest {
     fun testWc() {
         testFile.writeText("hello", CHARSET)
         ezhSuccessfulSessionHelper(
-            listOf("wc ${testFile.canonicalPath}", "exit"),
+            listOf("wc \"${testFile.canonicalPath}\"", "exit"),
             Triple(0, "1\t1\t5", "")
         )
     }
@@ -159,8 +159,8 @@ class EzhTest {
         Triple(
             0, "",
             "lexing error: unterminated quotes, at position: 12\n" +
-                "lexing error: space near assign is forbidden, at position: unknown\n" +
-                "lexing error: empty substitution is forbidden: no variable name, at position: 2\n"
+                    "lexing error: space near assign is forbidden, at position: unknown\n" +
+                    "lexing error: empty substitution is forbidden: no variable name, at position: 2\n"
         )
     )
 
@@ -170,9 +170,9 @@ class EzhTest {
         Triple(
             0, "",
             "parsing error: empty LHS of assignment, last valid token: null\n" +
-                "parsing error: empty RHS of assignment, last valid token: ASSIGN\n" +
-                "parsing error: sequential operations without pipe, last valid token: WORD(str=5)\n" +
-                "parsing error: pipe must be between two operations, last valid token: null\n"
+                    "parsing error: empty RHS of assignment, last valid token: ASSIGN\n" +
+                    "parsing error: sequential operations without pipe, last valid token: WORD(str=5)\n" +
+                    "parsing error: pipe must be between two operations, last valid token: null\n"
         )
     )
 
@@ -203,4 +203,138 @@ class EzhTest {
         )
     }
 
+    @Test
+    fun testSimpleCdRoot() {
+        val old = System.getProperty("user.dir")
+        ezhSuccessfulSessionHelper(
+            listOf("cd", "exit"),
+            Triple(0, "", "")
+        )
+        assertEquals(System.getProperty("user.dir"), File.listRoots()[0].canonicalPath)
+        System.setProperty("user.dir", old)
+    }
+
+    @Test
+    fun testCdToDir() {
+        val old = System.getProperty("user.dir")
+        ezhSuccessfulSessionHelper(
+            listOf("cd \"${testDir.canonicalPath}\"", "exit"),
+            Triple(0, "", "")
+        )
+        assertEquals(System.getProperty("user.dir"), testDir.canonicalPath)
+        System.setProperty("user.dir", old)
+    }
+
+    @Test
+    fun testCdToDirAndBack() {
+        val old = System.getProperty("user.dir")
+        val tmpDir = testDir.resolve("tmp")
+        tmpDir.mkdirs()
+        ezhSuccessfulSessionHelper(
+            listOf("cd \"${tmpDir.canonicalPath}\"", "cd ..", "cd .", "exit"),
+            Triple(0, "", "")
+        )
+        tmpDir.delete()
+        assertEquals(System.getProperty("user.dir"), testDir.canonicalPath)
+        System.setProperty("user.dir", old)
+    }
+
+    @Test
+    fun testCdFail() {
+        val old = System.getProperty("user.dir")
+        ezhSuccessfulSessionHelper(
+            listOf("cd \"${testFile.canonicalPath}\"", "exit"),
+            Triple(0, "", "cd: ${testFile.canonicalPath} is not a directory")
+        )
+        assertEquals(System.getProperty("user.dir"), old)
+        val fake = File("I DO NOT EXIST FOR SURE")
+        ezhSuccessfulSessionHelper(
+            listOf("cd \"${fake.canonicalPath}\"", "exit"),
+            Triple(0, "", "cd: File or directory ${fake.canonicalPath} does not exist")
+        )
+        assertEquals(System.getProperty("user.dir"), old)
+        System.setProperty("user.dir", old)
+    }
+
+    @Test
+    fun testLsFail() {
+        val fake = File("I DO NOT EXIST FOR SURE")
+        ezhSuccessfulSessionHelper(
+            listOf("ls \"${fake.canonicalPath}\"", "exit"),
+            Triple(0, "", "ls: File or directory ${fake.canonicalPath} does not exist")
+        )
+    }
+
+    @Test
+    fun testLsFile() {
+        ezhSuccessfulSessionHelper(
+            listOf("ls \"${testFile.canonicalPath}\"", "exit"),
+            Triple(0, "${testFile.canonicalPath}\n", "")
+        )
+    }
+
+    @Test
+    fun testLsDirWithSingleFile() {
+        ezhSuccessfulSessionHelper(
+            listOf("ls \"${testDir.canonicalPath}\"", "exit"),
+            Triple(0, "${testFile.name}\n", "")
+        )
+    }
+
+    @Test
+    fun testLsEmptyDir() {
+        val emptyDir = File("ezh-test-temp-empty-directory-ezh")
+        emptyDir.mkdirs()
+        ezhSuccessfulSessionHelper(
+            listOf("ls \"${emptyDir.canonicalPath}\"", "exit"),
+            Triple(0, "", "")
+        )
+        emptyDir.delete()
+    }
+
+    @Test
+    fun testLsDirWithMultipleFilesAndCd() {
+        val old = System.getProperty("user.dir")
+        val fileA = testDir.resolve("A")
+        val fileB = testDir.resolve("B")
+        val fileC = testDir.resolve("C")
+        val fileZ = testDir.resolve("Z")
+        fileA.createNewFile()
+        fileB.createNewFile()
+        fileC.createNewFile()
+        fileZ.createNewFile()
+
+        ezhSuccessfulSessionHelper(
+            listOf("ls \"${testDir.canonicalPath}\"", "exit"),
+            Triple(0, "A\nB\nC\nfile\nZ\n", "")
+        )
+        System.setProperty("user.dir", old)
+
+        ezhSuccessfulSessionHelper(
+            listOf("cd \"${testDir.canonicalPath}\"", "ls", "exit"),
+            Triple(0, "A\nB\nC\nfile\nZ\n", "")
+        )
+
+        fileA.delete()
+        fileB.delete()
+        fileC.delete()
+        fileZ.delete()
+        System.setProperty("user.dir", old)
+    }
+
+    @Test
+    fun testCdWithOtherCommands() {
+        testFile.writeText("hello", CHARSET)
+        ezhSuccessfulSessionHelper(
+            listOf(
+                "cd \"${testDir.canonicalPath}\"",
+                "wc \"${testFile.name}\"",
+                "cat \"${testFile.name}\"",
+                "cd ..",
+                "wc \"${testDir.name + File.separator + testFile.name}\"",
+                "cat \"${testDir.name + File.separator + testFile.name}\"",
+                "exit"),
+            Triple(0, "1\t1\t5hello1\t1\t5hello", "")
+        )
+    }
 }

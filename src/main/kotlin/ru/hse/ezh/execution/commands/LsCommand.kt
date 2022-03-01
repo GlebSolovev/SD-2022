@@ -34,11 +34,15 @@ class LsCommand(args: List<String>) : Command(args) {
      * @throws ExecutionIOException If [out] stream error occurred.
      */
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
-        var target = "."
+        var target = System.getProperty("user.dir") + File.separator + "."
         if (args.isNotEmpty()) {
-            target = args[0]
+            if (args[0].startsWith(System.getProperty("user.dir")))
+                target = args[0]
+            else
+                target = System.getProperty("user.dir") + File.separator + args[0]
         }
-        val dir = File(System.getProperty("user.dir"), target)
+
+        val dir = File(target)
 
         if (!dir.exists()) {
             err.writeLineWrapped("ls: File or directory ${dir} does not exist")
