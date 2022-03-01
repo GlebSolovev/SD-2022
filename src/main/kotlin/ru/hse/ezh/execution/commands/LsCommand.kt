@@ -1,12 +1,12 @@
 package ru.hse.ezh.execution.commands
 
+import java.io.File
+import java.io.InputStream
+import java.io.OutputStream
 import ru.hse.ezh.Environment
 import ru.hse.ezh.exceptions.ExecutionIOException
 import ru.hse.ezh.execution.Command
 import ru.hse.ezh.execution.commands.utils.writeLineWrapped
-import java.io.File
-import java.io.InputStream
-import java.io.OutputStream
 
 /**
  * This class represents the 'ls' command.
@@ -55,7 +55,7 @@ class LsCommand(args: List<String>) : Command(args) {
         dir.walk().maxDepth(1)
             .filter { it.canonicalPath != dir.canonicalPath }
             .sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
-            .forEach {out.writeLineWrapped(it.name)}
+            .forEach { out.writeLineWrapped(it.name) }
         return 0
     }
 }
