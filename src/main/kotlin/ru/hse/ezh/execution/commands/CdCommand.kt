@@ -1,6 +1,5 @@
 package ru.hse.ezh.execution.commands
 
-import javax.swing.filechooser.FileSystemView
 import ru.hse.ezh.Environment
 import ru.hse.ezh.exceptions.ExecutionIOException
 import ru.hse.ezh.execution.Command
@@ -46,11 +45,11 @@ class CdCommand(args: List<String>) : Command(args) {
         }
 
         if (!dir.exists()) {
-            err.writeLineWrapped("cd: File or directory ${dir} does not exist")
+            err.writeLineWrapped("cd: File or directory $dir does not exist")
             return 1
         }
         if (!dir.isDirectory) {
-            err.writeLineWrapped("cd: ${dir} is not a directory")
+            err.writeLineWrapped("cd: $dir is not a directory")
             return 2
         }
         env.putVariable("user.dir", dir.canonicalPath)

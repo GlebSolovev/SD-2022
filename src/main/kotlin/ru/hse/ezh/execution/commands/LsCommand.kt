@@ -36,25 +36,25 @@ class LsCommand(args: List<String>) : Command(args) {
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
         var target = System.getProperty("user.dir") + File.separator + "."
         if (args.isNotEmpty()) {
-            if (args[0].startsWith(System.getProperty("user.dir")))
-                target = args[0]
+            target = if (args[0].startsWith(System.getProperty("user.dir")))
+                args[0]
             else
-                target = System.getProperty("user.dir") + File.separator + args[0]
+                System.getProperty("user.dir") + File.separator + args[0]
         }
 
         val dir = File(target)
 
         if (!dir.exists()) {
-            err.writeLineWrapped("ls: File or directory ${dir} does not exist")
+            err.writeLineWrapped("ls: File or directory $dir does not exist")
             return 1
         }
         if (!dir.isDirectory) {
-            out.writeLineWrapped(target);
+            out.writeLineWrapped(target)
             return 0
         }
         dir.walk().maxDepth(1)
             .filter { it.canonicalPath != dir.canonicalPath }
-            .sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER, { it.name }))
+            .sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
             .forEach {out.writeLineWrapped(it.name)}
         return 0
     }
