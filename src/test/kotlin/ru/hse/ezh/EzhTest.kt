@@ -159,8 +159,8 @@ class EzhTest {
         Triple(
             0, "",
             "lexing error: unterminated quotes, at position: 12\n" +
-                    "lexing error: space near assign is forbidden, at position: unknown\n" +
-                    "lexing error: empty substitution is forbidden: no variable name, at position: 2\n"
+                "lexing error: space near assign is forbidden, at position: unknown\n" +
+                "lexing error: empty substitution is forbidden: no variable name, at position: 2\n"
         )
     )
 
@@ -170,9 +170,9 @@ class EzhTest {
         Triple(
             0, "",
             "parsing error: empty LHS of assignment, last valid token: null\n" +
-                    "parsing error: empty RHS of assignment, last valid token: ASSIGN\n" +
-                    "parsing error: sequential operations without pipe, last valid token: WORD(str=5)\n" +
-                    "parsing error: pipe must be between two operations, last valid token: null\n"
+                "parsing error: empty RHS of assignment, last valid token: ASSIGN\n" +
+                "parsing error: sequential operations without pipe, last valid token: WORD(str=5)\n" +
+                "parsing error: pipe must be between two operations, last valid token: null\n"
         )
     )
 
