@@ -205,38 +205,29 @@ class EzhTest {
 
     @Test
     fun testSimpleCdRoot() {
-        val old = System.getProperty("user.dir")
         ezhSuccessfulSessionHelper(
-            listOf("cd", "exit"),
-            Triple(0, "", "")
+            listOf("cd", "pwd", "exit"),
+            Triple(0, File.listRoots()[0].canonicalPath, "")
         )
-        assertEquals(System.getProperty("user.dir"), File.listRoots()[0].canonicalPath)
-        System.setProperty("user.dir", old)
     }
 
     @Test
     fun testCdToDir() {
-        val old = System.getProperty("user.dir")
         ezhSuccessfulSessionHelper(
-            listOf("cd \"${testDir.canonicalPath}\"", "exit"),
-            Triple(0, "", "")
+            listOf("cd \"${testDir.canonicalPath}\"", "pwd", "exit"),
+            Triple(0, testDir.canonicalPath, "")
         )
-        assertEquals(System.getProperty("user.dir"), testDir.canonicalPath)
-        System.setProperty("user.dir", old)
     }
 
     @Test
     fun testCdToDirAndBack() {
-        val old = System.getProperty("user.dir")
         val tmpDir = testDir.resolve("tmp")
         tmpDir.mkdirs()
         ezhSuccessfulSessionHelper(
-            listOf("cd \"${tmpDir.canonicalPath}\"", "cd ..", "cd .", "exit"),
-            Triple(0, "", "")
+            listOf("cd \"${tmpDir.canonicalPath}\"", "cd ..", "cd .", "pwd", "exit"),
+            Triple(0, testDir.canonicalPath, "")
         )
         tmpDir.delete()
-        assertEquals(System.getProperty("user.dir"), testDir.canonicalPath)
-        System.setProperty("user.dir", old)
     }
 
     @Test
@@ -246,14 +237,11 @@ class EzhTest {
             listOf("cd \"${testFile.canonicalPath}\"", "exit"),
             Triple(0, "", "cd: ${testFile.canonicalPath} is not a directory")
         )
-        assertEquals(System.getProperty("user.dir"), old)
         val fake = File("I DO NOT EXIST FOR SURE")
         ezhSuccessfulSessionHelper(
-            listOf("cd \"${fake.canonicalPath}\"", "exit"),
-            Triple(0, "", "cd: File or directory ${fake.canonicalPath} does not exist")
+            listOf("cd \"${fake.canonicalPath}\"", "pwd", "exit"),
+            Triple(0, old, "cd: File or directory ${fake.canonicalPath} does not exist")
         )
-        assertEquals(System.getProperty("user.dir"), old)
-        System.setProperty("user.dir", old)
     }
 
     @Test
@@ -294,7 +282,6 @@ class EzhTest {
 
     @Test
     fun testLsDirWithMultipleFilesAndCd() {
-        val old = System.getProperty("user.dir")
         val fileA = testDir.resolve("A")
         val fileB = testDir.resolve("B")
         val fileC = testDir.resolve("C")
@@ -308,7 +295,6 @@ class EzhTest {
             listOf("ls \"${testDir.canonicalPath}\"", "exit"),
             Triple(0, "A\nB\nC\nfile\nZ\n", "")
         )
-        System.setProperty("user.dir", old)
 
         ezhSuccessfulSessionHelper(
             listOf("cd \"${testDir.canonicalPath}\"", "ls", "exit"),
@@ -319,7 +305,6 @@ class EzhTest {
         fileB.delete()
         fileC.delete()
         fileZ.delete()
-        System.setProperty("user.dir", old)
     }
 
     @Test

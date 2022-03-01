@@ -55,10 +55,10 @@ class WcCommand(args: List<String>) : Command(args) {
 
         val content = if (args.size == 1) {
             try {
-                if (args[0].startsWith(System.getProperty("user.dir")))
+                if (args[0].startsWith(env.workingDirectory))
                     File(args[0]).readBytes()
                 else
-                    File(System.getProperty("user.dir"), args[0]).readBytes()
+                    File(env.workingDirectory, args[0]).readBytes()
             } catch (e: IOException) {
                 err.writeLineWrapped("wc: IOException during reading file\n${e.message}")
                 return 2

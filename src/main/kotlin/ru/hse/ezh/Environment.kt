@@ -13,6 +13,7 @@ class Environment {
     enum class ExitStatus { RUNNING, EXITING }
 
     private val variables: MutableMap<String, String> = mutableMapOf()
+    public var workingDirectory = System.getProperty("user.dir")
 
     /**
      * Status of current session.
@@ -92,6 +93,7 @@ class Environment {
         variables.clear()
         variables.putAll(env.variables)
         exitStatus = env.exitStatus
+        workingDirectory = env.workingDirectory
         return this
     }
 

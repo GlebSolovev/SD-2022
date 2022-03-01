@@ -48,7 +48,7 @@ class ExternalCommand(private val name: String, args: List<String>) : Command(ar
             .withErrorStream(err)
             .withNoTimeout()
             .ignoreExitStatus()
-        procBuilder.withWorkingDirectory(File(System.getProperty("user.dir")))
+        procBuilder.withWorkingDirectory(File(env.workingDirectory))
         @Suppress("SwallowedException")
         try {
             return procBuilder.run().exitValue

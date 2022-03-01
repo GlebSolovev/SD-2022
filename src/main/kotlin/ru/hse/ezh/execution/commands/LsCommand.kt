@@ -35,12 +35,12 @@ class LsCommand(args: List<String>) : Command(args) {
      * @throws ExecutionIOException If [out] stream error occurred.
      */
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
-        var target = System.getProperty("user.dir") + File.separator + "."
+        var target = env.workingDirectory + File.separator + "."
         if (args.isNotEmpty()) {
-            target = if (args[0].startsWith(System.getProperty("user.dir")))
+            target = if (args[0].startsWith(env.workingDirectory))
                 args[0]
             else
-                System.getProperty("user.dir") + File.separator + args[0]
+                env.workingDirectory + File.separator + args[0]
         }
 
         val dir = File(target)

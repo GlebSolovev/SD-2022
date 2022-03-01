@@ -29,7 +29,7 @@ class PwdCommand(args: List<String>) : Command(args) {
      * @param input Ignored.
      * @param out Stream to print output to.
      * @param err Stream to print errors to.
-     * @param env Ignored.
+     * @param env Source of the current working directory.
      *
      * @return
      * - 0 on success
@@ -43,7 +43,7 @@ class PwdCommand(args: List<String>) : Command(args) {
             err.writeLineWrapped("pwd: expected zero arguments")
             return 1
         }
-        out.writeWrapped(System.getProperty("user.dir"))
+        out.writeWrapped(env.workingDirectory)
         return 0
     }
 }

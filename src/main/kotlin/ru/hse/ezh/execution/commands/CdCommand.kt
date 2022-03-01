@@ -39,10 +39,10 @@ class CdCommand(args: List<String>) : Command(args) {
         var dir = File.listRoots()[0]
 
         if (args.isNotEmpty()) {
-            if (args[0].startsWith(System.getProperty("user.dir")))
+            if (args[0].startsWith(env.workingDirectory))
                 dir = File(args[0])
             else
-                dir = File(System.getProperty("user.dir"), args[0])
+                dir = File(env.workingDirectory, args[0])
         }
 
         if (!dir.exists()) {
@@ -53,8 +53,8 @@ class CdCommand(args: List<String>) : Command(args) {
             err.writeLineWrapped("cd: $dir is not a directory")
             return 2
         }
+        env.workingDirectory = dir.canonicalPath
         env.putVariable("user.dir", dir.canonicalPath)
-        System.setProperty("user.dir", dir.canonicalPath)
         return 0
     }
 }
