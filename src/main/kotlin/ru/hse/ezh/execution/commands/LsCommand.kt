@@ -52,7 +52,7 @@ class LsCommand(args: List<String>) : Command(args) {
             out.writeLineWrapped(target);
             return 0
         }
-        dir.walk().maxDepth(1).forEach {if (it.canonicalPath != dir.canonicalPath) out.writeLineWrapped(it.name)}
+        dir.walk().maxDepth(1).filter { it.canonicalPath != dir.canonicalPath }.sorted().forEach {out.writeLineWrapped(it.name)}
         return 0
     }
 }
