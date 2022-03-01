@@ -7,10 +7,10 @@ import ru.hse.ezh.execution.commands.utils.CHARSET
 import ru.hse.ezh.execution.commands.utils.readAllBytesWrapped
 import ru.hse.ezh.execution.commands.utils.writeLineWrapped
 import ru.hse.ezh.execution.commands.utils.writeWrapped
-
-import java.io.*
-
-import kotlin.jvm.Throws
+import java.io.File
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 
 /**
  * This class represents the 'wc' command.
