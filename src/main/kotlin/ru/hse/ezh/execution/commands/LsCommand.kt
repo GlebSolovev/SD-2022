@@ -26,7 +26,7 @@ class LsCommand(args: List<String>) : Command(args) {
      * @param input Ignored.
      * @param out Stream to print output to.
      * @param err Prints error if file does not exist.
-     * @param env Ignored.
+     * @param env Keeps current working directory.
      *
      * @return
      * - 0 on success

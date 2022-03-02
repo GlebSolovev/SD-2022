@@ -37,7 +37,7 @@ class WcCommand(args: List<String>) : Command(args) {
      * @param input Stream to read input from in case no filename is given.
      * @param out Stream to print output to.
      * @param err Stream to print errors to.
-     * @param env Ignored.
+     * @param env Keeps current working directory.
      *
      * @return
      * - 0 on success
