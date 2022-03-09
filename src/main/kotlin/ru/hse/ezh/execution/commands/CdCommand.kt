@@ -32,17 +32,18 @@ class CdCommand(args: List<String>) : Command(args) {
      * - 0 on success
      * - 1 if directory does not exist
      * - 2 if target is not a directory
-     * - 3 invalid number of arguments
+     * - 3 if invalid number of arguments
      *
      * @throws ExecutionIOException If [out] stream error occurred.
      */
+    @Suppress("MagicNumber")
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
         var dir = File(System.getProperty("user.home"))
-        val invalidNumberOfArgsCode = 3
 
         if (args.size > 1) {
             err.writeLineWrapped("cd: Got too much arguments. Expected 0 or 1")
-            return invalidNumberOfArgsCode
+            @Suppress("MagicNumber")
+            return 3
         }
 
         if (args.isNotEmpty()) {
