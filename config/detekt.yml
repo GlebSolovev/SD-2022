@@ -1,0 +1,34 @@
+build:
+  maxIssues: 0
+  excludeCorrectable: false
+
+config:
+  validation: true
+  warningsAsErrors: true
+
+processors:
+  active: true
+  exclude:
+    - 'DetektProgressListener'
+
+console-reports:
+  active: true
+
+complexity:
+  ComplexMethod:
+    threshold: 40
+  NestedBlockDepth:
+    threshold: 5
+
+style:
+  ReturnCount:
+    max: 5
+  WildcardImport:
+    excludeImports:
+      - 'java.io.*'
+      - 'java.util.*'
+      - 'kotlin.test.*'
+      - 'ru.hse.ezh.execution.commands.*'
+      - 'ru.hse.ezh.exceptions.*'
+  ForbiddenComment:
+    allowedPatterns: 'TODO'
