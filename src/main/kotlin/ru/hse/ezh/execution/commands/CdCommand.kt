@@ -38,10 +38,11 @@ class CdCommand(args: List<String>) : Command(args) {
      */
     override fun execute(input: InputStream, out: OutputStream, err: OutputStream, env: Environment): Int {
         var dir = File(System.getProperty("user.home"))
+        val invalidNumberOfArgsCode = 3
 
         if (args.size > 1) {
             err.writeLineWrapped("cd: Got too much arguments. Expected 0 or 1")
-            return 3
+            return invalidNumberOfArgsCode
         }
 
         if (args.isNotEmpty()) {

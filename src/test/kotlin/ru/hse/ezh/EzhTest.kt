@@ -215,7 +215,11 @@ class EzhTest {
     fun testCdToDir() {
         ezhSuccessfulSessionHelper(
             listOf("cd \"${testDir.canonicalPath}\"", "pwd", "cd ..", "pwd", "cd \"${testDir.name}\"", "pwd", "exit"),
-            Triple(0, "${testDir.canonicalPath}${testDir.absoluteFile.parentFile.canonicalPath}${testDir.canonicalPath}", "")
+            Triple(
+                0,
+                "${testDir.canonicalPath}${testDir.absoluteFile.parentFile.canonicalPath}${testDir.canonicalPath}",
+                ""
+            )
         )
     }
 
