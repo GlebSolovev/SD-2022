@@ -204,18 +204,18 @@ class EzhTest {
     }
 
     @Test
-    fun testSimpleCdRoot() {
+    fun testSimpleCdHome() {
         ezhSuccessfulSessionHelper(
             listOf("cd", "pwd", "exit"),
-            Triple(0, File.listRoots()[0].canonicalPath, "")
+            Triple(0, System.getProperty("user.home"), "")
         )
     }
 
     @Test
     fun testCdToDir() {
         ezhSuccessfulSessionHelper(
-            listOf("cd \"${testDir.canonicalPath}\"", "pwd", "exit"),
-            Triple(0, testDir.canonicalPath, "")
+            listOf("cd \"${testDir.canonicalPath}\"", "pwd", "cd ..", "pwd", "cd \"${testDir.name}\"", "pwd", "exit"),
+            Triple(0, "${testDir.canonicalPath}${testDir.absoluteFile.parentFile.canonicalPath}${testDir.canonicalPath}", "")
         )
     }
 
@@ -241,6 +241,10 @@ class EzhTest {
         ezhSuccessfulSessionHelper(
             listOf("cd \"${fake.canonicalPath}\"", "pwd", "exit"),
             Triple(0, old, "cd: File or directory ${fake.canonicalPath} does not exist")
+        )
+        ezhSuccessfulSessionHelper(
+            listOf("cd abc ncd", "pwd", "exit"),
+            Triple(0, old, "cd: Got too much arguments. Expected 0 or 1")
         )
     }
 
