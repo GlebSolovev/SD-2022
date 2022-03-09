@@ -55,7 +55,7 @@ class CdCommand(args: List<String>) : Command(args) {
                     break
                 }
             if (!rootStart)
-                dir =  File(env.workingDirectory + File.separator + args[0])
+                dir = File(env.workingDirectory + File.separator + args[0])
         }
 
         if (!dir.exists()) {
